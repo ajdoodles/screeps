@@ -1,4 +1,4 @@
-var Role = require('role');
+var Role = require('roles/role');
 
 function FixerRole() {
   Role.call(this, 'Fixer', 'fixer', [WORK, CARRY, MOVE], 2);

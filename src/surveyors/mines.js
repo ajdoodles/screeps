@@ -1,4 +1,4 @@
-var Surveyor = require('surveyor');
+var Surveyor = require('surveyors/surveyor');
 
 function MineSurveyor() {
   Surveyor.call(this);

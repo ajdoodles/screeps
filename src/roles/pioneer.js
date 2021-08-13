@@ -7,7 +7,7 @@
 * mod.thing == 'a thing'; // true
 */
 
-var Role = require('role');
+var Role = require('roles/role');
 
 function PioneerRole() {
   Role.call(this, 'Pio', 'pioneer', [WORK, CARRY, MOVE], 0);

@@ -1,4 +1,4 @@
-var Role = require('role');
+var Role = require('roles/role');
 
 function HarvesterRole() {
   Role.call(this, 'Harvester', 'harvester', [WORK, CARRY, MOVE], 4);

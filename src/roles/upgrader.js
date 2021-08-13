@@ -1,4 +1,4 @@
-var Role = require('role');
+var Role = require('roles/role');
 
 function UpgraderRole() {
   Role.call(this, 'Upgrader', 'upgrader', [WORK, CARRY, MOVE]);

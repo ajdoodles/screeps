@@ -1,4 +1,4 @@
-var Role = require('role');
+var Role = require('roles/role');
 
 function BuilderRole() {
   Role.call(this, 'Builder', 'builder', [WORK, CARRY, MOVE], 4);

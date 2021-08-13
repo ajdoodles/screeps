@@ -1,4 +1,4 @@
-var Role = require('role');
+var Role = require('roles/role');
 
 function MinerRole(){
   Role.call(this, 'Miner', 'miner', [MOVE, WORK, WORK, WORK, WORK, WORK], 2);

@@ -13,14 +13,14 @@ var manager = (function() {
   var buildRoleTable = function() {
     for (var i in mRoles) {
       var role = mRoles[i];
-      mRoleTable[role] = require('role.' + role);
+      mRoleTable[role] = require('roles/' + role);
     }
   };
 
   buildRoleTable();
 
-  var mRoadSurveyor = require('surveyor.roads');
-  var mMineSurveyor = require('surveyor.mines');
+  var mRoadSurveyor = require('surveyors/roads');
+  var mMineSurveyor = require('surveyors/mines');
 
   var init = function() {
     Object.defineProperty(
