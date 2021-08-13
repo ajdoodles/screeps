@@ -1,0 +1,12 @@
+{
+  "name": "adoodles-screeps",
+  "description": "Code that manages adoodles' screeps colony.",
+  "main": "main.js",
+  "version": "0.0.0",
+  "license": "UNLICENSED",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ajdoodles/screeps"
+  }
+}
