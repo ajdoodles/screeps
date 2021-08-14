@@ -1,10 +1,16 @@
 var PioneerRole = require('roles/pioneer');
 var Utils = require('utils');
 
+const MAX_HARVESTERS = 4;
+
 function HarvesterRole() {
   PioneerRole.call(this, 'Harvester', 'harvester');
 };
 Utils.inheritFromSuperClass(HarvesterRole, PioneerRole);
+
+HarvesterRole.prototype.needsMoreRecruits = function (curCount) {
+  return curCount < MAX_HARVESTERS;
+};
 
 HarvesterRole.prototype._getNextTargetId = function (screep) {
   var target = screep.pos.findClosestByPath(

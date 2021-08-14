@@ -1,10 +1,16 @@
 var Role = require('roles/role');
 var Utils = require('utils');
 
+const MAX_UPGRADERS = 3;
+
 function UpgraderRole() {
   Role.call(this, 'Upgrader', 'upgrader', [WORK, CARRY, MOVE]);
 };
 Utils.inheritFromSuperClass(UpgraderRole, Role);
+
+UpgraderRole.prototype.needsMoreRecruits = function (curCount) {
+  return curCount < MAX_UPGRADERS;
+};
 
 /** @param {Creep} screep **/
 UpgraderRole.prototype.run = function(screep) {

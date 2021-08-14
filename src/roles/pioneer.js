@@ -2,7 +2,7 @@ var Role = require('roles/role');
 var Utils = require('utils');
 
 function PioneerRole(name, role) {
-  Role.call(this, name, role, [WORK, CARRY, MOVE], 0);
+  Role.call(this, name, role, [WORK, CARRY, MOVE]);
 };
 Utils.inheritFromSuperClass(PioneerRole, Role);
 

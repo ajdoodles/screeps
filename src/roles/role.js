@@ -1,12 +1,12 @@
-function Role(name, role, body, maxCount = 2) {
+function Role(name, role, body) {
   this.mName = name;
   this.mRole = role;
   this.mBody = body;
-  this.mMaxCount = maxCount;
 };
 
 Role.prototype.needsMoreRecruits = function(curCount) {
-  return curCount < this.mMaxCount;
+  console.log('Your sublass needs to define needsMoreRecruits.');
+  return false;
 };
 
 Role.prototype.init = function(screep) {
