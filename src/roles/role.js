@@ -5,19 +5,6 @@ function Role(name, role, body, maxCount = 2) {
   this.mMaxCount = maxCount;
 };
 
-Role.prototype.inheritRoleMethods = function(subRole) {
-  subRole.prototype = Object.create(Role.prototype);
-  Object.defineProperty(
-    subRole.prototype,
-    'constructor',
-    {
-      value: subRole,
-      enumerable: false, // so that it does not appear in 'for in' loop
-      writable: true
-    }
-  );
-};
-
 Role.prototype.needsMoreRecruits = function(curCount) {
   return curCount < this.mMaxCount;
 };

@@ -1,9 +1,10 @@
 var Surveyor = require('surveyors/surveyor');
+var Utils = require('utils');
 
 function MineSurveyor() {
   Surveyor.call(this);
 }
-Surveyor.prototype.inheritSurveyorMethods(MineSurveyor);
+Utils.inheritFromSuperClass(MineSurveyor, Surveyor);
 
 MineSurveyor.prototype.survey = function (roomName) {
   var sources = Game.rooms[roomName].find(FIND_SOURCES);

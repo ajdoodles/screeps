@@ -1,23 +1,10 @@
 var Role = require('roles/role');
+var Utils = require('utils');
 
 function PioneerRole(name, role) {
   Role.call(this, name, role, [WORK, CARRY, MOVE], 0);
 };
-Role.prototype.inheritRoleMethods(PioneerRole);
-
-PioneerRole.prototype.inheritRoleMethods = function(subRole) {
-  //Role.prototype.inheritRoleMethods(subrole);
-  subRole.prototype = Object.create(PioneerRole.prototype);
-  Object.defineProperty(
-    subRole.prototype,
-    'constructor',
-    {
-      value: subRole,
-      enumerable: false, // so that it does not appear in 'for in' loop
-      writable: true
-    }
-  );
-}
+Utils.inheritFromSuperClass(PioneerRole, Role);
 
 PioneerRole.prototype.init = function(screep) {
   screep.memory.fetching = true;

@@ -1,9 +1,10 @@
 var Role = require('roles/role');
+var Utils = require('utils');
 
 function BuilderRole() {
   Role.call(this, 'Builder', 'builder', [WORK, CARRY, MOVE], 4);
 };
-Role.prototype.inheritRoleMethods(BuilderRole);
+Utils.inheritFromSuperClass(BuilderRole, Role);
 
 BuilderRole.prototype.needsMoreRecruits = function (curCount) {
   if (curCount >= this.mMaxCount) {

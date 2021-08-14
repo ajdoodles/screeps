@@ -1,9 +1,10 @@
 var Role = require('roles/role');
+var Utils = require('utils');
 
 function FixerRole() {
   Role.call(this, 'Fixer', 'fixer', [WORK, CARRY, MOVE], 2);
 };
-Role.prototype.inheritRoleMethods(FixerRole);
+Utils.inheritFromSuperClass(FixerRole, Role);
 
 FixerRole.prototype.run = function(screep) {
   if(screep.memory.building && screep.store[RESOURCE_ENERGY] == 0) {

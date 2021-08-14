@@ -1,9 +1,10 @@
 var Role = require('roles/role');
+var Utils = require('utils');
 
 function MinerRole(){
   Role.call(this, 'Miner', 'miner', [MOVE, WORK, WORK, WORK, WORK, WORK], 2);
 };
-Role.prototype.inheritRoleMethods(MinerRole);
+Utils.inheritFromSuperClass(MinerRole, Role);
 
 var mSourceMinerIds = {};
 

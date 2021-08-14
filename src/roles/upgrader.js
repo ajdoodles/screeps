@@ -1,9 +1,10 @@
 var Role = require('roles/role');
+var Utils = require('utils');
 
 function UpgraderRole() {
   Role.call(this, 'Upgrader', 'upgrader', [WORK, CARRY, MOVE]);
 };
-Role.prototype.inheritRoleMethods(UpgraderRole);
+Utils.inheritFromSuperClass(UpgraderRole, Role);
 
 /** @param {Creep} screep **/
 UpgraderRole.prototype.run = function(screep) {

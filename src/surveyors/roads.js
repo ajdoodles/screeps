@@ -1,9 +1,10 @@
 var Surveyor = require('surveyors/surveyor');
+var Utils = require('utils');
 
 function RoadSurveyor() {
   Surveyor.call(this);
 };
-Surveyor.prototype.inheritSurveyorMethods(RoadSurveyor);
+Utils.inheritFromSuperClass(RoadSurveyor, Surveyor);
 
 RoadSurveyor.prototype._buildRoad = function (x, y, roomName) {
   var room = Game.rooms[roomName];
