@@ -4,8 +4,7 @@ var manager = (function() {
     'upgrader',
     'builder',
     'fixer',
-    'miner',
-    'pioneer'
+    'miner'
   ];
 
   var mRoleTable = {};

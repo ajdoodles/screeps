@@ -25,6 +25,7 @@ export default {
     commonjs({
       dynamicRequireTargets: [
         'src/roles/*.js',
+        '!src/roles/pioneer.js',
         '!src/roles/role.js'
       ]
     }),

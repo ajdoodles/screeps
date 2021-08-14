@@ -1,9 +1,10 @@
 var Role = require('roles/role');
+var PioneerRole = require('roles/pioneer');
 
 function HarvesterRole() {
-  Role.call(this, 'Harvester', 'harvester', [WORK, CARRY, MOVE], 4);
+  PioneerRole.call(this, 'Harvester', 'harvester');
 };
-Role.prototype.inheritRoleMethods(HarvesterRole);
+PioneerRole.prototype.inheritRoleMethods(HarvesterRole);
 
 HarvesterRole.prototype._getNextTargetId = function (screep) {
   var target = screep.pos.findClosestByPath(
