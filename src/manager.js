@@ -1,10 +1,10 @@
 var manager = (function() {
   var mRoles = [
-    'harvester',
-    'upgrader',
     'builder',
     'fixer',
-    'miner'
+    'upgrader',
+    'miner',
+    'harvester'
   ];
 
   var mRoleTable = {};
