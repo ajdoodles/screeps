@@ -24,8 +24,10 @@ export default {
     resolve({ rootDir: 'src' }),
     commonjs({
       dynamicRequireTargets: [
-        'src/roles/*.js'
-      ]}),
+        'src/roles/*.js',
+        '!src/roles/role.js'
+      ]
+    }),
     screeps({ config: cfg, dryRun: (cfg == null) })
   ]
 };
