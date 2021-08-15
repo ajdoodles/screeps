@@ -18,9 +18,6 @@ var manager = (function() {
 
   buildRoleTable();
 
-  var mRoadSurveyor = require('./surveyors/roads');
-  var mMineSurveyor = require('./surveyors/mines');
-
   var init = function() {
     Object.defineProperty(
       Room.prototype,
@@ -66,9 +63,6 @@ var manager = (function() {
           enumerable: false,
           configurable: true
         });
-
-    var roomName = Game.spawns['Spawn1'].room.name;
-    mRoadSurveyor.survey(roomName);
   };
 
   var clearMemory = function() {
@@ -81,10 +75,6 @@ var manager = (function() {
         delete Memory.creeps[name];
       }
     }
-  };
-
-  var survey = function() {
-
   };
 
   var recruit = function() {
@@ -117,7 +107,6 @@ var manager = (function() {
   var mPublic = {
     init: init,
     clearMemory: clearMemory,
-    survey: survey,
     recruit: recruit,
     run: run,
   }
