@@ -15,18 +15,13 @@ PioneerRole.prototype._getNextTargetId = function (screep) {
 };
 
 PioneerRole.prototype.getTarget = function (screep) {
-  var targetId = screep.memory.targetId;
-  if (!targetId) {
-    targetId = this._getNextTargetId(screep);
-    if (targetId) {
-      screep.memory.targetId = targetId;
-      delete screep.memory.bufferId;
-      delete screep.memory.sourceId;
-    } else {
-      return null;
-    }
+  var target = Game.getObjectById(screep.memory.targetId);
+  if (!target) {
+    screep.memory.targetId = this._getNextTargetId(screep);
+    delete screep.memory.bufferId;
+    delete screep.memory.sourceId;
   }
-  return Game.getObjectById(targetId);
+  return Game.getObjectById(screep.memory.targetId);
 };
 
 PioneerRole.prototype._doWork = function (screep, target) {
@@ -42,19 +37,20 @@ PioneerRole.prototype.run = function(screep) {
   screep.memory.fetching = (screep.memory.fetching && canFetchMore) || hasNoEnergy;
 
   var target = this.getTarget(screep);
-  if (screep.memory.fetching) {
+
+  if (screep.memory.fetching) { // first fill up on energy
     this.fetchEnergy(screep, target);
-  } else if (target) {
-    let result = this._doWork(screep, target);
+  } else if (target){ // we have a target
+    let result = this._doWork(screep, target); // try to work on it
     if (result == ERR_NOT_IN_RANGE) {
-      screep.moveTo(target);
-    } else {
-      if (this._isWorkDone(screep, target)) {
-        delete screep.memory.targetId;
-      }
+      screep.moveTo(target); // we couldn't work on it, walk towards it
     }
-  } else {
-    // idle
+
+    if (this._isWorkDone(screep, target)) {
+      delete screep.memory.targetId;
+      delete screep.memory.bufferId;
+      delete screep.memory.sourceId;
+    }
   }
 };
 
