@@ -1,42 +1,29 @@
-var Role = require('roles/role');
+var PioneerRole = require('roles/pioneer');
 var Utils = require('utils');
 
 const MAX_FIXERS = 2;
 
 function FixerRole() {
-  Role.call(this, 'Fixer', 'fixer', [WORK, CARRY, MOVE]);
+  PioneerRole.call(this, 'Fixer', 'fixer');
 };
-Utils.inheritFromSuperClass(FixerRole, Role);
+Utils.inheritFromSuperClass(FixerRole, PioneerRole);
 
 FixerRole.prototype.needsMoreRecruits = function (curCount) {
   return curCount < MAX_FIXERS;
 }
 
-FixerRole.prototype.run = function(screep) {
-  if(screep.memory.building && screep.store[RESOURCE_ENERGY] == 0) {
-    screep.memory.building = false;
-    screep.say('🔄 harvest');
-  }
-  if(!screep.memory.building && screep.store.getFreeCapacity() == 0) {
-    screep.memory.building = true;
-    screep.say('fix');
-  }
-
+FixerRole.prototype._getNextTargetId = function (screep) {
   var targets = screep.room.find(FIND_STRUCTURES, {filter: (site) => site.hits < site.hitsMax});
+  var target = targets.reduce((mostDamaged, candidate) => candidate.hits < mostDamaged.hits ? candidate : mostDamaged);
+  return target.id;
+};
 
-  if (targets.length > 0) {
-    var target = targets.reduce(
-      (mostDamaged, candidate, curIndex) => candidate.hits < mostDamaged.hits ? candidate : mostDamaged);
-    if (screep.memory.building) {
-      if (target) {
-        if (screep.repair(target) == ERR_NOT_IN_RANGE) {
-          screep.moveTo(target, {visualizePathStyle: {stroke: '#ffffff'}});
-        }
-      }
-    } else {
-      this.fetchEnergy(screep, target);
-    }
-  }
+FixerRole.prototype._doWork = function (screep, target) {
+  return screep.repair(target);
+};
+
+FixerRole.prototype._isWorkDone = function (screep, target) {
+  return target.hits === target.hitsMax;
 };
 
 module.exports = new FixerRole();
