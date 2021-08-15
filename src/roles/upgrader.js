@@ -16,11 +16,11 @@ UpgraderRole.prototype._getNextTargetId = function (screep) {
   return screep.room.controller.id;
 };
 
-UpgraderRole._doWork = function (screep, target) {
+UpgraderRole.prototype._doWork = function (screep, target) {
   return screep.upgradeController(screep.room.controller);
 };
 
-UpgraderRole._isWorkDone = function (screep, target) {
+UpgraderRole.prototype._isWorkDone = function (screep, target) {
   return false;
 };
 
