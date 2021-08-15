@@ -7,6 +7,6 @@ manager.init();
 
 module.exports.loop = function () {
     manager.clearMemory();
-    manager.recruit();
+    manager.recruit(Game.spawns['Spawn1']);
     manager.run();
 }

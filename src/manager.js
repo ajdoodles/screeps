@@ -34,22 +34,20 @@ var manager = (function() {
     }
   };
 
-  var recruit = function() {
+  var recruit = function(spawn) {
     for (var role in mRoleTable) {
-      recruitRole(mRoleTable[role]);
+      recruitRole(spawn, mRoleTable[role]);
     }
   };
 
-  var recruitRole = function(role) {
-    var homeSpawn = Game.spawns['Spawn1'];
-
+  var recruitRole = function(spawn, role) {
     var coworkers = _.filter(Game.creeps, (creep) => creep.memory.role == role.mRole);
     if (role.needsMoreRecruits(coworkers.length)) {
       var newName = role.mName + Game.time;
-      var response = homeSpawn.spawnCreep(role.mBody, newName, {memory: {role: role.mRole}});
+      var response = spawn.spawnCreep(role.mBody, newName, {memory: {role: role.mRole}});
       if (response === OK) {
         role.init(Game.creeps[newName]);
-        console.log('Recruiting new ' + role.mRole + ' named ' + newName + '. Count: ' + (coworkers.length + 1) + ', Max: ' + role.mMaxCount);
+        console.log('Recruiting new ' + role.mRole + ' named ' + newName + '. Count: ' + (coworkers.length + 1));
       }
     }
   };
