@@ -16,7 +16,7 @@ BuilderRole.prototype.needsMoreRecruits = function (curCount) {
   return curCount < sites.length;
 }
 
-BuilderRole.prototype._getNextTargetId = function (screep) {
+BuilderRole.prototype._getNextTarget = function (screep) {
   var sites = screep.room.find(FIND_MY_CONSTRUCTION_SITES);
   if (sites.length == 0) {
     return null;
@@ -29,7 +29,7 @@ BuilderRole.prototype._getNextTargetId = function (screep) {
   if (targets.length == 0) {
     targets = sites;
   }
-  return targets[0].id;
+  return targets[0];
 };
 
 BuilderRole.prototype._doWork = function (screep, target) {

@@ -12,10 +12,10 @@ FixerRole.prototype.needsMoreRecruits = function (curCount) {
   return curCount < MAX_FIXERS;
 }
 
-FixerRole.prototype._getNextTargetId = function (screep) {
+FixerRole.prototype._getNextTarget = function (screep) {
   var targets = screep.room.find(FIND_STRUCTURES, {filter: (site) => site.hits < site.hitsMax});
   var target = targets.reduce((mostDamaged, candidate) => candidate.hits < mostDamaged.hits ? candidate : mostDamaged);
-  return target.id;
+  return target;
 };
 
 FixerRole.prototype._doWork = function (screep, target) {

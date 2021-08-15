@@ -12,11 +12,11 @@ HarvesterRole.prototype.needsMoreRecruits = function (curCount) {
   return curCount < MAX_HARVESTERS;
 };
 
-HarvesterRole.prototype._getNextTargetId = function (screep) {
+HarvesterRole.prototype._getNextTarget = function (screep) {
   var target = screep.pos.findClosestByPath(
     FIND_STRUCTURES,
     {filter: (structure) => (structure.structureType == STRUCTURE_SPAWN || structure.structureType == STRUCTURE_EXTENSION) && structure.store.getFreeCapacity(RESOURCE_ENERGY) > 0});
-  return target ? target.id : null;
+  return target;
 }
 
 HarvesterRole.prototype._doWork = function (screep, target) {

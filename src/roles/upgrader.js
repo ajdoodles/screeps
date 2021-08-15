@@ -12,8 +12,8 @@ UpgraderRole.prototype.needsMoreRecruits = function (curCount) {
   return curCount < MAX_UPGRADERS;
 };
 
-UpgraderRole.prototype._getNextTargetId = function (screep) {
-  return screep.room.controller.id;
+UpgraderRole.prototype._getNextTarget = function (screep) {
+  return screep.room.controller;
 };
 
 UpgraderRole.prototype._doWork = function (screep, target) {
