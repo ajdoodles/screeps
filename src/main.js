@@ -1,3 +1,6 @@
+require('extensions/Room_Extension');
+require('extensions/Source_Extension');
+
 var manager = require('manager');
 
 manager.init();
