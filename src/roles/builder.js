@@ -17,12 +17,17 @@ BuilderRole.prototype.needsMoreRecruits = function (curCount) {
 }
 
 BuilderRole.prototype._getNextTargetId = function (screep) {
-  var targets = screep.room.find(FIND_MY_CONSTRUCTION_SITES, {filter: (site) => site.structureType === STRUCTURE_CONTAINER || site.structureType === STRUCTURE_STORAGE});
+  var sites = screep.room.find(FIND_MY_CONSTRUCTION_SITES);
+  if (sites.length == 0) {
+    return null;
+  }
+
+  var targets = sites.filter((site) => site.structureType === STRUCTURE_CONTAINER || site.structureType === STRUCTURE_STORAGE);
   if (targets.length == 0) {
-    targets = screep.room.find(FIND_MY_CONSTRUCTION_SITES, {filter: (site) => site.structureType === STRUCTURE_RAMPART || site.structureType === STRUCTURE_WALL});
+    targets = sites.filter((site) => site.structureType === STRUCTURE_RAMPART || site.structureType === STRUCTURE_WALL);
   }
   if (targets.length == 0) {
-      targets = screep.room.find(FIND_MY_CONSTRUCTION_SITES);
+    targets = sites;
   }
   return targets[0].id;
 };
