@@ -1,22 +1,6 @@
 var manager = (function() {
-  var mRoles = [
-    'builder',
-    'fixer',
-    'upgrader',
-    'miner',
-    'harvester'
-  ];
 
-  var mRoleTable = {};
-
-  var buildRoleTable = function() {
-    for (var i in mRoles) {
-      var role = mRoles[i];
-      mRoleTable[role] = require('./roles/' + role);
-    }
-  };
-
-  buildRoleTable();
+  var mRoleTable = require('tables/RoleTable');
 
   var init = function() {
 
@@ -46,8 +30,8 @@ var manager = (function() {
     });
 
     var recruitName;
-    for (let role in mRoleTable) {
-      recruitName = recruitRole(spawn, mRoleTable[role]);
+    for (const [roleName, roleClass] of Object.entries(mRoleTable)) {
+      recruitName = recruitRole(spawn, roleClass);
     }
     // The last succesful recruit will be spawned
     if (recruitName) {

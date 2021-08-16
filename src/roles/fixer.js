@@ -1,10 +1,11 @@
 var PioneerRole = require('roles/pioneer');
+var Roles = require('../constants/roles');
 var Utils = require('utils');
 
 const MAX_FIXERS = 2;
 
 function FixerRole() {
-  PioneerRole.call(this, 'Fixer', 'fixer');
+  PioneerRole.call(this, 'Fixer', Roles.FIXER);
 };
 Utils.inheritFromSuperClass(FixerRole, PioneerRole);
 

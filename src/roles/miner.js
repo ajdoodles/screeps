@@ -1,8 +1,9 @@
 var Role = require('roles/role');
+var Roles = require('../constants/roles');
 var Utils = require('utils');
 
 function MinerRole(){
-  Role.call(this, 'Miner', 'miner', [MOVE, WORK, WORK, WORK, WORK, WORK]);
+  Role.call(this, 'Miner', Roles.MINER, [MOVE, WORK, WORK, WORK, WORK, WORK]);
 };
 Utils.inheritFromSuperClass(MinerRole, Role);
 

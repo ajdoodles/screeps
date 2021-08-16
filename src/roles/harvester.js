@@ -1,10 +1,11 @@
 var PioneerRole = require('roles/pioneer');
+var Roles = require('../constants/roles');
 var Utils = require('utils');
 
 const MAX_HARVESTERS = 4;
 
 function HarvesterRole() {
-  PioneerRole.call(this, 'Harvester', 'harvester');
+  PioneerRole.call(this, 'Harvester', Roles.HARVESTER);
 };
 Utils.inheritFromSuperClass(HarvesterRole, PioneerRole);
 
