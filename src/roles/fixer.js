@@ -9,7 +9,7 @@ function FixerRole() {
 };
 Utils.inheritFromSuperClass(FixerRole, PioneerRole);
 
-FixerRole.prototype.needsMoreRecruits = function (curCount) {
+FixerRole.prototype.needsMoreRecruits = function (roomName, curCount) {
   return curCount < MAX_FIXERS;
 }
 

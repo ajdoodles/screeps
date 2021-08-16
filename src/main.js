@@ -3,10 +3,12 @@ require('extensions/Source_Extension');
 
 var manager = require('manager');
 
+const rootRoomName = Game.spawns['Spawn1'].room.name;
+
 manager.init();
 
 module.exports.loop = function () {
     manager.clearMemory();
-    manager.recruit(Game.spawns['Spawn1']);
+    manager.recruit(rootRoomName);
     manager.run();
 }

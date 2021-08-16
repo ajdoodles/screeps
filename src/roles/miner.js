@@ -30,8 +30,8 @@ MinerRole.prototype.init = function(screep) {
   }
 };
 
-MinerRole.prototype.needsMoreRecruits = function(curCount) {
-  return Object.keys(mSourceMinerIds).length < Game.spawns['Spawn1'].room.sources.length;
+MinerRole.prototype.needsMoreRecruits = function(roomName, curCount) {
+  return curCount < Game.rooms[roomName].sources.length;
 };
 
 MinerRole.prototype.run = function(screep) {

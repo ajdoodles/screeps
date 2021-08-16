@@ -9,7 +9,7 @@ function UpgraderRole() {
 };
 Utils.inheritFromSuperClass(UpgraderRole, PioneerRole);
 
-UpgraderRole.prototype.needsMoreRecruits = function (curCount) {
+UpgraderRole.prototype.needsMoreRecruits = function (roomName, curCount) {
   return curCount < MAX_UPGRADERS;
 };
 

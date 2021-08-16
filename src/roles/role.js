@@ -4,7 +4,7 @@ function Role(name, role, body) {
   this.mBody = body;
 };
 
-Role.prototype.needsMoreRecruits = function(curCount) {
+Role.prototype.needsMoreRecruits = function(roomName, curCount) {
   console.log('Your sublass needs to define needsMoreRecruits.');
   return false;
 };

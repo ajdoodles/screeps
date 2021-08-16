@@ -9,11 +9,11 @@ function BuilderRole() {
 };
 Utils.inheritFromSuperClass(BuilderRole, PioneerRole);
 
-BuilderRole.prototype.needsMoreRecruits = function (curCount) {
+BuilderRole.prototype.needsMoreRecruits = function (roomName, curCount) {
   if (curCount >= MAX_BUILDERS) {
     return false;
   }
-  var sites = Game.spawns['Spawn1'].room.find(FIND_MY_CONSTRUCTION_SITES);
+  var sites = Game.rooms[roomName].find(FIND_MY_CONSTRUCTION_SITES);
   return curCount < sites.length;
 }
 

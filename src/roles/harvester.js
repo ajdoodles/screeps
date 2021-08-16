@@ -9,7 +9,7 @@ function HarvesterRole() {
 };
 Utils.inheritFromSuperClass(HarvesterRole, PioneerRole);
 
-HarvesterRole.prototype.needsMoreRecruits = function (curCount) {
+HarvesterRole.prototype.needsMoreRecruits = function (roomName, curCount) {
   return curCount < MAX_HARVESTERS;
 };
 
