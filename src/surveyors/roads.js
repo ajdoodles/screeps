@@ -45,18 +45,21 @@ RoadSurveyor.prototype._connectWithRoad = function(firstObj, secondObj) {
 
 RoadSurveyor.prototype.survey = function(roomName) {
   var room = Game.rooms[roomName];
-  var spawn = Game.spawns['Spawn1'];
+  var spawns = room.find(FIND_MY_SPAWNS);
   var sources = room.find(FIND_SOURCES);
-  var extensions = room.find(FIND_MY_STRUCTURES, {filter: (struct) => struct.structureType === STRUCTURE_EXTENSION});
 
-  this._surroundWithRoad(spawn);
+  spawns.forEach((spawn) => {
+    this._surroundWithRoad(spawn);
+    sources.forEach((source) => this._connectWithRoad(spawn, source));
+  });
+
+  var controllerSource = room.controller.pos.findClosestByPath(FIND_SOURCES);
   this._surroundWithRoad(room.controller);
+  this._connectWithRoad(room.controller, controllerSource);
+
   sources.forEach((source) => {
     this._surroundWithRoad(source);
-    this._connectWithRoad(source, room.controller);
-    this._connectWithRoad(source, spawn)
   });
-  this._connectWithRoad(spawn, room.controller);
 };
 
 module.exports = new RoadSurveyor();
