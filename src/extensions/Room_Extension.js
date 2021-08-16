@@ -54,7 +54,7 @@ module.exports = (function(){
       }
     }
     return nameFromMemory;
-  }
+  };
 
   Room.prototype.initReadyRecruits = function (initFunc) {
     while (this.recruits.length > 0 && !Game.creeps[this.recruits[0]].spawning) {
