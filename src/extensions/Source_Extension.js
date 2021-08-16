@@ -1,25 +1,36 @@
 module.exports = (function(){
-  Memory.sourceBufferId = {};
+  Object.defineProperty(
+    Source.prototype,
+    'memory',
+    {
+      get: function() {
+        if (!Memory.mySourcesMemory) {
+          Memory.mySourcesMemory = {};
+        }
+        return Memory.mySourcesMemory[this.id] = Memory.mySourcesMemory[this.id] || {};
+      }
+    }
+  );
+
   Object.defineProperty(
     Source.prototype,
     'buffer',
     {
       get: function () {
         if (!this._buffer) {
-
-          if (!Memory.sourceBufferId[this.id]) {
+          if (!this.memory.bufferId) {
             var buffer = this.pos.findInRange(
               FIND_STRUCTURES,
               1,
               {filter: (struct) => struct.structureType === STRUCTURE_CONTAINER || struct.structureType === STRUCTURE_STORAGE}
             )[0];
             if (buffer) {
-              Memory.sourceBufferId[this.id] = buffer.id;
+              this.memory.bufferId = buffer.id;
             } else {
-              delete Memory.sourceBufferId[this.id];
+              delete this.memory.bufferId;
             }
           }
-          this._buffer = Game.getObjectById(Memory.sourceBufferId[this.id]);
+          this._buffer = Game.getObjectById(this.memory.bufferId);
         }
         return this._buffer;
       },
