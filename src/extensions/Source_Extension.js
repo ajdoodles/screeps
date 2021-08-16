@@ -22,7 +22,7 @@ module.exports = (function(){
             var buffer = this.pos.findInRange(
               FIND_STRUCTURES,
               1,
-              {filter: (struct) => struct.structureType === STRUCTURE_CONTAINER || struct.structureType === STRUCTURE_STORAGE}
+              {filter: (struct) => struct.structureType === STRUCTURE_CONTAINER}
             )[0];
             if (buffer) {
               this.memory.bufferId = buffer.id;
