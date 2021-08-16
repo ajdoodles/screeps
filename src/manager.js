@@ -9,10 +9,7 @@ var manager = (function() {
   var clearMemory = function() {
     for (var name in Memory.creeps) {
       if (!Game.creeps[name]) {
-        var role = Memory.creeps[name].role;
-        if (role) {
-          mRoleTable[role].cleanUp(Memory.creeps[name]);
-        }
+        mRoleTable[Memory.creeps[name].role].cleanUp(Memory.creeps[name]);
         delete Memory.creeps[name];
       }
     }
