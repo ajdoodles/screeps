@@ -35,8 +35,24 @@ var manager = (function() {
   };
 
   var recruit = function(spawn) {
-    for (var role in mRoleTable) {
-      recruitRole(spawn, mRoleTable[role]);
+    spawn.room.initReadyRecruits((recruitName) => {
+      let creep = Game.creeps[recruitName];
+      if (creep.ticksToLive <= (CREEP_LIFE_TIME - 1)) {
+        // Technically the game 'steals' the first tick for the movement out
+        // of the spawn position.
+        console.log('WARNING: Initializing [' + recruitName + '] with less ticks to live than max.' + '[' + creep.ticksToLive + '/' + CREEP_LIFE_TIME + ']')
+      }
+      mRoleTable[creep.memory.role].init(creep);
+    });
+
+    var recruitName;
+    for (let role in mRoleTable) {
+      recruitName = recruitRole(spawn, mRoleTable[role]);
+    }
+    // The last succesful recruit will be spawned
+    if (recruitName) {
+      console.log('Recruiting ' + recruitName);
+      spawn.room.registerRecruit(recruitName);
     }
   };
 
@@ -46,8 +62,7 @@ var manager = (function() {
       var newName = role.mName + Game.time;
       var response = spawn.spawnCreep(role.mBody, newName, {memory: {role: role.mRole}});
       if (response === OK) {
-        role.init(Game.creeps[newName]);
-        console.log('Recruiting new ' + role.mRole + ' named ' + newName + '. Count: ' + (coworkers.length + 1));
+        return newName;
       }
     }
   };
