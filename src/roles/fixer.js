@@ -14,7 +14,10 @@ FixerRole.prototype.needsMoreRecruits = function (curCount) {
 
 FixerRole.prototype._getNextTarget = function (screep) {
   var targets = screep.room.find(FIND_STRUCTURES, {filter: (site) => site.hits < site.hitsMax});
-  var target = targets.reduce((mostDamaged, candidate) => candidate.hits < mostDamaged.hits ? candidate : mostDamaged);
+  var target = null;
+  if (targets.length > 0) {
+    targets.reduce((mostDamaged, candidate) => candidate.hits < mostDamaged.hits ? candidate : mostDamaged);
+  }
   return target;
 };
 
