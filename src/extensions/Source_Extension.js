@@ -48,11 +48,18 @@ module.exports = (function(){
       get: function () {
         if (!this._buffer) {
           if (!this.memory.bufferId) {
-            var buffer = this.pos.findInRange(
-              FIND_STRUCTURES,
-              1,
-              {filter: (struct) => struct.structureType === STRUCTURE_CONTAINER}
-            )[0];
+            let {x: bufferX, y: bufferY} = this.bufferPos;
+            let buffers = this.room.lookForAt(LOOK_STRUCTURES, bufferX, bufferY);
+            let buffer = buffers.length > 0 ? buffers[0] : null;
+
+            if (!buffer) {
+              buffer = this.pos.findInRange(
+                FIND_STRUCTURES,
+                1,
+                {filter: (struct) => struct.structureType === STRUCTURE_CONTAINER}
+              )[0];
+            }
+
             if (buffer) {
               this.memory.bufferId = buffer.id;
             } else {
