@@ -21,7 +21,6 @@ module.exports = (function(){
           if (!this.memory.bufferPos) {
             const {x, y} = this.pos;
             var surroundings = this.room.getWalkableSurroundings(x, y);
-            console.log('found surrounds ' + Object.entries(surroundings));
             var mostFreeSpaces = 0
             var mostFreePos = surroundings.reduce((moreFreePos, nextPos) => {
               let nextSurroundings = this.room.getWalkableSurroundings(nextPos.x, nextPos.y);
