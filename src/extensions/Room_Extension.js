@@ -61,4 +61,21 @@ module.exports = (function(){
       initFunc(this._dequeueRecruit());
     }
   };
+
+  Room.prototype.getWalkableSurroundings = function (x, y, includeCenter = false) {
+    var roomTerrain = this.getTerrain();
+    var positions = [];
+    const blockedTerrainMask = TERRAIN_MASK_WALL | TERRAIN_MASK_LAVA;
+    [x - 1, x, x + 1].forEach((i) => {
+      [y - 1, y, y + 1].forEach((j) => {
+        if (i !== j || includeCenter) {
+          let isBlocked = Boolean(roomTerrain.get(i, j) & blockedTerrainMask);
+          if (!isBlocked) {
+            positions.push(new RoomPosition(x, y, this.name));
+          }
+        }
+      })
+    });
+    return positions;
+  };
 }());
