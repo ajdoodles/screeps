@@ -19,18 +19,29 @@ module.exports = (function(){
       get: function() {
         if (!this._bufferPos) {
           if (!this.memory.bufferPos) {
-            const {x, y} = this.pos;
-            var surroundings = this.room.getWalkableSurroundings(x, y);
-            var mostFreeSpaces = 0
-            var mostFreePos = surroundings.reduce((moreFreePos, nextPos) => {
-              let nextSurroundings = this.room.getWalkableSurroundings(nextPos.x, nextPos.y);
-              let nextFreeSpaces = nextSurroundings.length;
-              if (mostFreeSpaces >= nextFreeSpaces) {
-                return moreFreePos;
+            var {x:sourceX, y:sourceY} = this.pos;
+            var surroundings = this.room.getWalkableSurroundings(sourceX, sourceY);
+
+            var highestFreeSpaceCount = 0
+            var candidates = [];
+
+            surroundings.forEach((candidatePos) => {
+              var nextSurroundings = this.room.getWalkableSurroundings(candidatePos.x, candidatePos.y);
+              var nextFreeSpaceCount = nextSurroundings.length;
+
+              if (nextFreeSpaceCount >= highestFreeSpaceCount) {
+                if (nextFreeSpaceCount > highestFreeSpaceCount) {
+                  candidates = [];
+                  highestFreeSpaceCount = nextFreeSpaceCount;
+                }
+                candidates.push(candidatePos);
               }
-              mostFreeSpaces = nextFreeSpaces;
-              return nextPos;
             });
+
+            var spawn = this.room.find(FIND_MY_SPAWNS)[0];
+            var results = PathFinder.search(spawn.pos, candidates, {swampCost: 1});
+            var mostFreePos = results.path[results.path.length - 1];
+
             this.memory.bufferPos = mostFreePos;
           }
           this._bufferPos = this.memory.bufferPos;
