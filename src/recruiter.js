@@ -15,18 +15,36 @@ var recruiter = (function() {
     }
   };
 
+  var _getRoleCount = function(room, role) {
+    if (!room.roleCounts[role]) {
+      room.roleCounts[role] = room.find(
+        FIND_MY_CREEPS,
+        {filter: (creep) => creep.memory.role === role}
+      );
+    }
+
+    return room.roleCounts[role];
+  };
+
   var _recruitRole = function(room, role) {
     var spawn = room.mainSpawn;
     var roleClass = mRoleTable[role];
 
-    var coworkers = _.filter(Game.creeps, (creep) => creep.memory.role == roleClass.mRole);
-    if (roleClass.needsMoreRecruits(room.name, coworkers.length)) {
-      var newName = roleClass.mName + Game.time;
-      var response = spawn.spawnCreep(roleClass.mBody, newName, {memory: {role: roleClass.mRole}});
+    var name = null
+    if (roleClass.needsMoreRecruits(room.name, _getRoleCount(room, role))) {
+      let newName = roleClass.mName + Game.time;
+      let response = spawn.spawnCreep(
+        roleClass.mBody,
+        newName,
+        {memory: {role: roleClass.mRole}}
+      );
+
       if (response === OK) {
-        return newName;
+        name = newName;
       }
     }
+
+    return name;
   };
 
   var recruit = function(room, recruitOrder) {
