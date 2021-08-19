@@ -6,6 +6,12 @@ function PioneerRole(name, role) {
 };
 Utils.inheritFromSuperClass(PioneerRole, Role);
 
+PioneerRole.prototype.reassignRole = function (screep, newRole) {
+  var oldRole = screep.memory.role;
+  screep.memory.role = newRole;
+  this._setTarget(screep, null);
+};
+
 PioneerRole.prototype.init = function(screep) {
   screep.memory.fetching = true;
 };
