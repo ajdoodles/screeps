@@ -2,9 +2,7 @@ var recruiter = (function() {
 
   var mRoleTable = require('tables/RoleTable');
 
-  var recruit = function(roomName) {
-    var room = Game.rooms[roomName];
-
+  var _initSpawnedRecruits = function(room) {
     while (room.recruits.length > 0 && !Game.creeps[room.recruits[0]].spawning) {
       let recruitName = room.dequeueRecruit();
       let creep = Game.creeps[recruitName];
@@ -15,29 +13,34 @@ var recruiter = (function() {
       }
       mRoleTable[creep.memory.role].init(creep);
     }
+  };
+
+  var _recruitRole = function(room, roleClass) {
+    var spawn = room.mainSpawn;
+
+    var coworkers = _.filter(Game.creeps, (creep) => creep.memory.role == roleClass.mRole);
+    if (roleClass.needsMoreRecruits(room.name, coworkers.length)) {
+      var newName = roleClass.mName + Game.time;
+      var response = spawn.spawnCreep(roleClass.mBody, newName, {memory: {role: roleClass.mRole}});
+      if (response === OK) {
+        return newName;
+      }
+    }
+  };
+
+  var recruit = function(roomName) {
+    var room = Game.rooms[roomName];
+
+    _initSpawnedRecruits(room);
 
     var recruitName;
-    for (const [roleName, roleClass] of Object.entries(mRoleTable)) {
-      recruitName = recruitRole(roomName, roleClass);
+    for (const [role, roleClass] of Object.entries(mRoleTable)) {
+      recruitName = _recruitRole(room, roleClass);
     }
     // The last succesful recruit will be spawned
     if (recruitName) {
       console.log('Recruiting ' + recruitName);
       room.registerRecruit(recruitName);
-    }
-  };
-
-  var recruitRole = function(roomName, role) {
-    var room = Game.rooms[roomName];
-    var spawn = room.find(FIND_MY_SPAWNS)[0];
-
-    var coworkers = _.filter(Game.creeps, (creep) => creep.memory.role == role.mRole);
-    if (role.needsMoreRecruits(roomName, coworkers.length)) {
-      var newName = role.mName + Game.time;
-      var response = spawn.spawnCreep(role.mBody, newName, {memory: {role: role.mRole}});
-      if (response === OK) {
-        return newName;
-      }
     }
   };
 
