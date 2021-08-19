@@ -19,6 +19,22 @@ module.exports = (function(){
 
   Object.defineProperty(
     Room.prototype,
+    'mainSpawn',
+    {
+      get: function() {
+        if (!this._mainSpawn) {
+          if (!this.memory.mainSpawnId) {
+            this.memory.mainSpawnId = this.find(FIND_MY_SPAWNS)[0].id;
+          }
+          this._mainSpawn = Game.getObjectById(this.memory.mainSpawnId);
+        }
+        return this._mainSpawn;
+      }
+    }
+  );
+
+  Object.defineProperty(
+    Room.prototype,
     'recruits',
     {
       get: function() {
@@ -71,7 +87,7 @@ module.exports = (function(){
         if (includeCenter || !(i == x && y == j)) {
           let isBlocked = Boolean(roomTerrain.get(i, j) & blockedTerrainMask);
           if (!isBlocked) {
-            positions.push(this.getPositionAt(i, j));
+            positions.push(new RoomPosition(i, j, this.name));
           }
         }
       })
