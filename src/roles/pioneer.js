@@ -66,4 +66,8 @@ PioneerRole.prototype.run = function(screep) {
   }
 };
 
+PioneerRole.prototype.cleanUp = function(memory) {
+
+};
+
 module.exports = PioneerRole;
