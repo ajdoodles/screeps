@@ -49,11 +49,11 @@ PioneerRole.prototype._isWorkDone = function (screep, target) {
 };
 
 PioneerRole.prototype.run = function(screep) {
+  var target = this.getTarget(screep);
+
   var canFetchMore = screep.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
   var hasNoEnergy = screep.store.getUsedCapacity(RESOURCE_ENERGY) == 0;
-  screep.memory.fetching = (screep.memory.fetching && canFetchMore) || hasNoEnergy;
-
-  var target = this.getTarget(screep);
+  screep.memory.fetching = ((!target || screep.memory.fetching) && canFetchMore) || hasNoEnergy;
 
   if (screep.memory.fetching) { // first fill up on energy
     this.fetchEnergy(screep, target);
@@ -66,6 +66,8 @@ PioneerRole.prototype.run = function(screep) {
     if (this._isWorkDone(screep, target)) {
       this._setTarget(screep, null);
     }
+  } else {
+    this.reassignRole(screep, Roles.PIONEER);
   }
 };
 
