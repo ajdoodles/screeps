@@ -60,7 +60,7 @@ module.exports = (function(){
     this.memory.recruits.push(creepName);
   };
 
-  Room.prototype._dequeueRecruit = function () {
+  Room.prototype.dequeueRecruit = function () {
     var nameFromMemory = this.memory.recruits.shift();
     if (this._recruits) {
       let nameFromCache = this._recruits.shift();
@@ -70,12 +70,6 @@ module.exports = (function(){
       }
     }
     return nameFromMemory;
-  };
-
-  Room.prototype.initReadyRecruits = function (initFunc) {
-    while (this.recruits.length > 0 && !Game.creeps[this.recruits[0]].spawning) {
-      initFunc(this._dequeueRecruit());
-    }
   };
 
   Room.prototype.getWalkableSurroundings = function (x, y, includeCenter = false) {

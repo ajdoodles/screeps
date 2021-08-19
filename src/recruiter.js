@@ -5,7 +5,8 @@ var recruiter = (function() {
   var recruit = function(roomName) {
     var room = Game.rooms[roomName];
 
-    room.initReadyRecruits((recruitName) => {
+    while (room.recruits.length > 0 && !Game.creeps[room.recruits[0]].spawning) {
+      let recruitName = room.dequeueRecruit();
       let creep = Game.creeps[recruitName];
       if (creep.ticksToLive <= (CREEP_LIFE_TIME - 1)) {
         // Technically the game 'steals' the first tick for the movement out
@@ -13,7 +14,7 @@ var recruiter = (function() {
         console.log('WARNING: Initializing [' + recruitName + '] with less ticks to live than max.' + '[' + creep.ticksToLive + '/' + CREEP_LIFE_TIME + ']')
       }
       mRoleTable[creep.memory.role].init(creep);
-    });
+    }
 
     var recruitName;
     for (const [roleName, roleClass] of Object.entries(mRoleTable)) {
