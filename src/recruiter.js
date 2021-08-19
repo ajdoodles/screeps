@@ -39,7 +39,6 @@ var recruiter = (function() {
     }
     // The last succesful recruit will be spawned
     if (recruitName) {
-      console.log('Recruiting ' + recruitName);
       room.registerRecruit(recruitName);
     }
   };
