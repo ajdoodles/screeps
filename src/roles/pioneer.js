@@ -26,8 +26,8 @@ PioneerRole.prototype._setTarget = function (screep, target) {
   delete screep.memory.sourceId;
 };
 
-PioneerRole.prototype._getNextTargetId = function (screep) {
-
+PioneerRole.prototype._getNextTarget = function (screep) {
+  return null;
 };
 
 PioneerRole.prototype.getTarget = function (screep) {
