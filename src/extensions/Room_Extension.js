@@ -88,4 +88,19 @@ module.exports = (function(){
     });
     return positions;
   };
+
+  Object.defineProperty(
+    Room.prototype,
+    'roleCounts',
+    {
+      get: function() {
+        if (!this._roleCounts) {
+          this._roleCounts = Object.create(null);
+        }
+        return this._roleCounts;
+      },
+      enumerable: false,
+      configurable: true
+    }
+  );
 }());
