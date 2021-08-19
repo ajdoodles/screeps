@@ -15,8 +15,9 @@ var recruiter = (function() {
     }
   };
 
-  var _recruitRole = function(room, roleClass) {
+  var _recruitRole = function(room, role) {
     var spawn = room.mainSpawn;
+    var roleClass = mRoleTable[role];
 
     var coworkers = _.filter(Game.creeps, (creep) => creep.memory.role == roleClass.mRole);
     if (roleClass.needsMoreRecruits(room.name, coworkers.length)) {
@@ -28,16 +29,15 @@ var recruiter = (function() {
     }
   };
 
-  var recruit = function(roomName) {
-    var room = Game.rooms[roomName];
-
+  var recruit = function(room, recruitOrder) {
     _initSpawnedRecruits(room);
 
     var recruitName;
-    for (const [role, roleClass] of Object.entries(mRoleTable)) {
-      recruitName = _recruitRole(room, roleClass);
-    }
-    // The last succesful recruit will be spawned
+
+    recruitOrder.reduce((recruitName, nextRole) => {
+      return recruitName ? recruitName : _recruitRole(room, nextRole);
+    }, null);
+
     if (recruitName) {
       room.registerRecruit(recruitName);
     }

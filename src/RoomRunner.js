@@ -1,10 +1,11 @@
 module.exports = (function(){
 
+  var Roles = require('constants/Roles');
   var mRecruiter = require('recruiter');
   var mRoomHandlers = Object.create(null);
 
   var runDefault = function(room) {
-      mRecruiter.recruit(room);
+    mRecruiter.recruit(room, [Roles.HARVESTER]);
   };
 
   var run = function(roomName) {
