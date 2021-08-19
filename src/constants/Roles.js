@@ -3,5 +3,6 @@ module.exports = Object.freeze({
   FIXER: 'fixer',
   MINER: 'miner',
   BUILDER: 'builder',
-  UPGRADER: 'upgrader'
+  UPGRADER: 'upgrader',
+  PIONEER: 'pioneer'
 });

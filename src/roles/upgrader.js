@@ -5,7 +5,7 @@ var Utils = require('utils');
 const MAX_UPGRADERS = 3;
 
 function UpgraderRole() {
-  PioneerRole.call(this, 'Upgrader', Roles.UPGRADER);
+  PioneerRole.call(this, Roles.UPGRADER);
 };
 Utils.inheritFromSuperClass(UpgraderRole, PioneerRole);
 

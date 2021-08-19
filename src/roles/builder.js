@@ -5,7 +5,7 @@ var Utils = require('utils');
 const MAX_BUILDERS = 4;
 
 function BuilderRole() {
-  PioneerRole.call(this, 'Builder', Roles.BUILDER);
+  PioneerRole.call(this, Roles.BUILDER);
 };
 Utils.inheritFromSuperClass(BuilderRole, PioneerRole);
 
