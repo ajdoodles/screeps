@@ -54,7 +54,7 @@ PioneerRole.prototype.run = function(screep) {
 
   if (screep.memory.fetching) { // first fill up on energy
     this.fetchEnergy(screep, target);
-  } else if (target){ // we have a target
+  } else if (target) { // we have a target
     let result = this._doWork(screep, target); // try to work on it
     if (result == ERR_NOT_IN_RANGE) {
       screep.moveTo(target); // we couldn't work on it, walk towards it
