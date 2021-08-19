@@ -1,7 +1,7 @@
 module.exports = (function(){
 
-  var mRecruiter = require('recruiter');
   var mRoleTable = require('tables/RoleTable');
+  var mRoomRunner = require('RoomRunner');
 
   var garbageCollect = function() {
     for (var name in Memory.creeps) {
@@ -14,7 +14,7 @@ module.exports = (function(){
 
   var runRooms = function () {
     var rootRoomName = Game.spawns['Spawn1'].room.name;
-    mRecruiter.recruit(rootRoomName);
+    mRoomRunner.run(rootRoomName);
   };
 
   var runCreeps = function() {
