@@ -5,7 +5,7 @@ function Role(name, role, body) {
 };
 
 Role.prototype.needsMoreRecruits = function(roomName, curCount) {
-  console.log('Your sublass needs to define needsMoreRecruits.');
+  console.log('Your subclass needs to define needsMoreRecruits.');
   return false;
 };
 
