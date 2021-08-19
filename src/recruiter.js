@@ -1,19 +1,6 @@
-var manager = (function() {
+var recruiter = (function() {
 
   var mRoleTable = require('tables/RoleTable');
-
-  var init = function() {
-
-  };
-
-  var clearMemory = function() {
-    for (var name in Memory.creeps) {
-      if (!Game.creeps[name]) {
-        mRoleTable[Memory.creeps[name].role].cleanUp(Memory.creeps[name]);
-        delete Memory.creeps[name];
-      }
-    }
-  };
 
   var recruit = function(roomName) {
     var room = Game.rooms[roomName];
@@ -53,21 +40,11 @@ var manager = (function() {
     }
   };
 
-  var run = function() {
-    for (var creepName in Game.creeps) {
-      var screep = Game.creeps[creepName];
-      mRoleTable[screep.memory.role].run(screep);
-    }
-  };
-
   var mPublic = {
-    init: init,
-    clearMemory: clearMemory,
     recruit: recruit,
-    run: run,
-  }
+  };
 
   return mPublic;
 }());
 
-module.exports = manager;
+module.exports = recruiter;
