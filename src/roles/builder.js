@@ -2,20 +2,10 @@ var PioneerRole = require('roles/pioneer');
 var Roles = require('../constants/roles');
 var Utils = require('utils');
 
-const MAX_BUILDERS = 4;
-
 function BuilderRole() {
   PioneerRole.call(this, Roles.BUILDER);
 };
 Utils.inheritFromSuperClass(BuilderRole, PioneerRole);
-
-BuilderRole.prototype.needsMoreRecruits = function (roomName, curCount) {
-  if (curCount >= MAX_BUILDERS) {
-    return false;
-  }
-  var sites = Game.rooms[roomName].find(FIND_MY_CONSTRUCTION_SITES);
-  return curCount < sites.length;
-}
 
 BuilderRole.prototype._getNextTarget = function (screep) {
   var sites = screep.room.find(FIND_MY_CONSTRUCTION_SITES);

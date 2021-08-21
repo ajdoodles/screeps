@@ -2,16 +2,10 @@ var PioneerRole = require('roles/pioneer');
 var Roles = require('../constants/roles');
 var Utils = require('utils');
 
-const MAX_FIXERS = 2;
-
 function FixerRole() {
   PioneerRole.call(this, Roles.FIXER);
 };
 Utils.inheritFromSuperClass(FixerRole, PioneerRole);
-
-FixerRole.prototype.needsMoreRecruits = function (roomName, curCount) {
-  return curCount < MAX_FIXERS;
-}
 
 FixerRole.prototype._getNextTarget = function (screep) {
   var targets = screep.room.find(FIND_STRUCTURES, {filter: (site) => site.hits < site.hitsMax});

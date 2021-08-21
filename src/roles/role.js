@@ -4,11 +4,6 @@ function Role(name, role, body) {
   this.mBody = body;
 };
 
-Role.prototype.needsMoreRecruits = function(roomName, curCount) {
-  console.log('Your subclass needs to define needsMoreRecruits.');
-  return false;
-};
-
 Role.prototype.init = function(screep) {
 
 };

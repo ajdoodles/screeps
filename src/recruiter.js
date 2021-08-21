@@ -27,24 +27,15 @@ var recruiter = (function() {
   };
 
   var _recruitRole = function(room, role) {
-    var spawn = room.mainSpawn;
     var roleClass = mRoleTable[role];
+    var newName = roleClass.mName + Game.time;
+    var response = room.mainSpawn.spawnCreep(
+      roleClass.mBody,
+      newName,
+      {memory: {role: roleClass.mRole}}
+    );
 
-    var name = null
-    if (roleClass.needsMoreRecruits(room.name, getRoleCount(room, role))) {
-      let newName = roleClass.mName + Game.time;
-      let response = spawn.spawnCreep(
-        roleClass.mBody,
-        newName,
-        {memory: {role: roleClass.mRole}}
-      );
-
-      if (response === OK) {
-        name = newName;
-      }
-    }
-
-    return name;
+    return response === OK ? newName : null;
   };
 
   var recruit = function(room, recruitOrder) {
