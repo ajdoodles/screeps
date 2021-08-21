@@ -14,7 +14,7 @@ module.exports = (function(){
         sourcePos = source.bufferPos;
       }
       pioneerAllowance += room.getWalkableSurroundings(sourcePos.x, sourcePos.y).length;
-    })
+    });
     return pioneerAllowance;
   };
 
