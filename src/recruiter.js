@@ -20,7 +20,7 @@ var recruiter = (function() {
       room.roleCounts[role] = room.find(
         FIND_MY_CREEPS,
         {filter: (creep) => creep.memory.role === role}
-      );
+      ).length;
     }
 
     return room.roleCounts[role];
