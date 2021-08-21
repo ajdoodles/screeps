@@ -4,25 +4,25 @@ module.exports = (function(){
   var mRecruiter = require('recruiter');
   var mRoomHandlers = Object.create(null);
 
-  // How many harvesters do we need to saturate all of the energy sources in the
+  // How many pioneers do we need to saturate all of the energy sources in the
   // room.
-  var _calculateMaxHarvesters = function(room) {
-    var harvesterAllowance = 0;
+  var _calculateMaxPioneers = function(room) {
+    var pioneerAllowance = 0;
     room.sources.forEach((source) => {
       let sourcePos = source.pos;
       if (source.buffer) {
         sourcePos = source.bufferPos;
       }
-      harvesterAllowance += room.getWalkableSurroundings(sourcePos.x, sourcePos.y).length;
+      pioneerAllowance += room.getWalkableSurroundings(sourcePos.x, sourcePos.y).length;
     })
-    return harvesterAllowance;
+    return pioneerAllowance;
   };
 
   var runDefault = function(room) {
     if (Game.time % 9 === 0) {
-      var curHarvesters = mRecruiter.getRoleCount(room, Roles.HARVESTER);
-      var maxHarvesters = _calculateMaxHarvesters(room);
-      mRecruiter.recruit(room, [Roles.HARVESTER]);
+      var curPioneers = room.find(FIND_MY_CREEPS, {filter: (creep) => creep.memory.role !== Roles.MINER}).length;
+      var maxPioneers = _calculateMaxPioneers(room);
+      mRecruiter.recruit(room, [Roles.PIONEER]);
     }
   };
 
