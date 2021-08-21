@@ -9,7 +9,7 @@ var recruiter = (function() {
       if (creep.ticksToLive <= (CREEP_LIFE_TIME - 1)) {
         // Technically the game 'steals' the first tick for the movement out
         // of the spawn position.
-        console.log('WARNING: Initializing [' + recruitName + '] with less ticks to live than max.' + '[' + creep.ticksToLive + '/' + CREEP_LIFE_TIME + ']')
+        console.log('WARNING: Initializing [' + recruitName + '] with less ticks to live than max.' + '[' + creep.ticksToLive + '/' + CREEP_LIFE_TIME + ']');
       }
       mRoleTable[creep.memory.role].init(creep);
     }
