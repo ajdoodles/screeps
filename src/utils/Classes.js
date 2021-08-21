@@ -1,4 +1,4 @@
-var utils = {
+module.exports = {
   inheritFromSuperClass: function(subClass, superClass) {
     subClass.prototype = Object.create(superClass.prototype);
     Object.defineProperty(
@@ -12,5 +12,3 @@ var utils = {
     );
   }
 };
-
-module.exports = utils;

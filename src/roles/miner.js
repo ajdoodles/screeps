@@ -1,11 +1,10 @@
 var Role = require('roles/role');
 var Roles = require('../constants/roles');
-var Utils = require('utils');
+var Classes = require('../utils/Classes');
 
 function MinerRole(){
   Role.call(this, 'Miner', Roles.MINER, [MOVE, WORK, WORK, WORK, WORK, WORK]);
 };
-Utils.inheritFromSuperClass(MinerRole, Role);
 
 var mSourceMinerIds = {};
 
@@ -27,6 +26,7 @@ MinerRole.prototype.init = function(screep) {
       screep.memory.sourceId = sources[i].id;
       return;
     }
+Classes.inheritFromSuperClass(MinerRole, Role);
   }
 };
 

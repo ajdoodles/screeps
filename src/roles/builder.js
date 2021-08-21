@@ -1,11 +1,11 @@
 var PioneerRole = require('roles/pioneer');
 var Roles = require('../constants/roles');
-var Utils = require('utils');
+var Classes = require('../utils/Classes');
 
 function BuilderRole() {
   PioneerRole.call(this, Roles.BUILDER);
 };
-Utils.inheritFromSuperClass(BuilderRole, PioneerRole);
+Classes.inheritFromSuperClass(BuilderRole, PioneerRole);
 
 BuilderRole.prototype._getNextTarget = function (screep) {
   var sites = screep.room.find(FIND_MY_CONSTRUCTION_SITES);

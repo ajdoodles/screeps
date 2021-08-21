@@ -1,13 +1,13 @@
 var Role = require('roles/role');
 var Roles = require('constants/roles');
-var Utils = require('utils');
+var Classes = require('../utils/Classes');
 
 const BASE_NAME = 'Pioneer';
 
 function PioneerRole(role = Roles.PIONEER) {
   Role.call(this, BASE_NAME, role, [WORK, CARRY, MOVE]);
 };
-Utils.inheritFromSuperClass(PioneerRole, Role);
+Classes.inheritFromSuperClass(PioneerRole, Role);
 
 PioneerRole.prototype.reassignRole = function (screep, newRole) {
   var oldRole = screep.memory.role;
