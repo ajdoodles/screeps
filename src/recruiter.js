@@ -15,7 +15,7 @@ var recruiter = (function() {
     }
   };
 
-  var _getRoleCount = function(room, role) {
+  var getRoleCount = function(room, role) {
     if (!room.roleCounts[role]) {
       room.roleCounts[role] = room.find(
         FIND_MY_CREEPS,
@@ -31,7 +31,7 @@ var recruiter = (function() {
     var roleClass = mRoleTable[role];
 
     var name = null
-    if (roleClass.needsMoreRecruits(room.name, _getRoleCount(room, role))) {
+    if (roleClass.needsMoreRecruits(room.name, getRoleCount(room, role))) {
       let newName = roleClass.mName + Game.time;
       let response = spawn.spawnCreep(
         roleClass.mBody,
@@ -62,6 +62,7 @@ var recruiter = (function() {
   };
 
   var mPublic = {
+    getRoleCount: getRoleCount,
     recruit: recruit,
   };
 
