@@ -5,7 +5,8 @@ function Role(name, role, body) {
 };
 
 Role.prototype.init = function(screep) {
-
+  screep.room.registerRole(screep);
+  screep.memory.birthRoom = screep.room.name;
 };
 
 Role.prototype.fetchEnergy = function(screep, target) {
@@ -44,8 +45,8 @@ Role.prototype.run = function(screep) {
 
 };
 
-Role.prototype.cleanUp = function(memory) {
-
+Role.prototype.cleanUp = function(name, memory) {
+  Game.rooms[memory.birthRoom].removeCreepNameFromRoster(name);
 };
 
 module.exports = Role;

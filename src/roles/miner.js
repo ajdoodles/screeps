@@ -42,8 +42,14 @@ MinerRole.prototype.run = function(screep) {
   }
 };
 
-MinerRole.prototype.cleanUp = function(memory) {
-  delete mSourceMinerIds[memory.sourceId];
+MinerRole.prototype.cleanUp = function(name, memory) {
+  PioneerRole.prototype.cleanUp(name, memory);
+  var source = Game.getObjectById(memory.sourceId);
+  if (source) {
+    source.miner = null;
+  } else {
+    console.log('WARNING: Dying miner ' + name + ' was pointing at corrupted source: ', memory.sourceId);
+  }
 };
 
 module.exports = new MinerRole();

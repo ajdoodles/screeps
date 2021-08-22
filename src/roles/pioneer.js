@@ -10,8 +10,10 @@ function PioneerRole(role = Roles.PIONEER) {
 Classes.inheritFromSuperClass(PioneerRole, Role);
 
 PioneerRole.prototype.reassignRole = function (screep, newRole) {
+  screep.room.removeCreepFromRoster(screep);
   var oldRole = screep.memory.role;
   screep.memory.role = newRole;
+  screep.room.addCreepToRoster(screep);
   this._setTarget(screep, null);
 };
 
@@ -71,8 +73,8 @@ PioneerRole.prototype.run = function(screep) {
   }
 };
 
-PioneerRole.prototype.cleanUp = function(memory) {
-
+PioneerRole.prototype.cleanUp = function(name, memory) {
+  Role.prototype.cleanUp(name, memory);
 };
 
 module.exports = PioneerRole;
