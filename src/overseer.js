@@ -4,9 +4,9 @@ module.exports = (function(){
   var mRoomRunner = require('RoomRunner');
 
   var garbageCollect = function() {
-    for (var name in Memory.creeps) {
+    for (const [name, memory] of Object.entries(Memory.creeps)) {
       if (!Game.creeps[name]) {
-        mRoleTable[Memory.creeps[name].role].cleanUp(Memory.creeps[name]);
+        mRoleTable[memory.role].cleanUp(name, memory);
         delete Memory.creeps[name];
       }
     }
