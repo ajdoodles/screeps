@@ -15,17 +15,6 @@ var recruiter = (function() {
     }
   };
 
-  var getRoleCount = function(room, role) {
-    if (!room.roleCounts[role]) {
-      room.roleCounts[role] = room.find(
-        FIND_MY_CREEPS,
-        {filter: (creep) => creep.memory.role === role}
-      ).length;
-    }
-
-    return room.roleCounts[role];
-  };
-
   var _recruitRole = function(room, role) {
     var roleClass = mRoleTable[role];
     var newName = roleClass.mName + Game.time;
@@ -53,7 +42,6 @@ var recruiter = (function() {
   };
 
   var mPublic = {
-    getRoleCount: getRoleCount,
     recruit: recruit,
   };
 
