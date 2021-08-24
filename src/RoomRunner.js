@@ -37,6 +37,10 @@ module.exports = (function(){
   };
 
   var _meetHiringTargets = function(room, hiringTargets) {
+    if (hiringTargets.size === 0) {
+      return;
+    }
+
     var recruitRequest = [];
     hiringTargets.forEach((count, role) => {
       let retasked = mTasker.retaskPioneers(room, role, count);
