@@ -20,7 +20,9 @@ module.exports = (function(){
   var runCreeps = function() {
     for (var creepName in Game.creeps) {
       var screep = Game.creeps[creepName];
-      mRoleTable[screep.memory.role].run(screep);
+      if (!screep.spawning) {
+        mRoleTable[screep.memory.role].run(screep);
+      }
     }
   };
 
