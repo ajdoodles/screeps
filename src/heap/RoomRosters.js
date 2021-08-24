@@ -55,6 +55,11 @@ module.exports = (function(){
 
   var logRoomRoster = function(room) {
     var roomRoster = _getRosterForRoom(room);
+    if (roomRoster.size > 0) {
+      console.log('CURRENT ROOM ROSTER:');
+    } else {
+      console.log('ROOM ROSTER EMPTY');
+    }
     let log;
     for (const [role, roster] of roomRoster.entries()) {
       log = role + ': ';
