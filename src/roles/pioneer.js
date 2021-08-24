@@ -11,6 +11,9 @@ function PioneerRole(role = Roles.PIONEER) {
 Classes.inheritFromSuperClass(PioneerRole, Role);
 
 PioneerRole.prototype.reassignRole = function (screep, newRole) {
+  if (screep.memory.role === newRole) {
+    return;
+  }
   screep.room.removeCreepFromRoster(screep);
   var oldRole = screep.memory.role;
   screep.memory.role = newRole;
