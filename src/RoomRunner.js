@@ -33,6 +33,14 @@ module.exports = (function(){
       if (numHarvesters > 0) {
         hiringTargets.set(Roles.HARVESTER, numHarvesters);
       }
+
+      let curUpgraders = room.getRoleCount(Roles.UPGRADER);
+      let numUpgraders = room.controller.level + 1;
+      numUpgraders -= curUpgraders;
+
+      if (numUpgraders > 0) {
+        hiringTargets.set(Roles.UPGRADER, numUpgraders);
+      }
     }
   };
 
