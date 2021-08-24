@@ -1,8 +1,11 @@
 module.exports = (function(){
 
+  var PioneerRole = require('roles/pioneer');
   var Roles = require('constants/Roles');
+  var Utils = require('utils/Utils');
+
   var mRecruiter = require('recruiter');
-  var mRoomHandlers = Object.create(null);
+  var mTasker = require('tasker/Tasker');
 
   // How many pioneers do we need to saturate all of the energy sources in the
   // room.
@@ -18,23 +21,42 @@ module.exports = (function(){
     return pioneerAllowance;
   };
 
-  var runDefault = function(room) {
+  var _runDefault = function(room, hiringTargets) {
     if (Game.time % 9 === 0) {
-      var curPioneers = room.find(FIND_MY_CREEPS, {filter: (creep) => creep.memory.role !== Roles.MINER}).length;
-      var maxPioneers = _calculateMaxPioneers(room);
-      mRecruiter.recruit(room, [Roles.PIONEER]);
+      let energyGap = room.energyCapacityAvailable - room.energyAvailable;
+      let pioneerCost = Utils.getBodyCost(PioneerRole.BASE_BODY);
+      // Each pioneer carries 50 energy
+      let numHarvesters = Math.ceil(Math.max(energyGap, pioneerCost) / 50);
+      let curHarvesters = room.getRoleCount(Roles.HARVESTER);
+
+      numHarvesters -= curHarvesters;
+      if (numHarvesters > 0) {
+        hiringTargets.set(Roles.HARVESTER, numHarvesters);
+      }
     }
   };
 
-  mRoomHandlers[0] = function(room) {
+  var _meetHiringTargets = function(room, hiringTargets) {
+    var recruitRequest = [];
+    hiringTargets.forEach((count, role) => {
+      let retasked = mTasker.retaskPioneers(room, role, count);
+      let needsMore = (count - retasked) > 0;
+      if (needsMore) {
+        recruitRequest.push(role);
+      }
+    });
+    if (recruitRequest.length > 0) {
+      mRecruiter.recruit(room, recruitRequest);
+    }
+  };
+
   var run = function(roomName) {
     var room = Game.rooms[roomName];
     var controllerLevel = room.controller.level;
-    if (!mRoomHandlers[controllerLevel]) {
-      runDefault(room);
-    } else {
-      mRoomHandlers[controllerLevel](room);
-    }
+    var hiringTargets = new Map();
+
+    _runDefault(room, hiringTargets);
+    _meetHiringTargets(room, hiringTargets);
   };
 
   var mPublic = {
