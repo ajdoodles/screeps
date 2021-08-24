@@ -3,9 +3,10 @@ var Roles = require('constants/roles');
 var Classes = require('../utils/Classes');
 
 const BASE_NAME = 'Pioneer';
+PioneerRole.BASE_BODY = [WORK, CARRY, MOVE];
 
 function PioneerRole(role = Roles.PIONEER) {
-  Role.call(this, BASE_NAME, role, [WORK, CARRY, MOVE]);
+  Role.call(this, BASE_NAME, role, PioneerRole.BASE_BODY);
 };
 Classes.inheritFromSuperClass(PioneerRole, Role);
 
