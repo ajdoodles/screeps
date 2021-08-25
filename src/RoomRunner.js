@@ -90,7 +90,7 @@ module.exports = (function(){
   };
 
   var mPublic = {
-    run: run
+    run: run,
   };
 
   return mPublic;
