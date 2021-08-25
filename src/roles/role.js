@@ -6,7 +6,6 @@ function Role(name, role, body) {
 
 Role.prototype.init = function(screep) {
   screep.room.registerRole(screep);
-  screep.memory.birthRoom = screep.room.name;
 };
 
 Role.prototype.fetchEnergy = function(screep, target) {

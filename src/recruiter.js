@@ -21,7 +21,7 @@ var recruiter = (function() {
     var response = room.mainSpawn.spawnCreep(
       roleClass.mBody,
       newName,
-      {memory: {role: roleClass.mRole}}
+      {memory: {role: roleClass.mRole, birthRoom: room.name}}
     );
 
     return response === OK ? newName : null;
