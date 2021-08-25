@@ -32,7 +32,7 @@ module.exports = (function(){
     hiringTargets.set(role, hiringTargets.get(role) + count);
   };
 
-  var _matchDemand = function(role, count, hiringTargets) {
+  var _matchDemand = function(room, role, count, hiringTargets) {
     if (count <= 0) {
       return;
     }
@@ -55,10 +55,10 @@ module.exports = (function(){
       let pioneerCost = Utils.getBodyCost(PioneerRole.BASE_BODY);
       // Each pioneer carries 50 energy
       let numHarvesters = Math.ceil(Math.max(energyGap, pioneerCost) / 50);
-      _matchDemand(Roles.HARVESTER, numHarvesters, hiringTargets);
+      _matchDemand(room, Roles.HARVESTER, numHarvesters, hiringTargets);
 
       let numUpgraders = room.controller.level + 1;
-      _matchDemand(Roles.UPGRADER, numUpgraders, hiringTargets);
+      _matchDemand(room, Roles.UPGRADER, numUpgraders, hiringTargets);
     }
   };
 
