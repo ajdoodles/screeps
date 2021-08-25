@@ -96,6 +96,14 @@ module.exports = (function(){
     return mRoomRosters.getRoleCount(this, role);
   };
 
+  Room.prototype.getRoster = function() {
+    return mRoomRosters.getRoomRoster(this);
+  };
+
+  Room.prototype.getRosterForRole = function(role) {
+    return mRoomRosters.getRoomRosterForRole(this, role);
+  };
+
   Room.prototype.addCreepNameToRoster = function(creepName) {
     mRoomRosters.addCreepNameToRoster(this, creepName);
   };
