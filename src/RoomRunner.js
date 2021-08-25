@@ -21,26 +21,44 @@ module.exports = (function(){
     return pioneerAllowance;
   };
 
+  var _addToHiringTargets = function(role, count, hiringTargets) {
+    if (count <= 0) {
+      return;
+    }
+
+    if (!hiringTargets.has(role)) {
+      hiringTargets.set(role, 0);
+    }
+    hiringTargets.set(role, hiringTargets.get(role) + count);
+  };
+
+  var _matchDemand = function(role, count, hiringTargets) {
+    if (count <= 0) {
+      return;
+    }
+
+    var curRoleCount = room.getRoleCount(role);
+
+    if (count <= curRoleCount) {
+      return; // We have enough of these, don't hire more
+    }
+
+    if (!hiringTargets.has(role)) {
+      hiringTargets.set(role, 0);
+    }
+    hiringTargets.set(role, count - curRoleCount);
+  };
+
   var _runDefault = function(room, hiringTargets) {
     if (Game.time % 9 === 0) {
       let energyGap = room.energyCapacityAvailable - room.energyAvailable;
       let pioneerCost = Utils.getBodyCost(PioneerRole.BASE_BODY);
       // Each pioneer carries 50 energy
       let numHarvesters = Math.ceil(Math.max(energyGap, pioneerCost) / 50);
-      let curHarvesters = room.getRoleCount(Roles.HARVESTER);
+      _matchDemand(Roles.HARVESTER, numHarvesters, hiringTargets);
 
-      numHarvesters -= curHarvesters;
-      if (numHarvesters > 0) {
-        hiringTargets.set(Roles.HARVESTER, numHarvesters);
-      }
-
-      let curUpgraders = room.getRoleCount(Roles.UPGRADER);
       let numUpgraders = room.controller.level + 1;
-      numUpgraders -= curUpgraders;
-
-      if (numUpgraders > 0) {
-        hiringTargets.set(Roles.UPGRADER, numUpgraders);
-      }
+      _matchDemand(Roles.UPGRADER, numUpgraders, hiringTargets);
     }
   };
 
