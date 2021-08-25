@@ -8,7 +8,9 @@ module.exports = (function(){
           Memory.mySourcesMemory = {};
         }
         return Memory.mySourcesMemory[this.id] = Memory.mySourcesMemory[this.id] || {};
-      }
+      },
+      enumerable: false,
+      configurable: true
     }
   );
 
@@ -47,7 +49,9 @@ module.exports = (function(){
           this._bufferPos = this.memory.bufferPos;
         }
         return this._bufferPos;
-      }
+      },
+      enumerable: false,
+      configurable: true
     }
   );
 
@@ -82,5 +86,6 @@ module.exports = (function(){
       },
       enumerable: false,
       configurable: true
-    });
+    }
+  );
 }());
