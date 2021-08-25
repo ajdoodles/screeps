@@ -51,10 +51,14 @@ module.exports = (function(){
 
   var _runDefault = function(room, hiringTargets) {
     if (Game.time % 9 === 0) {
+      let curPioneers = room.getCreepCount();
+      let numPioneers = Utils.getBodyCost(PioneerRole.BASE_BODY) / 50;
+      numPioneers -= curPioneers;
+      _addToHiringTargets(Roles.PIONEER, numPioneers, hiringTargets);
+
       let energyGap = room.energyCapacityAvailable - room.energyAvailable;
-      let pioneerCost = Utils.getBodyCost(PioneerRole.BASE_BODY);
       // Each pioneer carries 50 energy
-      let numHarvesters = Math.ceil(Math.max(energyGap, pioneerCost) / 50);
+      let numHarvesters = Math.ceil(energyGap / 50);
       _matchDemand(room, Roles.HARVESTER, numHarvesters, hiringTargets);
 
       let numUpgraders = room.controller.level + 1;
