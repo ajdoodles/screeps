@@ -80,6 +80,7 @@ module.exports = (function(){
 
   var mPublic = {
     getRoleCount: getRoleCount,
+    getCreepCount: getCreepCount,
     getRoomRoster: getRoomRoster,
     getRoomRosterForRole: getRoomRosterForRole,
     addCreepNameToRoster: addCreepNameToRoster,
