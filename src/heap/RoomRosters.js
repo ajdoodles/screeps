@@ -30,10 +30,6 @@ module.exports = (function(){
     return global.RoomRosters[room.name];
   };
 
-  var getRoleCount = function(room, role) {
-    return getRoomRosterForRole(room, role).length;
-  };
-
   var getRoomRoster = function(room) {
     return new Map(_getRosterForRoom(room));
   };
@@ -41,6 +37,18 @@ module.exports = (function(){
   var getRoomRosterForRole = function(room, role) {
     var roster = _getRosterForRoom(room).get(role);
     return roster ? Array.from(roster) : [];
+  };
+
+  var getRoleCount = function(room, role) {
+    return getRoomRosterForRole(room, role).length;
+  };
+
+  var getCreepCount = function(room) {
+    var totalCount = 0;
+    for (const [role, roster] of getRoomRoster(room)) {
+      totalCount += roster.length;
+    }
+    return totalCount;
   };
 
   var addCreepNameToRoster = function(room, creepName) {
