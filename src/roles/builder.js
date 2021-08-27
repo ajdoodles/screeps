@@ -1,5 +1,5 @@
 var PioneerRole = require('roles/pioneer');
-var Roles = require('../constants/roles');
+var Roles = require('../constants/Roles');
 var Classes = require('../utils/Classes');
 
 function BuilderRole() {

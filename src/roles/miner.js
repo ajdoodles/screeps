@@ -1,5 +1,5 @@
 var Role = require('roles/role');
-var Roles = require('../constants/roles');
+var Roles = require('../constants/Roles');
 var Classes = require('../utils/Classes');
 
 function MinerRole(){
