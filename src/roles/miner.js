@@ -5,28 +5,14 @@ var Classes = require('../utils/Classes');
 function MinerRole(){
   Role.call(this, 'Miner', Roles.MINER, [MOVE, WORK, WORK, WORK, WORK, WORK]);
 };
-
-var mSourceMinerIds = {};
-
-var buildMinerList = function() {
-  for (var name in Game.creeps) {
-    if (Memory.creeps[name].role === 'miner') {
-      mSourceMinerIds[Memory.creeps[name].sourceId] = name;
-    }
-  }
-}
-
-buildMinerList();
-
-MinerRole.prototype.init = function(screep) {
-  var sources = screep.room.sources;
-  for (var i in sources) {
-    if (!mSourceMinerIds[sources[i].id]) {
-      mSourceMinerIds[sources[i].id] = screep.name;
-      screep.memory.sourceId = sources[i].id;
-      return;
-    }
 Classes.inheritFromSuperClass(MinerRole, Role);
+
+MinerRole.prototype.init = function(creep) {
+  var freeSource = creep.room.sources.find((source) => !source.miner);
+  if (freeSource) {
+    freeSource.miner = creep;
+  } else {
+    console.log('WARNING: Spawning miner in room ' + creep.room.name + ' but there are no free mines.');
   }
 };
 

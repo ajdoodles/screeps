@@ -16,6 +16,80 @@ module.exports = (function(){
 
   Object.defineProperty(
     Source.prototype,
+    'pioneers',
+    {
+      get: function() {
+        if (!this._pioneers) {
+          if (this.memory.pioneerIds) {
+            this.memory.pioneerIds = this.memory.pioneerIds.filter((id) => Game.getObjectById(id));
+          }
+        }
+
+        if (!this._pioneers) {
+          if (!this.memory.pioneerIds) {
+            var buffer = this.buffer;
+            var pioneers = Object.values(Game.creeps).filter((creep) => {
+              var myPioneer = false;
+              creep.memory.sourceId === this.id;
+              if (creep.memory.role === Roles.PIONEER) {
+                if (creep.memory.sourceId) {
+                  myPioneer = creep.memory.sourceId === this.id;
+                } else if (creep.memory.bufferId){
+                  myPioneer = this.buffer && this.buffer.id === creep.memory.bufferId;
+                }
+              }
+              return myPioneer;
+            });
+            this.memory.pioneerIds = pioneers.map((pioneer) => pioneer.id);
+          }
+          this._pioneers = this.memory.pioneerIds.map((id) => Game.getObjectById(id));
+        }
+        return this._pioneers;
+      },
+      enumerable: false,
+      configurable: true
+    }
+  );
+
+  Object.defineProperty(
+    Source.prototype,
+    'miner',
+    {
+      get: function () {
+        if (!this._miner) {
+          this._miner = Game.getObjectById(this.memory.minerId);
+        }
+
+        if (!this._miner) {
+          if (!this.memory.minerId) {
+            var miner = Object.values(Game.creeps).find((creep) => {
+              creep.memory.role === Roles.MINER && creep.memory.sourceId === this.id;
+            });
+            if (miner) {
+              this.memory.minerId = miner.id;
+            } else {
+              delete this.memory.minerId;
+            }
+            this._miner = Game.getObjectById(this.memory.minerId);
+          }
+          return this._miner;
+        }
+      },
+      set: function (creep) {
+        this._miner = creep;
+        if (creep) {
+          this.memory.minerId = creep.id;
+        } else {
+          delete this.memory.minerId;
+        }
+      },
+      enumerable: false,
+      configurable: true
+    }
+  );
+
+  Object.defineProperty(
+    Source.prototype,
     'bufferPos',
     {
       get: function() {
