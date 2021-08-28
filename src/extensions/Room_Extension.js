@@ -1,7 +1,5 @@
 module.exports = (function(){
 
-  var mRoomRosters = require('../heap/RoomRosters');
-
   Object.defineProperty(
     Room.prototype,
     'sources',
@@ -91,41 +89,4 @@ module.exports = (function(){
     });
     return positions;
   };
-
-  Room.prototype.getRoleCount = function(role) {
-    return mRoomRosters.getRoleCount(this, role);
-  };
-
-  Room.prototype.getCreepCount = function() {
-    return mRoomRosters.getCreepCount(this);
-  };
-
-  Room.prototype.getRoster = function() {
-    return mRoomRosters.getRoomRoster(this);
-  };
-
-  Room.prototype.getRosterForRole = function(role) {
-    return mRoomRosters.getRoomRosterForRole(this, role);
-  };
-
-  Room.prototype.addCreepNameToRoster = function(creepName) {
-    mRoomRosters.addCreepNameToRoster(this, creepName);
-  };
-
-  Room.prototype.addCreepToRoster = function(creep) {
-    this.addCreepNameToRoster(creep.name);
-  };
-
-  Room.prototype.removeCreepNameFromRoster = function(creepName) {
-    mRoomRosters.removeCreepNameFromRoster(this, creepName);
-  };
-
-  Room.prototype.removeCreepFromRoster = function(creep) {
-    this.removeCreepNameFromRoster(creep.name);
-  };
-
-  Room.prototype.logRoster = function() {
-    mRoomRosters.logRoomRoster(this);
-  };
-
 }());
