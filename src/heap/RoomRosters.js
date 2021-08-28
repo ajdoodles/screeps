@@ -1,6 +1,6 @@
 module.exports = (function(){
 
-  var mRoomsHeap = require('Room_Heap');
+  var mRoomsHeap = require('RoomsHeap');
 
   var _addCreepNameToRoomRoster = function(roomRoster, creepName) {
     if (!roomRoster.has(Memory.creeps[creepName].role)) {
