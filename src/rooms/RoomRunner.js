@@ -7,6 +7,10 @@ module.exports = (function(){
   var mRecruiter = require('recruiter');
   var mTasker = require('tasker/Tasker');
 
+  var _survey = function() {
+
+  };
+
   // How many pioneers do we need to saturate all of the energy sources in the
   // room.
   var _calculateMaxPioneers = function(room) {
@@ -86,9 +90,10 @@ module.exports = (function(){
 
   var run = function(roomName) {
     var room = Game.rooms[roomName];
-    var controllerLevel = room.controller.level;
-    var hiringTargets = new Map();
 
+    _survey(room);
+
+    var hiringTargets = new Map();
     _runDefault(room, hiringTargets);
     _meetHiringTargets(room, hiringTargets);
   };
