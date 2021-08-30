@@ -16,10 +16,7 @@ module.exports = (function(){
     }
 
     var idlers = _getPioneers(room).slice(0, count);
-    if (role !== Roles.PIONEER) {
-      idlers.forEach((idler) => PioneerRole.prototype.reassignRole(idler, role));
-    }
-
+    idlers.forEach((idler) => PioneerRole.prototype.reassignRole(idler, role));
     return idlers.length;
   };
 
