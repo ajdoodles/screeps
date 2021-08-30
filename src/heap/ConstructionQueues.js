@@ -14,11 +14,11 @@ module.exports = (function(){
   };
 
   var isEmpty = function(room, buildType) {
-    return _getQueue(buildType).length === 0;
+    return _getQueue(room, buildType).length === 0;
   };
 
   var peek = function(room, buildType) {
-    return isEmpty(buildType) ? undefined : _getQueue(room, buildType)[0];
+    return isEmpty(room, buildType) ? undefined : _getQueue(room, buildType)[0];
   };
 
   var enqueue = function(room, buildType, project) {
