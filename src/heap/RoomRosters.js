@@ -50,7 +50,7 @@ module.exports = (function(){
 
   var getRoleCount = function(room, role) {
     console.log('getRoleCount()', room, role);
-    return _getRoleRoster(room, role).length;
+    return _getRoleRoster(room, role).size;
   };
 
   var getCreepCount = function(room) {
