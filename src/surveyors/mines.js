@@ -1,19 +1,20 @@
-var Surveyor = require('surveyors/surveyor');
-var Utils = require('utils');
-
-var mConstructionQueues = require('../heap/ConstructionQueues');
+var BuildTypes = require('../constants/BuildTypes');
+var Classes = require('../utils/Classes');
+var ConstructionQueues = require('../heap/ConstructionQueues');
+var Surveyor = require('../surveyors/surveyor');
 
 function MineSurveyor() {
   Surveyor.call(this);
 };
-Utils.inheritFromSuperClass(MineSurveyor, Surveyor);
+Classes.inheritFromSuperClass(MineSurveyor, Surveyor);
 
 MineSurveyor.prototype.survey = function (room) {
-  if (!mConstructionQueues.isEmpty(BuildTypes.MINES)) {
+  if (!ConstructionQueues.isEmpty(room, BuildTypes.MINES)) {
     return;
   }
 
   var sourcesWithoutBuffers = room.sources.filter((source) => !source.buffer);
+  console.log('sourcesWithoutBuffers', sourcesWithoutBuffers);
 
   if (sourcesWithoutBuffers.length === 0) {
     return;
@@ -26,12 +27,15 @@ MineSurveyor.prototype.survey = function (room) {
       {pos: source.pos, range: 1},
       {swampCost: 1});
     sourceDistances[source.id] = results.path.length;
-  }).sort((firstSource, secondSource) => {
+  });
+  sourcesWithoutBuffers.sort((firstSource, secondSource) => {
     sourceDistances[firstSource.id] - sourceDistances[secondSource.id];
-  }).forEach((source) => mConstructionQueues.queue(BuildTypes.MINES, source));
+  }).forEach((source) => {
+    ConstructionQueues.enqueue(room, BuildTypes.MINES, source);
+  });
 };
 
-MineSurveyor.prototype.planConstruction = function(source) {
+MineSurveyor.prototype.planConstruction = function(room, source) {
   var {x, y} = source.bufferPos;
   room.createConstructionSite(x, y, STRUCTURE_CONTAINER);
 };
