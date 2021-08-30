@@ -1,7 +1,5 @@
 module.exports = (function(){
 
-  var RoomsHeap = require('./RoomsHeap');
-
   var _getRosterFromMap = function(map, role) {
     if (!map.has(role)) {
       map.set(role, new Set());
