@@ -1,7 +1,7 @@
 module.exports = (function(){
 
   var mRoleTable = require('tables/RoleTable');
-  var mRoomRunner = require('RoomRunner');
+  var mRoomRunner = require('rooms/RoomRunner');
 
   var garbageCollect = function() {
     for (const [name, memory] of Object.entries(Memory.creeps)) {

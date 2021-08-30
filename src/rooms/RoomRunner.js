@@ -1,11 +1,11 @@
 module.exports = (function(){
 
-  var PioneerRole = require('roles/pioneer');
-  var Roles = require('constants/Roles');
-  var Utils = require('utils/Utils');
+  var PioneerRole = require('../roles/pioneer');
+  var Roles = require('../constants/Roles');
+  var Utils = require('../utils/Utils');
 
-  var mRecruiter = require('recruiter');
-  var mTasker = require('tasker/Tasker');
+  var mRecruiter = require('../recruiter');
+  var mTasker = require('./Tasker');
 
   var _survey = function() {
 
