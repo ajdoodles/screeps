@@ -7,7 +7,7 @@ module.exports = (function(){
       map.set(role, new Set());
     }
     return map.get(role);
-  }
+  };
 
   var _addToRosterMap = function(map, role, creepName) {
     var roleRoster = _getRosterFromMap(map, role);
