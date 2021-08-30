@@ -53,19 +53,18 @@ module.exports = (function(){
     hiringTargets.set(role, count - curRoleCount);
   };
 
-  var _runDefault = function(room, hiringTargets) {
-    Recruiter.initSpawnedRecruits(room);
-    if (Game.time % 9 === 0) {
-      let pioneerCost = Utils.getBodyCost(PioneerRole.BASE_BODY);
-      let energyGap = room.energyCapacityAvailable - room.energyAvailable;
-      let energyNeeds = Math.max(energyGap, pioneerCost);
-      // Each pioneer carries 50 energy
-      let numHarvesters = Math.ceil(energyNeeds / 50);
-      _matchDemand(room, Roles.HARVESTER, numHarvesters, hiringTargets);
+  var _requestHarvesters = function(room, hiringTargets) {
+    let pioneerCost = Utils.getBodyCost(PioneerRole.BASE_BODY);
+    let energyGap = room.energyCapacityAvailable - room.energyAvailable;
+    let energyNeeds = Math.max(energyGap, pioneerCost);
+    // Each pioneer carries 50 energy
+    let numHarvesters = Math.ceil(energyNeeds / 50);
+    _matchDemand(room, Roles.HARVESTER, numHarvesters, hiringTargets);
+  };
 
-      let numUpgraders = room.controller.level + 1;
-      _matchDemand(room, Roles.UPGRADER, numUpgraders, hiringTargets);
-    }
+  var _requestUpgraders = function(room, hiringTargets) {
+    let numUpgraders = room.controller.level + 1;
+    _matchDemand(room, Roles.UPGRADER, numUpgraders, hiringTargets);
   };
 
   var _meetHiringTargets = function(room, hiringTargets) {
@@ -91,9 +90,14 @@ module.exports = (function(){
 
     _survey(room);
 
+    Recruiter.initSpawnedRecruits(room);
+
     var hiringTargets = new Map();
-    _runDefault(room, hiringTargets);
-    _meetHiringTargets(room, hiringTargets);
+    if (Game.time % 9 === 0) {
+      _requestHarvesters(room, hiringTargets);
+      _requestUpgraders(room, hiringTargets);
+      _meetHiringTargets(room, hiringTargets);
+    }
   };
 
   var mPublic = {
