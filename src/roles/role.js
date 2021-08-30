@@ -1,3 +1,5 @@
+var RoomRosters = require('../heap/RoomRosters');
+
 function Role(name, role, body) {
   this.mName = name;
   this.mRole = role;
@@ -5,7 +7,7 @@ function Role(name, role, body) {
 };
 
 Role.prototype.init = function(screep) {
-  screep.room.registerRole(screep);
+  RoomRosters.addCreepNameToRoster(Game.rooms[screep.memory.birthRoom], screep.name);
 };
 
 Role.prototype.fetchEnergy = function(screep, target) {
@@ -45,7 +47,7 @@ Role.prototype.run = function(screep) {
 };
 
 Role.prototype.cleanUp = function(name, memory) {
-  Game.rooms[memory.birthRoom].removeCreepNameFromRoster(name);
+  RoomRosters.removeCreepNameFromRoster(Game.rooms[memory.birthRoom], name);
 };
 
 module.exports = Role;

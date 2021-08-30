@@ -2,6 +2,7 @@ module.exports = (function(){
 
   var PioneerRole = require('../roles/pioneer');
   var Roles = require('../constants/Roles');
+  var RoomRosters = require('../heap/RoomRosters');
   var Utils = require('../utils/Utils');
 
   var mRecruiter = require('../recruiter');
@@ -41,7 +42,7 @@ module.exports = (function(){
       return;
     }
 
-    var curRoleCount = room.getRoleCount(role);
+    var curRoleCount = RoomRosters.getRoleCount(room, role);
 
     if (count <= curRoleCount) {
       return; // We have enough of these, don't hire more
@@ -54,8 +55,9 @@ module.exports = (function(){
   };
 
   var _runDefault = function(room, hiringTargets) {
+    mRecruiter.initSpawnedRecruits(room);
     if (Game.time % 9 === 0) {
-      let curPioneers = room.getCreepCount();
+      let curPioneers = RoomRosters.getCreepCount(room);
       let numPioneers = Utils.getBodyCost(PioneerRole.BASE_BODY) / 50;
       numPioneers -= curPioneers;
       _addToHiringTargets(Roles.PIONEER, numPioneers, hiringTargets);

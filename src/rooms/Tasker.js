@@ -1,10 +1,13 @@
 module.exports = (function(){
 
   var Roles = require('../constants/Roles');
+  var RoomRosters = require('../heap/RoomRosters');
   var PioneerRole = require('../roles/pioneer');
 
   var _getPioneers = function(room) {
-    return room.getRosterForRole(Roles.PIONEER).map((name) => Game.creeps[name]);
+    return RoomRosters.getRoomRosterForRole(
+      room,
+      Roles.PIONEER).map((name) => Game.creeps[name]);
   };
 
   var retaskPioneers = function(room, role, count) {

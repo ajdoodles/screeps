@@ -1,5 +1,6 @@
 var Role = require('roles/role');
 var Roles = require('constants/Roles');
+var RoomRosters = require('../heap/RoomRosters');
 var Classes = require('../utils/Classes');
 
 const BASE_NAME = 'Pioneer';
@@ -14,14 +15,15 @@ PioneerRole.prototype.reassignRole = function (screep, newRole) {
   if (screep.memory.role === newRole) {
     return;
   }
-  screep.room.removeCreepFromRoster(screep);
+  RoomRosters.removeCreepNameFromRoster(screep.room, screep.name);
   var oldRole = screep.memory.role;
   screep.memory.role = newRole;
-  screep.room.addCreepToRoster(screep);
+  RoomRosters.addCreepNameToRoster(screep.room, screep.name);
   this._setTarget(screep, null);
 };
 
 PioneerRole.prototype.init = function(screep) {
+  Role.prototype.init.call(this, screep);
   screep.memory.fetching = true;
 };
 
