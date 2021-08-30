@@ -1,5 +1,7 @@
 module.exports = (function(){
 
+  var Constants = require('../constants/Constants');
+
   var _getQueues = function(room) {
     room.heap.constructionQueues = room.heap.constructionQueues || Object.create(null);
     return room.heap.constructionQueues;
@@ -28,7 +30,7 @@ module.exports = (function(){
   };
 
   var getActiveConstruction = function(room) {
-    return _getQueue(room, BuildTypes.ACTIVE);
+    return _getQueue(room, Constants.ACTIVE);
   };
 
   var mPublic = {
@@ -36,6 +38,7 @@ module.exports = (function(){
     peek: peek,
     enqueue: enqueue,
     dequeue: dequeue,
+    getActiveConstruction: getActiveConstruction,
   };
 
   return mPublic;
