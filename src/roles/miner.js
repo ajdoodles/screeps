@@ -8,6 +8,7 @@ function MinerRole(){
 Classes.inheritFromSuperClass(MinerRole, Role);
 
 MinerRole.prototype.init = function(creep) {
+  Role.prototype.init.call(this, creep);
   var freeSource = creep.room.sources.find((source) => !source.miner);
   if (freeSource) {
     freeSource.miner = creep;
