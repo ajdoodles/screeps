@@ -2,29 +2,30 @@ module.exports = (function(){
 
   var RoomsHeap = require('./RoomsHeap');
 
-  var _addCreepNameToRosters = function(allRosters, creepName) {
-    if (!allRosters.has(Memory.creeps[creepName].role)) {
-      allRosters.set(Memory.creeps[creepName].role, new Set());
+  var _getRosterFromMap = function(map, role) {
+    if (!map.has(role)) {
+      map.set(role, new Set());
     }
-    allRosters.get(Memory.creeps[creepName].role).add(creepName);
+    return map.get(role);
+  }
+
+  var _addToRosterMap = function(map, role, creepName) {
+    var roleRoster = _getRosterFromMap(map, role);
+    roleRoster.add(creepName);
   };
 
-  var _removeCreepNameFromRosters = function(allRosters, creepName) {
-    var roleRoster = allRosters.get(Memory.creeps[creepName].role);
-    roleRoster.delete(creepName);
-    if (roleRoster.size === 0) {
-      allRosters.delete(Memory.creeps[creepName].role);
+  var _removeFromRosterMap = function(map, role, creepName) {
+    if (map.has(role)) {
+      map.get(role).delete(creepName);
     }
   };
 
   var _getAllRosters = function(room) {
-    console.log('_getAllRosters room is ' + room + ', heap is ', room.heap);
-    console.log(Object.entries(room.heap));
     if (!room.heap.rosters) {
       let allRosters = new Map();
 
       room.find(FIND_MY_CREEPS).forEach((creep) => {
-        _addCreepNameToRosters(allRosters, creep.name);
+        _addToRosterMap(allRosters, creep.memory.role, creep.name);
       });
 
       room.heap.rosters = allRosters;
@@ -33,26 +34,27 @@ module.exports = (function(){
   };
 
   var _getRoleRoster = function(room, role) {
-    var rosters = _getAllRosters(room);
-    if (!rosters.has(role)) {
-      rosters.set(role, []);
-    }
-    return rosters.get(role);
+    var allRosters = _getAllRosters(room);
+    return _getRosterFromMap(allRosters, role);
   };
 
   var getRoomRoster = function(room) {
+    console.log('getRoomRoster()', room);
     return new Map(_getAllRosters(room));
   };
 
   var getRoomRosterForRole = function(room, role) {
+    console.log('getRoomRosterForRole()', room, role);
     return Array.from(_getRoleRoster(room, role));
   };
 
   var getRoleCount = function(room, role) {
+    console.log('getRoleCount()', room, role);
     return _getRoleRoster(room, role).length;
   };
 
   var getCreepCount = function(room) {
+    console.log('getCreepCount()', room);
     var totalCount = 0;
     console.log('getting getCreepCount, room is ' + room);
     _getAllRosters(room).forEach((roster) => totalCount += roster.length);
@@ -60,13 +62,15 @@ module.exports = (function(){
   };
 
   var addCreepNameToRoster = function(room, creepName) {
+    console.log('addCreepNameToRoster()', room, creepName);
     var allRosters = _getAllRosters(room);
-    _addCreepNameToRosters(allRosters, creepName);
+    _addToRosterMap(allRosters, Memory.creeps[creepName].role, creepName);
   };
 
   var removeCreepNameFromRoster = function(room, creepName) {
+    console.log('removeCreepNameFromRoster()', room, creepName);
     var allRosters = _getAllRosters(room);
-    _removeCreepNameFromRosters(allRosters, creepName);
+    _removeFromRosterMap(allRosters, Memory.creeps[creepName].role, creepName);
   };
 
   var logRoomRoster = function(room) {
