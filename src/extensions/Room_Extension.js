@@ -1,5 +1,17 @@
 module.exports = (function(){
 
+  var RoomsHeap = require('../heap/RoomsHeap');
+
+  Object.defineProperty(
+    Room.prototype,
+    'heap',
+    {
+      get: function () {
+        return RoomsHeap.getRoomHeap(this);
+      }
+    }
+  );
+
   Object.defineProperty(
     Room.prototype,
     'sources',

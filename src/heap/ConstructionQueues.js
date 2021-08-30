@@ -1,31 +1,30 @@
 module.exports = (function(){
 
-  var mRoomsHeap = require('RoomsHeap');
-
-  var _getQueue = function(buildType) {
-    if (!mRoomsHeap.constructionQueues) {
-      mRoomsHeap.constructionQueues = Object.create(null);
-    }
-    if (!mRoomsHeap.constructionQueues[buildType]) {
-      mRoomsHeap.constructionQueues[buildType] = [];
-    }
-    return mRoomsHeap.constructionQueues[buildType];
+  var _getQueues = function(room) {
+    room.heap.constructionQueues = room.heap.constructionQueues || Object.create(null);
+    return room.heap.constructionQueues;
   };
 
-  var isEmpty = function(buildType) {
+  var _getQueue = function(room, buildType) {
+    var queues = _getQueues(room);
+    queues[buildType] = queues[buildType] || [];
+    return queues[buildType];
+  };
+
+  var isEmpty = function(room, buildType) {
     return _getQueue(buildType).length === 0;
   };
 
-  var peek = function(buildType) {
-    return isEmpty(buildType) ? undefined : _getQueue(buildType)[0];
+  var peek = function(room, buildType) {
+    return isEmpty(buildType) ? undefined : _getQueue(room, buildType)[0];
   };
 
-  var enqueue = function(buildType, project) {
-    _getQueue(buildType).push(project);
+  var enqueue = function(room, buildType, project) {
+    _getQueue(room, buildType).push(project);
   };
 
-  var dequeue = function(buildType) {
-    return _getQueue(buildType).shift();
+  var dequeue = function(room, buildType) {
+    return _getQueue(room, buildType).shift();
   };
 
   var mPublic = {

@@ -1,6 +1,6 @@
 module.exports = (function(){
 
-  var mRoomsHeap = require('RoomsHeap');
+  var RoomsHeap = require('RoomsHeap');
 
   var _addCreepNameToRoomRoster = function(roomRoster, creepName) {
     if (!roomRoster.has(Memory.creeps[creepName].role)) {
@@ -18,16 +18,16 @@ module.exports = (function(){
   };
 
   var _getRosterForRoom = function(room) {
-    if (!mRoomsHeap[room.name].roster) {
+    if (!room.heap.roster) {
       let roomRoster = new Map();
 
       room.find(FIND_MY_CREEPS).forEach((creep) => {
         _addCreepNameToRoomRoster(roomRoster, creep.name);
       });
 
-      mRoomsHeap[room.name].roster = roomRoster;
+      room.heap.roster = roomRoster;
     }
-    return mRoomsHeap[room.name].roster;
+    return room.heap.roster;
   };
 
   var getRoomRoster = function(room) {
