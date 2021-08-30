@@ -27,6 +27,10 @@ module.exports = (function(){
     return _getQueue(room, buildType).shift();
   };
 
+  var getActiveConstruction = function(room) {
+    return _getQueue(room, BuildTypes.ACTIVE);
+  };
+
   var mPublic = {
     isEmpty: isEmpty,
     peek: peek,
