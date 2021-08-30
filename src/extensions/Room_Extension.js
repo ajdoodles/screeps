@@ -57,7 +57,7 @@ module.exports = (function(){
             .sort((firstSpawning, secondSpawning) => firstSpawning.remainingTime - secondSpawning.remainingTime)
             .map((spawn) => spawn.spawning.name);
           }
-          this._recruits = this.memory.recruits;
+          this._recruits = Array.from(this.memory.recruits);
         }
         return this._recruits;
       },
