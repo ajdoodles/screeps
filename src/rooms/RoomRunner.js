@@ -1,12 +1,11 @@
 module.exports = (function(){
 
   var PioneerRole = require('../roles/pioneer');
+  var Recruiter = require('./Recruiter');
   var Roles = require('../constants/Roles');
   var RoomRosters = require('../heap/RoomRosters');
+  var Tasker = require('./Tasker');
   var Utils = require('../utils/Utils');
-
-  var mRecruiter = require('../recruiter');
-  var mTasker = require('./Tasker');
 
   var _survey = function() {
 
@@ -55,7 +54,7 @@ module.exports = (function(){
   };
 
   var _runDefault = function(room, hiringTargets) {
-    mRecruiter.initSpawnedRecruits(room);
+    Recruiter.initSpawnedRecruits(room);
     if (Game.time % 9 === 0) {
       let pioneerCost = Utils.getBodyCost(PioneerRole.BASE_BODY);
       let energyGap = room.energyCapacityAvailable - room.energyAvailable;
@@ -76,14 +75,14 @@ module.exports = (function(){
 
     var recruitRequest = [];
     hiringTargets.forEach((count, role) => {
-      let retasked = mTasker.retaskPioneers(room, role, count);
+      let retasked = Tasker.retaskPioneers(room, role, count);
       let needsMore = (count - retasked) > 0;
       if (needsMore) {
         recruitRequest.push(role);
       }
     });
     if (recruitRequest.length > 0) {
-      mRecruiter.recruit(room, recruitRequest);
+      Recruiter.recruit(room, recruitRequest);
     }
   };
 
