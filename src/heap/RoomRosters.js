@@ -54,7 +54,6 @@ module.exports = (function(){
   var getCreepCount = function(room) {
     console.log('getCreepCount()', room);
     var totalCount = 0;
-    console.log('getting getCreepCount, room is ' + room);
     _getAllRosters(room).forEach((roster) => totalCount += roster.length);
     return totalCount;
   };

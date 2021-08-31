@@ -14,7 +14,6 @@ MineSurveyor.prototype.survey = function (room) {
   }
 
   var sourcesWithoutBuffers = room.sources.filter((source) => !source.buffer);
-  console.log('sourcesWithoutBuffers', sourcesWithoutBuffers);
 
   if (sourcesWithoutBuffers.length === 0) {
     return;
