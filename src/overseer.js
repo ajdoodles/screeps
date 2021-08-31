@@ -3,6 +3,11 @@ module.exports = (function(){
   var mRoleTable = require('tables/RoleTable');
   var mRoomRunner = require('rooms/RoomRunner');
 
+  var init = function() {
+    var rootRoomName = Game.spawns['Spawn1'].room.name;
+    mRoomRunner.init(rootRoomName);
+  };
+
   var garbageCollect = function() {
     for (const [name, memory] of Object.entries(Memory.creeps)) {
       if (!Game.creeps[name]) {
@@ -27,6 +32,7 @@ module.exports = (function(){
   };
 
   var mPublic = {
+    init: init,
     garbageCollect: garbageCollect,
     runRooms: runRooms,
     runCreeps: runCreeps,

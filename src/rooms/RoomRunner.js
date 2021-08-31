@@ -7,10 +7,6 @@ module.exports = (function(){
   var Tasker = require('./Tasker');
   var Utils = require('../utils/Utils');
 
-  var _survey = function() {
-
-  };
-
   // How many pioneers do we need to saturate all of the energy sources in the
   // room.
   var _calculateMaxPioneers = function(room) {
@@ -85,10 +81,13 @@ module.exports = (function(){
     }
   };
 
-  var run = function(roomName) {
+  var init = function(roomName) {
     var room = Game.rooms[roomName];
 
-    _survey(room);
+  };
+
+  var run = function(roomName) {
+    var room = Game.rooms[roomName];
 
     Recruiter.initSpawnedRecruits(room);
 
@@ -102,6 +101,7 @@ module.exports = (function(){
 
   var mPublic = {
     run: run,
+    init: init,
   };
 
   return mPublic;
