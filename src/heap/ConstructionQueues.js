@@ -7,9 +7,16 @@ module.exports = (function(){
     return room.heap.constructionQueues;
   };
 
+  var _newQueue = function() {
+    var queue = [];
+    queue.active = queue.active || [];
+    queue.planned = queue.planned || Object.create(null);
+    return queue;
+  };
+
   var _getQueue = function(room, buildType) {
     var queues = _getQueues(room);
-    queues[buildType] = queues[buildType] || [];
+    queues[buildType] = queues[buildType] || _newQueue();
     return queues[buildType];
   };
 
@@ -29,8 +36,17 @@ module.exports = (function(){
     return _getQueue(room, buildType).shift();
   };
 
-  var getActiveConstruction = function(room) {
-    return _getQueue(room, Constants.ACTIVE);
+  var hasPlannedConstruction = function(room, buildType) {
+    var plannedWork = _getQueue(room, buildType).planned;
+    return Object.getOwnPropertyNames(plannedWork).length !== 0;
+  };
+
+  var getPlannedConstruction = function(room, buildType) {
+    return _getQueue(room, buildType).planned;
+  };
+
+  var setPlannedConstruction = function(room, buildType, plans) {
+    _getQueue(room, buildType).planned = plans;
   };
 
   var mPublic = {
@@ -38,7 +54,9 @@ module.exports = (function(){
     peek: peek,
     enqueue: enqueue,
     dequeue: dequeue,
-    getActiveConstruction: getActiveConstruction,
+    hasPlannedConstruction: hasPlannedConstruction,
+    getPlannedConstruction: getPlannedConstruction,
+    setPlannedConstruction: setPlannedConstruction,
   };
 
   return mPublic;
