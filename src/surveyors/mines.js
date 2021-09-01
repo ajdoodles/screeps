@@ -30,13 +30,13 @@ MineSurveyor.prototype.survey = function (room) {
   sourcesWithoutBuffers.sort((firstSource, secondSource) => {
     sourceDistances[firstSource.id] - sourceDistances[secondSource.id];
   }).forEach((source) => {
-    ConstructionQueues.enqueue(room, BuildTypes.MINES, source);
+    ConstructionQueues.enqueue(room, BuildTypes.MINES, source.id);
   });
 };
 
-MineSurveyor.prototype.planConstruction = function(room, source) {
+MineSurveyor.prototype.planConstruction = function(room, sourceId) {
   var site = Object.create(null);
-  site[STRUCTURE_CONTAINER] = [source.bufferPos];
+  site[STRUCTURE_CONTAINER] = [Game.getObjectById(sourceId).bufferPos];
   ConstructionQueues.setPlannedConstruction(room, BuildTypes.MINES, site);
 };
 
