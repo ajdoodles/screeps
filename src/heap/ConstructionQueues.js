@@ -9,7 +9,6 @@ module.exports = (function(){
 
   var _newQueue = function() {
     var queue = [];
-    queue.active = queue.active || [];
     queue.planned = queue.planned || Object.create(null);
     return queue;
   };
