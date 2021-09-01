@@ -31,7 +31,7 @@ RoadSurveyor.prototype.survey = function(room) {
     sourceDistances[source.id] = results.path.length;
   });
   sources.sort((firstSource, secondSource) => {
-    sourceDistances[firstSource.id] - sourceDistances[secondSource.id];
+    return sourceDistances[firstSource.id] - sourceDistances[secondSource.id];
   });
 
   var controllerSource = room.controller.pos.findClosestByPath(FIND_SOURCES);
