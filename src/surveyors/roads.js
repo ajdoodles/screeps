@@ -8,11 +8,11 @@ function RoadSurveyor() {
 };
 Classes.inheritFromSuperClass(RoadSurveyor, Surveyor);
 
-RoadSurveyor.prototype._queueSurroundProject = function(room, center) {
+RoadSurveyor.prototype._queueWalkwayProject = function(room, center) {
   ConstructionQueues.enqueue(room, BuildTypes.ROADS, [center.id]);
 };
 
-RoadSurveyor.prototype._queuePathProject = function(room, from, to) {
+RoadSurveyor.prototype._queueRoadProject = function(room, from, to) {
   ConstructionQueues.enqueue(room, BuildTypes.ROADS, [from.id, to.id]);
 };
 
@@ -27,26 +27,39 @@ RoadSurveyor.prototype.survey = function(room) {
     var results = PathFinder.search(
       room.mainSpawn.pos,
       {pos: source.pos, range: 1},
-      {swampCost: 1});
+      {ignoreCreeps: true, swampCost: 1});
     sourceDistances[source.id] = results.path.length;
   });
   sources.sort((firstSource, secondSource) => {
     return sourceDistances[firstSource.id] - sourceDistances[secondSource.id];
   });
 
-  var controllerSource = room.controller.pos.findClosestByPath(FIND_SOURCES);
+  // First connect main spawn to its closest source
+  var mainSpawnSource = sources.shift();
+  this._queueRoadProject(room, room.mainSpawn, mainSpawnSource);
 
-  this._queuePathProject(room, room.mainSpawn, sources.shift());
-  this._queuePathProject(room, room.mainSpawn, controllerSource);
-  this._queuePathProject(room, room.controller, controllerSource);
+  // Second, connect the controller to its closest source
+  var controllerSource = room.controller.pos.findClosestByPath(FIND_SOURCES);
+  this._queueRoadProject(room, room.controller, controllerSource);
+
+  // If main spawn's closest source is not also the controller's, connect the
+  // controller's closest source to main spawn.
+  if (mainSpawnSource.id !== controllerSource.id) {
+    var controllerSourceIndex = sources.findIndex((source) => source.id === controllerSource.id);
+    sources.splice(controllerSourceIndex, 1);
+    this._queueRoadProject(room, room.mainSpawn, controllerSource);
+  }
+
+  // Connect the remaining sources to main spawn in ascending order of distance
   sources.forEach((source) => {
     if (source.id !== controllerSource.id) {
-      this._queuePathProject(room, room.mainSpawn, source);
+      this._queueRoadProject(room, room.mainSpawn, source);
     }
   });
 
-  this._queueSurroundProject(room, room.mainSpawn);
-  room.sources.forEach((source) => this._queueSurroundProject(room, source));
+  // Finally, surround any points of interest with walkways
+  this._queueWalkwayProject(room, room.mainSpawn);
+  room.sources.forEach((source) => this._queueWalkwayProject(room, source));
 };
 
 RoadSurveyor.prototype._shouldBuild = function (room, x, y) {
