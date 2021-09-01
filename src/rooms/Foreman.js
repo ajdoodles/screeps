@@ -23,8 +23,8 @@ module.exports = (function(){
     var plans = ConstructionQueues.getPlannedConstruction(room, buildType);
     Object.entries(plans).forEach(([structType, positions]) => {
       positions.filter((position) => {
-        var structures = position.lookFor(LOOK_STRUCTURES);
-        return structures.some((struct) => struct.structureType === structType);
+        var sites = position.lookFor(LOOK_CONSTRUCTION_SITES);
+        return sites.some((site) => site.my && site.structureType === structType);
       });
       if (positions.length === 0) {
         delete plans[structType];
