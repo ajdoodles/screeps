@@ -35,8 +35,9 @@ MineSurveyor.prototype.survey = function (room) {
 };
 
 MineSurveyor.prototype.planConstruction = function(room, source) {
-  var {x, y} = source.bufferPos;
-  room.createConstructionSite(x, y, STRUCTURE_CONTAINER);
+  var site = Object.create(null);
+  site[STRUCTURE_CONTAINER] = [source.bufferPos];
+  ConstructionQueues.setPlannedConstruction(room, BuildTypes.MINES, site);
 };
 
 module.exports = new MineSurveyor();
