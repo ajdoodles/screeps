@@ -82,11 +82,11 @@ RoadSurveyor.prototype._generateWalkwayPlans = function(room, id) {
 RoadSurveyor.prototype._generateRoadPlans = function(room, firstId, secondId) {
   var firstObj = Game.getObjectById(firstId);
   var secondObj = Game.getObjectById(secondId);
-  var path = room.findPath(
+  var results = PathFinder.search(
     firstObj.pos,
-    secondObj.pos,
-    {ignoreCreeps: true, swampCost: 1});
-  return path;
+    {pos: secondObj.pos, range: 1},
+    {ignoreCreeps:true, swampCost:1})
+  return results.path;
 };
 
 RoadSurveyor.prototype.planConstruction = function(room, project) {
