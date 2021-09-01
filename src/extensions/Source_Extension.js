@@ -114,8 +114,8 @@ module.exports = (function(){
               }
             });
 
-            var spawn = this.room.find(FIND_MY_SPAWNS)[0];
-            var results = PathFinder.search(spawn.pos, candidates, {swampCost: 1});
+            var spawnPos = this.room.mainSpawn.pos;
+            var results = PathFinder.search(spawnPos, candidates, {swampCost: 1});
             var mostFreePos = results.path[results.path.length - 1];
 
             this.memory.bufferPos = mostFreePos;
