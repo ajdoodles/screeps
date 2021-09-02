@@ -25,7 +25,7 @@
     "eslint-plugin-screeps": "^2.1.0",
     "lodash": "^3.10.1",
     "prettier": "^2.3.2",
-    "rollup": "^2.56.2",
+    "rollup": "^2.56.3",
     "rollup-plugin-clear": "^2.0.7",
     "rollup-plugin-screeps": "^1.0.1"
   },
