@@ -1,4 +1,4 @@
-.screeps.json
 dist/
-*.min.js
 node_modules/
+
+.screeps.json
