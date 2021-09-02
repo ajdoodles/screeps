@@ -1,5 +1,6 @@
 module.exports = (function(){
 
+  var Foreman = require('./Foreman');
   var PioneerRole = require('../roles/pioneer');
   var Recruiter = require('./Recruiter');
   var Roles = require('../constants/Roles');
@@ -84,12 +85,17 @@ module.exports = (function(){
   var init = function(roomName) {
     var room = Game.rooms[roomName];
 
+    Foreman.survey(room);
   };
 
   var run = function(roomName) {
     var room = Game.rooms[roomName];
 
     Recruiter.initSpawnedRecruits(room);
+
+    if (Game.time % 25 === 0) {
+      Foreman.run(room);
+    }
 
     var hiringTargets = new Map();
     if (Game.time % 9 === 0) {
