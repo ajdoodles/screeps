@@ -8,6 +8,7 @@ module.exports = {
   extends: ["eslint:recommended", "prettier"],
   parserOptions: {
     ecmaVersion: 12,
+    sourceType: "module",
   },
   rules: {},
   plugins: ["screeps"],
