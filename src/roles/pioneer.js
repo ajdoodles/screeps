@@ -36,17 +36,13 @@ PioneerRole.prototype._setTarget = function (screep, target) {
   delete screep.memory.sourceId;
 };
 
-PioneerRole.prototype._getNextTarget = function (screep) {
+PioneerRole.prototype._getNextTarget = function () {
   return null;
 };
 
 PioneerRole.prototype.getTarget = function (creep) {
   return Game.getObjectById(creep.memory.targetId);
 };
-
-PioneerRole.prototype._doWork = function (screep, target) {};
-
-PioneerRole.prototype._isWorkDone = function (screep, target) {};
 
 PioneerRole.prototype.run = function (screep) {
   var target = this.getTarget(screep);

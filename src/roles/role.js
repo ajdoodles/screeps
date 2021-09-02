@@ -50,8 +50,6 @@ Role.prototype.fetchEnergy = function (screep, target) {
   }
 };
 
-Role.prototype.run = function (screep) {};
-
 Role.prototype.cleanUp = function (name, memory) {
   RoomRosters.removeCreepNameFromRoster(Game.rooms[memory.birthRoom], name);
 };

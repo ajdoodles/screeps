@@ -11,12 +11,8 @@ UpgraderRole.prototype._getNextTarget = function (screep) {
   return screep.room.controller;
 };
 
-UpgraderRole.prototype._doWork = function (screep, target) {
+UpgraderRole.prototype._doWork = function (screep) {
   return screep.upgradeController(screep.room.controller);
-};
-
-UpgraderRole.prototype._isWorkDone = function (screep, target) {
-  return false;
 };
 
 module.exports = new UpgraderRole();

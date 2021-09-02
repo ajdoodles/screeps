@@ -7,34 +7,6 @@ module.exports = (function () {
   var Tasker = require("./Tasker");
   var Utils = require("../utils/Utils");
 
-  // How many pioneers do we need to saturate all of the energy sources in the
-  // room.
-  var _calculateMaxPioneers = function (room) {
-    var pioneerAllowance = 0;
-    room.sources.forEach((source) => {
-      let sourcePos = source.pos;
-      if (source.buffer) {
-        sourcePos = source.bufferPos;
-      }
-      pioneerAllowance += room.getWalkableSurroundings(
-        sourcePos.x,
-        sourcePos.y
-      ).length;
-    });
-    return pioneerAllowance;
-  };
-
-  var _addToHiringTargets = function (role, count, hiringTargets) {
-    if (count <= 0) {
-      return;
-    }
-
-    if (!hiringTargets.has(role)) {
-      hiringTargets.set(role, 0);
-    }
-    hiringTargets.set(role, hiringTargets.get(role) + count);
-  };
-
   var _matchDemand = function (room, role, count, hiringTargets) {
     if (count <= 0) {
       return;
