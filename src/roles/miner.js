@@ -35,7 +35,7 @@ MinerRole.prototype.run = function (screep) {
 };
 
 MinerRole.prototype.cleanUp = function (name, memory) {
-  PioneerRole.prototype.cleanUp(name, memory);
+  PioneerRole.prototype.cleanUp.call(this, name, memory);
   var source = Game.getObjectById(memory.sourceId);
   if (source) {
     source.miner = null;
