@@ -1,0 +1,35 @@
+{
+  "main": {
+    "token": "YOUR_TOKEN_DO_NOT_PUBLISH_AUTH_TOKENS_TO_GIT",
+    "protocol": "https",
+    "hostname": "screeps.com",
+    "port": 443,
+    "path": "/",
+    "branch": "main"
+  },
+  "sim": {
+    "token": "YOUR_TOKEN_DO_NOT_PUBLISH_AUTH_TOKENS_TO_GIT",
+    "protocol": "https",
+    "hostname": "screeps.com",
+    "port": 443,
+    "path": "/",
+    "branch": "sim"
+  },
+  "season": {
+    "token": "YOUR_TOKEN_DO_NOT_PUBLISH_AUTH_TOKENS_TO_GIT",
+    "protocol": "https",
+    "hostname": "screeps.com",
+    "port": 443,
+    "path": "/season",
+    "branch": "main"
+  },
+  "pserver": {
+    "email": "username_PROBABLY_SHOULD_NOT_PUBLISH_THIS_EITHER",
+    "password": "Password_DO_NOT_PUBLISH_PASSWORDS_TO_GIT",
+    "protocol": "http",
+    "hostname": "1.2.3.4",
+    "port": 21025,
+    "path": "/",
+    "branch": "main"
+  }
+}
