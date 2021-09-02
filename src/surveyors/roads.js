@@ -1,12 +1,7 @@
 var BuildTypes = require("../constants/BuildTypes");
-var Classes = require("../utils/Classes");
 var ConstructionQueues = require("../heap/ConstructionQueues");
-var Surveyor = require("../surveyors/surveyor");
 
-function RoadSurveyor() {
-  Surveyor.call(this);
-}
-Classes.inheritFromSuperClass(RoadSurveyor, Surveyor);
+function RoadSurveyor() {}
 
 RoadSurveyor.prototype._queueWalkwayProject = function (room, center) {
   ConstructionQueues.enqueue(room, BuildTypes.ROADS, [center.id]);

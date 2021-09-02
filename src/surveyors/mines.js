@@ -1,12 +1,7 @@
 var BuildTypes = require("../constants/BuildTypes");
-var Classes = require("../utils/Classes");
 var ConstructionQueues = require("../heap/ConstructionQueues");
-var Surveyor = require("../surveyors/surveyor");
 
-function MineSurveyor() {
-  Surveyor.call(this);
-}
-Classes.inheritFromSuperClass(MineSurveyor, Surveyor);
+function MineSurveyor() {}
 
 MineSurveyor.prototype.survey = function (room) {
   if (!ConstructionQueues.isEmpty(room, BuildTypes.MINES)) {
