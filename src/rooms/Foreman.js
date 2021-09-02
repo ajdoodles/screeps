@@ -9,8 +9,8 @@ module.exports = (function () {
   mSurveyors[BuildTypes.ROADS] = RoadSurveyor;
 
   var survey = function (room) {
-    for (var [buildType, surveyor] of Object.entries(mSurveyors)) {
-      mSurveyors[buildType].survey(room);
+    for (var surveyor of Object.values(mSurveyors)) {
+      surveyor.survey(room);
     }
   };
 
