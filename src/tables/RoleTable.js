@@ -3,16 +3,16 @@ var Roles = require("constants/Roles");
 module.exports = (function () {
   var mTable = Object.create(null);
 
-  for (const [role, roleString] of Object.entries(Roles)) {
-    let role;
+  for (const role of Object.values(Roles)) {
+    let roleClass;
     try {
-      role = require("../roles/" + roleString);
+      roleClass = require("../roles/" + role);
     } catch (e) {
-      role = require("../roles/" + roleString + "_dynamic");
+      roleClass = require("../roles/" + role + "_dynamic");
     }
 
-    Object.defineProperty(mTable, roleString, {
-      value: role,
+    Object.defineProperty(mTable, role, {
+      value: roleClass,
       writable: false,
       configurable: false,
       enumerable: true,
