@@ -67,10 +67,10 @@ module.exports = (function () {
           } else {
             delete this.memory.minerId;
           }
-          this._miner = Game.getObjectById(this.memory.minerId);
         }
-        return this._miner;
+        this._miner = Game.getObjectById(this.memory.minerId);
       }
+      return this._miner;
     },
     set: function (creep) {
       this._miner = creep;
