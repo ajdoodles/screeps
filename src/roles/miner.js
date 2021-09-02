@@ -1,6 +1,7 @@
+var Classes = require("../utils/Classes");
+var PioneerRole = require("../roles/pioneer");
 var Role = require("roles/role");
 var Roles = require("../constants/Roles");
-var Classes = require("../utils/Classes");
 
 function MinerRole() {
   Role.call(this, "Miner", Roles.MINER, [MOVE, WORK, WORK, WORK, WORK, WORK]);
