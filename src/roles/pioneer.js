@@ -1,14 +1,14 @@
-var Role = require('roles/role');
-var Roles = require('constants/Roles');
-var RoomRosters = require('../heap/RoomRosters');
-var Classes = require('../utils/Classes');
+var Role = require("roles/role");
+var Roles = require("constants/Roles");
+var RoomRosters = require("../heap/RoomRosters");
+var Classes = require("../utils/Classes");
 
-const BASE_NAME = 'Pioneer';
+const BASE_NAME = "Pioneer";
 PioneerRole.BASE_BODY = [WORK, CARRY, MOVE];
 
 function PioneerRole(role = Roles.PIONEER) {
   Role.call(this, BASE_NAME, role, PioneerRole.BASE_BODY);
-};
+}
 Classes.inheritFromSuperClass(PioneerRole, Role);
 
 PioneerRole.prototype.reassignRole = function (screep, newRole) {
@@ -22,7 +22,7 @@ PioneerRole.prototype.reassignRole = function (screep, newRole) {
   this._setTarget(screep, null);
 };
 
-PioneerRole.prototype.init = function(screep) {
+PioneerRole.prototype.init = function (screep) {
   Role.prototype.init.call(this, screep);
   screep.memory.fetching = true;
 };
@@ -45,14 +45,11 @@ PioneerRole.prototype.getTarget = function (creep) {
   return Game.getObjectById(creep.memory.targetId);
 };
 
-PioneerRole.prototype._doWork = function (screep, target) {
-};
+PioneerRole.prototype._doWork = function (screep, target) {};
 
-PioneerRole.prototype._isWorkDone = function (screep, target) {
+PioneerRole.prototype._isWorkDone = function (screep, target) {};
 
-};
-
-PioneerRole.prototype.run = function(screep) {
+PioneerRole.prototype.run = function (screep) {
   var target = this.getTarget(screep);
 
   if (!target) {
@@ -62,11 +59,14 @@ PioneerRole.prototype.run = function(screep) {
 
   var canFetchMore = screep.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
   var hasNoEnergy = screep.store.getUsedCapacity(RESOURCE_ENERGY) == 0;
-  screep.memory.fetching = ((!target || screep.memory.fetching) && canFetchMore) || hasNoEnergy;
+  screep.memory.fetching =
+    ((!target || screep.memory.fetching) && canFetchMore) || hasNoEnergy;
 
-  if (screep.memory.fetching) { // first fill up on energy
+  if (screep.memory.fetching) {
+    // first fill up on energy
     this.fetchEnergy(screep, target);
-  } else if (target) { // we have a target
+  } else if (target) {
+    // we have a target
     let result = this._doWork(screep, target); // try to work on it
     if (result == ERR_NOT_IN_RANGE) {
       screep.moveTo(target); // we couldn't work on it, walk towards it
@@ -80,7 +80,7 @@ PioneerRole.prototype.run = function(screep) {
   }
 };
 
-PioneerRole.prototype.cleanUp = function(name, memory) {
+PioneerRole.prototype.cleanUp = function (name, memory) {
   Role.prototype.cleanUp(name, memory);
 };
 

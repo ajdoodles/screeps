@@ -1,14 +1,13 @@
-module.exports = (function(){
+module.exports = (function () {
+  var mRoleTable = require("tables/RoleTable");
+  var mRoomRunner = require("rooms/RoomRunner");
 
-  var mRoleTable = require('tables/RoleTable');
-  var mRoomRunner = require('rooms/RoomRunner');
-
-  var init = function() {
-    var rootRoomName = Game.spawns['Spawn1'].room.name;
+  var init = function () {
+    var rootRoomName = Game.spawns["Spawn1"].room.name;
     mRoomRunner.init(rootRoomName);
   };
 
-  var garbageCollect = function() {
+  var garbageCollect = function () {
     for (const [name, memory] of Object.entries(Memory.creeps)) {
       if (!Game.creeps[name]) {
         mRoleTable[memory.role].cleanUp(name, memory);
@@ -18,11 +17,11 @@ module.exports = (function(){
   };
 
   var runRooms = function () {
-    var rootRoomName = Game.spawns['Spawn1'].room.name;
+    var rootRoomName = Game.spawns["Spawn1"].room.name;
     mRoomRunner.run(rootRoomName);
   };
 
-  var runCreeps = function() {
+  var runCreeps = function () {
     for (var creepName in Game.creeps) {
       var screep = Game.creeps[creepName];
       if (!screep.spawning) {

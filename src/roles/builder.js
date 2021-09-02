@@ -1,10 +1,10 @@
-var PioneerRole = require('roles/pioneer');
-var Roles = require('../constants/Roles');
-var Classes = require('../utils/Classes');
+var PioneerRole = require("roles/pioneer");
+var Roles = require("../constants/Roles");
+var Classes = require("../utils/Classes");
 
 function BuilderRole() {
   PioneerRole.call(this, Roles.BUILDER);
-};
+}
 Classes.inheritFromSuperClass(BuilderRole, PioneerRole);
 
 BuilderRole.prototype._getNextTarget = function (screep) {
@@ -13,9 +13,17 @@ BuilderRole.prototype._getNextTarget = function (screep) {
     return null;
   }
 
-  var targets = sites.filter((site) => site.structureType === STRUCTURE_CONTAINER || site.structureType === STRUCTURE_STORAGE);
+  var targets = sites.filter(
+    (site) =>
+      site.structureType === STRUCTURE_CONTAINER ||
+      site.structureType === STRUCTURE_STORAGE
+  );
   if (targets.length == 0) {
-    targets = sites.filter((site) => site.structureType === STRUCTURE_RAMPART || site.structureType === STRUCTURE_WALL);
+    targets = sites.filter(
+      (site) =>
+        site.structureType === STRUCTURE_RAMPART ||
+        site.structureType === STRUCTURE_WALL
+    );
   }
   if (targets.length == 0) {
     targets = sites;

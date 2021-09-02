@@ -1,23 +1,27 @@
-var Role = require('roles/role');
-var Roles = require('../constants/Roles');
-var Classes = require('../utils/Classes');
+var Role = require("roles/role");
+var Roles = require("../constants/Roles");
+var Classes = require("../utils/Classes");
 
-function MinerRole(){
-  Role.call(this, 'Miner', Roles.MINER, [MOVE, WORK, WORK, WORK, WORK, WORK]);
-};
+function MinerRole() {
+  Role.call(this, "Miner", Roles.MINER, [MOVE, WORK, WORK, WORK, WORK, WORK]);
+}
 Classes.inheritFromSuperClass(MinerRole, Role);
 
-MinerRole.prototype.init = function(creep) {
+MinerRole.prototype.init = function (creep) {
   Role.prototype.init.call(this, creep);
   var freeSource = creep.room.sources.find((source) => !source.miner);
   if (freeSource) {
     freeSource.miner = creep;
   } else {
-    console.log('WARNING: Spawning miner in room ' + creep.room.name + ' but there are no free mines.');
+    console.log(
+      "WARNING: Spawning miner in room " +
+        creep.room.name +
+        " but there are no free mines."
+    );
   }
 };
 
-MinerRole.prototype.run = function(screep) {
+MinerRole.prototype.run = function (screep) {
   var source = Game.getObjectById(screep.memory.sourceId);
 
   if (source) {
@@ -29,13 +33,16 @@ MinerRole.prototype.run = function(screep) {
   }
 };
 
-MinerRole.prototype.cleanUp = function(name, memory) {
+MinerRole.prototype.cleanUp = function (name, memory) {
   PioneerRole.prototype.cleanUp(name, memory);
   var source = Game.getObjectById(memory.sourceId);
   if (source) {
     source.miner = null;
   } else {
-    console.log('WARNING: Dying miner ' + name + ' was pointing at corrupted source: ', memory.sourceId);
+    console.log(
+      "WARNING: Dying miner " + name + " was pointing at corrupted source: ",
+      memory.sourceId
+    );
   }
 };
 

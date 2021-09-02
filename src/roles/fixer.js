@@ -1,17 +1,21 @@
-var PioneerRole = require('roles/pioneer');
-var Roles = require('../constants/Roles');
-var Classes = require('../utils/Classes');
+var PioneerRole = require("roles/pioneer");
+var Roles = require("../constants/Roles");
+var Classes = require("../utils/Classes");
 
 function FixerRole() {
   PioneerRole.call(this, Roles.FIXER);
-};
+}
 Classes.inheritFromSuperClass(FixerRole, PioneerRole);
 
 FixerRole.prototype._getNextTarget = function (screep) {
-  var targets = screep.room.find(FIND_STRUCTURES, {filter: (site) => site.hits < site.hitsMax});
+  var targets = screep.room.find(FIND_STRUCTURES, {
+    filter: (site) => site.hits < site.hitsMax,
+  });
   var target = null;
   if (targets.length > 0) {
-    targets.reduce((mostDamaged, candidate) => candidate.hits < mostDamaged.hits ? candidate : mostDamaged);
+    targets.reduce((mostDamaged, candidate) =>
+      candidate.hits < mostDamaged.hits ? candidate : mostDamaged
+    );
   }
   return target;
 };

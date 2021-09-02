@@ -1,3 +1,3 @@
 module.exports = Object.freeze({
-  ACTIVE: 'active',
+  ACTIVE: "active",
 });

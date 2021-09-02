@@ -1,12 +1,7 @@
-function Surveyor() {
-};
+function Surveyor() {}
 
-Surveyor.prototype.survey = function (roomName) {
+Surveyor.prototype.survey = function (roomName) {};
 
-};
-
-Surveyor.prototype.planConstruction = function (project) {
-
-};
+Surveyor.prototype.planConstruction = function (project) {};
 
 module.exports = Surveyor;

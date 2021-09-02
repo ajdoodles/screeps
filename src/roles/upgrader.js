@@ -1,10 +1,10 @@
-var PioneerRole = require('roles/pioneer');
-var Roles = require('../constants/Roles');
-var Classes = require('../utils/Classes');
+var PioneerRole = require("roles/pioneer");
+var Roles = require("../constants/Roles");
+var Classes = require("../utils/Classes");
 
 function UpgraderRole() {
   PioneerRole.call(this, Roles.UPGRADER);
-};
+}
 Classes.inheritFromSuperClass(UpgraderRole, PioneerRole);
 
 UpgraderRole.prototype._getNextTarget = function (screep) {

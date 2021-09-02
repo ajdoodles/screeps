@@ -1,3 +1,3 @@
-var PioneerRole = require('roles/pioneer');
+var PioneerRole = require("roles/pioneer");
 
 module.exports = new PioneerRole();

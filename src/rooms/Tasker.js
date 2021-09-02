@@ -1,16 +1,15 @@
-module.exports = (function(){
+module.exports = (function () {
+  var Roles = require("../constants/Roles");
+  var RoomRosters = require("../heap/RoomRosters");
+  var PioneerRole = require("../roles/pioneer");
 
-  var Roles = require('../constants/Roles');
-  var RoomRosters = require('../heap/RoomRosters');
-  var PioneerRole = require('../roles/pioneer');
-
-  var _getPioneers = function(room) {
-    return RoomRosters.getRoomRosterForRole(
-      room,
-      Roles.PIONEER).map((name) => Game.creeps[name]);
+  var _getPioneers = function (room) {
+    return RoomRosters.getRoomRosterForRole(room, Roles.PIONEER).map(
+      (name) => Game.creeps[name]
+    );
   };
 
-  var retaskPioneers = function(room, role, count) {
+  var retaskPioneers = function (room, role, count) {
     if (count === 0) {
       return 0;
     }

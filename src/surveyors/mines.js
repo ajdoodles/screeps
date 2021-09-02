@@ -1,11 +1,11 @@
-var BuildTypes = require('../constants/BuildTypes');
-var Classes = require('../utils/Classes');
-var ConstructionQueues = require('../heap/ConstructionQueues');
-var Surveyor = require('../surveyors/surveyor');
+var BuildTypes = require("../constants/BuildTypes");
+var Classes = require("../utils/Classes");
+var ConstructionQueues = require("../heap/ConstructionQueues");
+var Surveyor = require("../surveyors/surveyor");
 
 function MineSurveyor() {
   Surveyor.call(this);
-};
+}
 Classes.inheritFromSuperClass(MineSurveyor, Surveyor);
 
 MineSurveyor.prototype.survey = function (room) {
@@ -23,18 +23,21 @@ MineSurveyor.prototype.survey = function (room) {
   sourcesWithoutBuffers.forEach((source) => {
     var results = PathFinder.search(
       room.mainSpawn.pos,
-      {pos: source.pos, range: 1},
-      {swampCost: 1});
+      { pos: source.pos, range: 1 },
+      { swampCost: 1 }
+    );
     sourceDistances[source.id] = results.path.length;
   });
-  sourcesWithoutBuffers.sort((firstSource, secondSource) => {
-    sourceDistances[firstSource.id] - sourceDistances[secondSource.id];
-  }).forEach((source) => {
-    ConstructionQueues.enqueue(room, BuildTypes.MINES, source.id);
-  });
+  sourcesWithoutBuffers
+    .sort((firstSource, secondSource) => {
+      sourceDistances[firstSource.id] - sourceDistances[secondSource.id];
+    })
+    .forEach((source) => {
+      ConstructionQueues.enqueue(room, BuildTypes.MINES, source.id);
+    });
 };
 
-MineSurveyor.prototype.planConstruction = function(room, sourceId) {
+MineSurveyor.prototype.planConstruction = function (room, sourceId) {
   var site = Object.create(null);
   site[STRUCTURE_CONTAINER] = [Game.getObjectById(sourceId).bufferPos];
   ConstructionQueues.setPlannedConstruction(room, BuildTypes.MINES, site);

@@ -1,4 +1,4 @@
 module.exports = Object.freeze({
-  MINES: 'mines',
-  ROADS: 'roads',
+  MINES: "mines",
+  ROADS: "roads",
 });
