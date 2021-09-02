@@ -16,7 +16,6 @@ PioneerRole.prototype.reassignRole = function (screep, newRole) {
     return;
   }
   RoomRosters.removeCreepNameFromRoster(screep.room, screep.name);
-  var oldRole = screep.memory.role;
   screep.memory.role = newRole;
   RoomRosters.addCreepNameToRoster(screep.room, screep.name);
   this._setTarget(screep, null);

@@ -51,7 +51,7 @@ module.exports = (function () {
     Object.entries(plans).forEach(([structType, positions]) => {
       positions.forEach((position) => {
         Object.setPrototypeOf(position, Object.create(RoomPosition.prototype));
-        var resultCode = position.createConstructionSite(structType);
+        position.createConstructionSite(structType);
       });
     });
   };

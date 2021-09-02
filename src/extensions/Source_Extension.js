@@ -23,7 +23,6 @@ module.exports = (function () {
 
       if (!this._pioneers) {
         if (!this.memory.pioneerIds) {
-          var buffer = this.buffer;
           var pioneers = Object.values(Game.creeps).filter((creep) => {
             var myPioneer = false;
             creep.memory.sourceId === this.id;

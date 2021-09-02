@@ -1,6 +1,4 @@
 module.exports = (function () {
-  var Constants = require("../constants/Constants");
-
   var _getQueues = function (room) {
     room.heap.constructionQueues =
       room.heap.constructionQueues || Object.create(null);
