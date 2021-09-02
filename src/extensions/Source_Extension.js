@@ -1,4 +1,6 @@
 module.exports = (function () {
+  var Roles = require("../constants/Roles");
+
   Object.defineProperty(Source.prototype, "memory", {
     get: function () {
       if (!Memory.mySourcesMemory) {
