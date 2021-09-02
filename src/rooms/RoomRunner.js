@@ -59,6 +59,12 @@ module.exports = (function(){
     _matchDemand(room, Roles.HARVESTER, numHarvesters, hiringTargets);
   };
 
+  var _requestBuilders = function(room, hiringTargets) {
+    var sites = room.find(FIND_MY_CONSTRUCTION_SITES);
+    var numBuilders = sites.length === 0 ? 0 : 4;
+    _matchDemand(room, Roles.BUILDER, numBuilders, hiringTargets);
+  };
+
   var _requestUpgraders = function(room, hiringTargets) {
     let numUpgraders = room.controller.level + 1;
     _matchDemand(room, Roles.UPGRADER, numUpgraders, hiringTargets);
@@ -101,6 +107,7 @@ module.exports = (function(){
     if (Game.time % 9 === 0) {
       _requestHarvesters(room, hiringTargets);
       _requestUpgraders(room, hiringTargets);
+      _requestBuilders(room, hiringTargets);
       _meetHiringTargets(room, hiringTargets);
     }
   };
