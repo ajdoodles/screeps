@@ -1,5 +1,5 @@
-var Role = require("roles/role");
-var Roles = require("constants/Roles");
+var Role = require("./role");
+var Roles = require("../constants/Roles");
 var RoomRosters = require("../heap/RoomRosters");
 var Classes = require("../utils/Classes");
 

@@ -1,6 +1,6 @@
 module.exports = (function () {
-  var mRoleTable = require("tables/RoleTable");
-  var mRoomRunner = require("rooms/RoomRunner");
+  var mRoleTable = require("./tables/RoleTable");
+  var mRoomRunner = require("./rooms/RoomRunner");
 
   var init = function () {
     var rootRoomName = Game.spawns["Spawn1"].room.name;

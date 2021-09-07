@@ -1,4 +1,4 @@
-var Roles = require("constants/Roles");
+var Roles = require("../constants/Roles");
 
 module.exports = (function () {
   var mTable = Object.create(null);

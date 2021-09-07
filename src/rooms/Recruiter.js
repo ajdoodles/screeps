@@ -1,5 +1,5 @@
 var recruiter = (function () {
-  var mRoleTable = require("tables/RoleTable");
+  var mRoleTable = require("../tables/RoleTable");
 
   var initSpawnedRecruits = function (room) {
     while (

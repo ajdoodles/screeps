@@ -1,4 +1,4 @@
-var PioneerRole = require("roles/pioneer");
+var PioneerRole = require("./pioneer");
 var Roles = require("../constants/Roles");
 var Classes = require("../utils/Classes");
 
