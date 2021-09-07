@@ -22,7 +22,7 @@ RoadSurveyor.prototype.survey = function (room) {
     var results = PathFinder.search(
       room.mainSpawn.pos,
       { pos: source.pos, range: 1 },
-      { ignoreCreeps: true, swampCost: 1 }
+      { swampCost: 1 }
     );
     sourceDistances[source.id] = results.path.length;
   });
@@ -106,7 +106,7 @@ RoadSurveyor.prototype._generateRoadPlans = function (room, firstId, secondId) {
   var results = PathFinder.search(
     firstObj.pos,
     { pos: secondObj.pos, range: 1 },
-    { ignoreCreeps: true, swampCost: 1 }
+    { swampCost: 1 }
   );
   return results.path;
 };
