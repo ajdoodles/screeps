@@ -1,5 +1,4 @@
 var Classes = require("../utils/Classes");
-var PioneerRole = require("../roles/pioneer");
 var Role = require("./role");
 var Roles = require("../constants/Roles");
 
@@ -35,7 +34,7 @@ MinerRole.prototype.run = function (screep) {
 };
 
 MinerRole.prototype.cleanUp = function (name, memory) {
-  PioneerRole.prototype.cleanUp.call(this, name, memory);
+  Role.prototype.cleanUp.call(this, name, memory);
   var source = Game.getObjectById(memory.sourceId);
   if (source) {
     source.miner = null;
