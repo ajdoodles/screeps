@@ -63,10 +63,10 @@ RoadSurveyor.prototype.survey = function (room) {
 RoadSurveyor.prototype._shouldBuild = function (room, x, y) {
   var stopBuild = false;
 
-  stopBuild |= room.getTerrain().get(x, y) === TERRAIN_MASK_WALL;
+  stopBuild ||= room.getTerrain().get(x, y) === TERRAIN_MASK_WALL;
 
   var sites = room.lookForAt(LOOK_CONSTRUCTION_SITES, x, y);
-  stopBuild |= sites.reduce(
+  stopBuild ||= sites.reduce(
     (stopBuild, site) =>
       stopBuild ||
       site.type !== STRUCTURE_RAMPART ||
@@ -75,7 +75,7 @@ RoadSurveyor.prototype._shouldBuild = function (room, x, y) {
   );
 
   var structures = room.lookForAt(LOOK_STRUCTURES, x, y);
-  stopBuild |= structures.reduce(
+  stopBuild ||= structures.reduce(
     (stopBuild, struct) =>
       stopBuild ||
       struct.type !== STRUCTURE_RAMPART ||
