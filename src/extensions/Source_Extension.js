@@ -1,5 +1,5 @@
 module.exports = (function () {
-  var Roles = require("../constants/Roles");
+  var Jobs = require("../constants/Jobs");
 
   Object.defineProperty(Source.prototype, "memory", {
     get: function () {
@@ -28,7 +28,7 @@ module.exports = (function () {
           var pioneers = Object.values(Game.creeps).filter((creep) => {
             var myPioneer = false;
             creep.memory.sourceId === this.id;
-            if (creep.memory.role === Roles.PIONEER) {
+            if (creep.memory.role === Jobs.PIONEER) {
               if (creep.memory.sourceId) {
                 myPioneer = creep.memory.sourceId === this.id;
               } else if (creep.memory.bufferId) {
@@ -59,7 +59,7 @@ module.exports = (function () {
       if (!this._miner) {
         if (!this.memory.minerId) {
           var miner = Object.values(Game.creeps).find((creep) => {
-            creep.memory.role === Roles.MINER &&
+            creep.memory.role === Jobs.MINER &&
               creep.memory.sourceId === this.id;
           });
           if (miner) {

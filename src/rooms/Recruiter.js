@@ -1,5 +1,5 @@
 var recruiter = (function () {
-  var mRoleTable = require("../tables/RoleTable");
+  var mPioneer = require("../roles/pioneer");
 
   var initSpawnedRecruits = function (room) {
     while (
@@ -22,15 +22,14 @@ var recruiter = (function () {
             "]"
         );
       }
-      mRoleTable[creep.memory.role].init(creep);
+      mPioneer.init(creep);
     }
   };
 
   var _recruitRole = function (room, role) {
-    var roleClass = mRoleTable[role];
-    var newName = roleClass.mName + Game.time;
-    var response = room.mainSpawn.spawnCreep(roleClass.mBody, newName, {
-      memory: { role: roleClass.mRole, birthRoom: room.name },
+    var newName = mPioneer.mName + Game.time;
+    var response = room.mainSpawn.spawnCreep(mPioneer.mBody, newName, {
+      memory: { role: role, birthRoom: room.name },
     });
 
     return response === OK ? newName : undefined;

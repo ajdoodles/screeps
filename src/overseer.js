@@ -1,5 +1,5 @@
 module.exports = (function () {
-  var mRoleTable = require("./tables/RoleTable");
+  var mPioneer = require("./roles/pioneer");
   var mRoomRunner = require("./rooms/RoomRunner");
 
   var init = function () {
@@ -10,7 +10,7 @@ module.exports = (function () {
   var garbageCollect = function () {
     for (const [name, memory] of Object.entries(Memory.creeps)) {
       if (!Game.creeps[name]) {
-        mRoleTable[memory.role].cleanUp(name, memory);
+        mPioneer.cleanUp(name, memory);
         delete Memory.creeps[name];
       }
     }
@@ -25,7 +25,7 @@ module.exports = (function () {
     for (var creepName in Game.creeps) {
       var screep = Game.creeps[creepName];
       if (!screep.spawning) {
-        mRoleTable[screep.memory.role].run(screep);
+        mPioneer.run(screep);
       }
     }
   };

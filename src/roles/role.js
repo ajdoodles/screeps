@@ -1,10 +1,14 @@
 var RoomRosters = require("../heap/RoomRosters");
+var Utils = require("../utils/Utils");
 
-function Role(name, role, body) {
+function Role(name, body) {
   this.mName = name;
-  this.mRole = role;
   this.mBody = body;
 }
+
+Role.prototype.getBodyCost = function () {
+  return Utils.getBodyCost(this.mBody);
+};
 
 Role.prototype.init = function (screep) {
   RoomRosters.addCreepNameToRoster(

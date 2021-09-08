@@ -2,10 +2,9 @@ module.exports = (function () {
   var Foreman = require("./Foreman");
   var PioneerRole = require("../roles/pioneer");
   var Recruiter = require("./Recruiter");
-  var Roles = require("../constants/Roles");
+  var Jobs = require("../constants/Jobs");
   var RoomRosters = require("../heap/RoomRosters");
   var Tasker = require("./Tasker");
-  var Utils = require("../utils/Utils");
 
   var _matchDemand = function (room, role, count, hiringTargets) {
     if (count <= 0) {
@@ -25,23 +24,22 @@ module.exports = (function () {
   };
 
   var _requestHarvesters = function (room, hiringTargets) {
-    let pioneerCost = Utils.getBodyCost(PioneerRole.BASE_BODY);
     let energyGap = room.energyCapacityAvailable - room.energyAvailable;
-    let energyNeeds = Math.max(energyGap, pioneerCost);
+    let energyNeeds = Math.max(energyGap, PioneerRole.getBodyCost());
     // Each pioneer carries 50 energy
     let numHarvesters = Math.ceil(energyNeeds / 50);
-    _matchDemand(room, Roles.HARVESTER, numHarvesters, hiringTargets);
+    _matchDemand(room, Jobs.HARVEST, numHarvesters, hiringTargets);
   };
 
   var _requestBuilders = function (room, hiringTargets) {
     var sites = room.find(FIND_MY_CONSTRUCTION_SITES);
     var numBuilders = sites.length === 0 ? 0 : 4;
-    _matchDemand(room, Roles.BUILDER, numBuilders, hiringTargets);
+    _matchDemand(room, Jobs.BUILD, numBuilders, hiringTargets);
   };
 
   var _requestUpgraders = function (room, hiringTargets) {
     let numUpgraders = room.controller.level + 1;
-    _matchDemand(room, Roles.UPGRADER, numUpgraders, hiringTargets);
+    _matchDemand(room, Jobs.UPGRADE, numUpgraders, hiringTargets);
   };
 
   var _meetHiringTargets = function (room, hiringTargets) {

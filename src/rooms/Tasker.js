@@ -1,10 +1,10 @@
 module.exports = (function () {
-  var Roles = require("../constants/Roles");
+  var Jobs = require("../constants/Jobs");
   var RoomRosters = require("../heap/RoomRosters");
   var PioneerRole = require("../roles/pioneer");
 
-  var _getPioneers = function (room) {
-    return RoomRosters.getRoomRosterForRole(room, Roles.PIONEER).map(
+  var _getIdlers = function (room) {
+    return RoomRosters.getRoomRosterForRole(room, Jobs.IDLE).map(
       (name) => Game.creeps[name]
     );
   };
@@ -14,8 +14,8 @@ module.exports = (function () {
       return 0;
     }
 
-    var idlers = _getPioneers(room).slice(0, count);
-    idlers.forEach((idler) => PioneerRole.prototype.reassignRole(idler, role));
+    var idlers = _getIdlers(room).slice(0, count);
+    idlers.forEach((idler) => PioneerRole.reassignRole(idler, role));
     return idlers.length;
   };
 
