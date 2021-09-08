@@ -1,7 +1,7 @@
-require("./extensions/Room_Extension");
-require("./extensions/Source_Extension");
+import "./extensions/Room_Extension";
+import "./extensions/Source_Extension";
 
-var overseer = require("./overseer");
+import overseer from "./overseer";
 
 overseer.init();
 
