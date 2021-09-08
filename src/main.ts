@@ -1,7 +1,7 @@
 import "./extensions/Room_Extension";
 import "./extensions/Source_Extension";
 
-import overseer from "./overseer";
+import * as overseer from "./overseer";
 
 overseer.init();
 
