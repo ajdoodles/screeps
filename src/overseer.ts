@@ -4,7 +4,7 @@ import * as RoomRunner from "./rooms/RoomRunner";
 export function init() {
   var rootRoomName = Game.spawns["Spawn1"].room.name;
   RoomRunner.init(rootRoomName);
-};
+}
 
 export function garbageCollect() {
   for (const [name, memory] of Object.entries(Memory.creeps)) {
@@ -13,12 +13,12 @@ export function garbageCollect() {
       delete Memory.creeps[name];
     }
   }
-};
+}
 
 export function runRooms() {
   var rootRoomName = Game.spawns["Spawn1"].room.name;
   RoomRunner.run(rootRoomName);
-};
+}
 
 export function runCreeps() {
   for (var creepName in Game.creeps) {
@@ -27,4 +27,4 @@ export function runCreeps() {
       mPioneer.run(screep);
     }
   }
-};
+}
