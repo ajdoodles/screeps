@@ -2,6 +2,7 @@ var Jobs = require("../constants/Jobs");
 var JobsTable = require("../tables/JobsTable");
 var Role = require("./role");
 var RoomRosters = require("../heap/RoomRosters");
+var Utils = require("../utils/Utils");
 var Classes = require("../utils/Classes");
 
 const BASE_NAME = "Pioneer";
@@ -11,6 +12,10 @@ function PioneerRole() {
   Role.call(this, BASE_NAME, PioneerRole.BASE_BODY);
 }
 Classes.inheritFromSuperClass(PioneerRole, Role);
+
+PioneerRole.prototype.getBodyCost = function () {
+  return Utils.getBodyCost(this.mBody);
+};
 
 PioneerRole.prototype.reassignRole = function (screep, newRole) {
   if (screep.memory.role === newRole) {
