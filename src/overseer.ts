@@ -1,5 +1,5 @@
 import mPioneer from "./roles/pioneer";
-import RoomRunner from "./rooms/RoomRunner";
+import * as RoomRunner from "./rooms/RoomRunner";
 
 export function init() {
   var rootRoomName = Game.spawns["Spawn1"].room.name;
