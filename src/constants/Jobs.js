@@ -3,5 +3,6 @@ module.exports = Object.freeze({
   FIX: "fix",
   HARVEST: "harvest",
   IDLE: "idle",
+  MINE: "mine",
   UPGRADE: "upgrade",
 });

@@ -1,4 +1,5 @@
 var Classes = require("../utils/Classes");
+var Jobs = require("../constants/Jobs");
 var Role = require("./role");
 
 function MinerRole() {
@@ -8,6 +9,7 @@ Classes.inheritFromSuperClass(MinerRole, Role);
 
 MinerRole.prototype.init = function (creep) {
   Role.prototype.init.call(this, creep);
+  creep.memory.role = Jobs.MINE;
   var freeSource = creep.room.sources.find((source) => !source.miner);
   if (freeSource) {
     freeSource.miner = creep;
