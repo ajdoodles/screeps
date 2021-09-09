@@ -2,7 +2,7 @@ import Foreman from "./Foreman";
 import mPioneer from "../roles/pioneer";
 import Recruiter from "./Recruiter";
 import Jobs from "../constants/Jobs";
-import RoomRosters from "../heap/RoomRosters";
+import * as RoomRosters from "../heap/RoomRosters";
 import Tasker from "./Tasker";
 
 function _matchDemand(

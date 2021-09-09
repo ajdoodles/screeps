@@ -2,7 +2,7 @@ import RoomsHeap from "../heap/RoomsHeap";
 
 declare global {
   interface Room {
-    heap: {};
+    heap: Record<string, any>;
     sources: Source[];
     mainSpawn: StructureSpawn;
     _recruits?: string[];
