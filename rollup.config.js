@@ -22,6 +22,14 @@ export default {
   },
   plugins: [
     clear({ targets: ["dist"] }),
+    resolve({ rootDir: "src" }),
+    commonjs({
+      dynamicRequireTargets: [
+        "src/roles/*.js",
+        "!src/roles/pioneer.js",
+        "!src/roles/role.js",
+      ],
+    }),
     typescript({
       include: [
         "./src/*.ts+(|x)",
@@ -32,15 +40,6 @@ export default {
       exclude: ["node_modules"],
       // Uncomment to have rollup fail when encountering typescript errors
       // noEmitOnError: true,
-    }),
-    resolve({ rootDir: "src" }),
-    commonjs({
-      extensions: [".js", ".ts"],
-      dynamicRequireTargets: [
-        "src/roles/*.js",
-        "!src/roles/pioneer.js",
-        "!src/roles/role.js",
-      ],
     }),
     screeps({ config: cfg, dryRun: cfg == null }),
   ],
