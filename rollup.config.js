@@ -24,17 +24,7 @@ export default {
     clear({ targets: ["dist"] }),
     resolve({ rootDir: "src" }),
     commonjs(),
-    typescript({
-      include: [
-        "./src/*.ts+(|x)",
-        "./src/**/*.ts+(|x)",
-        "./src/*.js+(|x)",
-        "./src/**/*.js+(|x)",
-      ],
-      exclude: ["node_modules"],
-      // Uncomment to have rollup fail when encountering typescript errors
-      // noEmitOnError: true,
-    }),
+    typescript({ include: ["./src/**/*.js", "./src/**/*.ts"] }),
     screeps({ config: cfg, dryRun: cfg == null }),
   ],
 };
