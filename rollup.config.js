@@ -23,13 +23,7 @@ export default {
   plugins: [
     clear({ targets: ["dist"] }),
     resolve({ rootDir: "src" }),
-    commonjs({
-      dynamicRequireTargets: [
-        "src/roles/*.js",
-        "!src/roles/pioneer.js",
-        "!src/roles/role.js",
-      ],
-    }),
+    commonjs(),
     typescript({
       include: [
         "./src/*.ts+(|x)",
