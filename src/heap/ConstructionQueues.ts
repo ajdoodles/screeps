@@ -1,5 +1,3 @@
-import Heap from "./RoomsHeap";
-
 class ConstructionQueue extends Array<Object> {
   planned: Record<StructureConstant, RoomPosition[]> = Object.create(null);
 }

@@ -1,5 +1,3 @@
-import RoomsHeap from "./RoomsHeap";
-
 type RoomRosters = Map<string, Set<string>>;
 
 function getRosterFromMap(map: RoomRosters, role: string): Set<string> {
