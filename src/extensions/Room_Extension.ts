@@ -1,4 +1,4 @@
-import RoomsHeap from "../heap/RoomsHeap";
+import { getRoomHeap } from "../heap/RoomsHeap";
 
 declare global {
   interface Room {
@@ -25,7 +25,7 @@ declare global {
 
 Object.defineProperty(Room.prototype, "heap", {
   get: function () {
-    return RoomsHeap.getRoomHeap(this);
+    return getRoomHeap(this);
   },
 });
 

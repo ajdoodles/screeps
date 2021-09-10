@@ -1,7 +1,3 @@
-interface Heap {
-  rooms: Record<string, {}>;
-}
-
 declare global {
   namespace NodeJS {
     interface Global {

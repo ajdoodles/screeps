@@ -2,6 +2,12 @@ class ConstructionQueue extends Array<Object> {
   planned: Record<StructureConstant, RoomPosition[]> = Object.create(null);
 }
 
+declare global {
+  interface RoomHeap {
+    constructionQueues: Record<string, ConstructionQueue>;
+  }
+}
+
 function getQueues(room: Room): Record<string, ConstructionQueue> {
   room.heap.constructionQueues =
     room.heap.constructionQueues || Object.create(null);

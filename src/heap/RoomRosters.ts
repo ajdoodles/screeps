@@ -1,5 +1,11 @@
 type RoomRosters = Map<string, Set<string>>;
 
+declare global {
+  interface RoomHeap {
+    rosters: RoomRosters;
+  }
+}
+
 function getRosterFromMap(map: RoomRosters, role: string): Set<string> {
   var roleRoster = map.get(role);
   if (!roleRoster) {
