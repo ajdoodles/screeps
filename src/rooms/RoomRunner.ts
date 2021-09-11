@@ -1,6 +1,6 @@
 import Foreman from "./Foreman";
 import mPioneer from "../roles/pioneer";
-import Recruiter from "./Recruiter";
+import * as Recruiter from "./Recruiter";
 import Jobs from "../constants/Jobs";
 import * as RoomRosters from "../heap/RoomRosters";
 import Tasker from "./Tasker";

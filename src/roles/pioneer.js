@@ -1,3 +1,4 @@
+var Constants = require("../constants/Constants");
 var Jobs = require("../constants/Jobs");
 var JobsTable = require("../tables/JobsTable");
 var Role = require("./role");
@@ -5,11 +6,8 @@ var RoomRosters = require("../heap/RoomRosters");
 var Utils = require("../utils/Utils");
 var Classes = require("../utils/Classes");
 
-const BASE_NAME = "Pioneer";
-PioneerRole.BASE_BODY = [WORK, CARRY, MOVE];
-
 function PioneerRole() {
-  Role.call(this, BASE_NAME, PioneerRole.BASE_BODY);
+  Role.call(this, Constants.PIONEER_NAME, Constants.PIONEER_BODY);
 }
 Classes.inheritFromSuperClass(PioneerRole, Role);
 
