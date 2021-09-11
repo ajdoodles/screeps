@@ -1,3 +1,5 @@
+import { Job } from "../constants/Jobs";
+
 type RoomRosters = Map<string, Set<string>>;
 
 declare global {
@@ -6,7 +8,7 @@ declare global {
   }
 }
 
-function getRosterFromMap(map: RoomRosters, role: string): Set<string> {
+function getRosterFromMap(map: RoomRosters, role: Job): Set<string> {
   var roleRoster = map.get(role);
   if (!roleRoster) {
     roleRoster = new Set();
@@ -15,16 +17,12 @@ function getRosterFromMap(map: RoomRosters, role: string): Set<string> {
   return roleRoster;
 }
 
-function addToRosterMap(map: RoomRosters, role: string, creepName: string) {
+function addToRosterMap(map: RoomRosters, role: Job, creepName: string) {
   var roleRoster = getRosterFromMap(map, role);
   roleRoster.add(creepName);
 }
 
-function removeFromRosterMap(
-  map: RoomRosters,
-  role: string,
-  creepName: string
-) {
+function removeFromRosterMap(map: RoomRosters, role: Job, creepName: string) {
   map.get(role)?.delete(creepName);
 }
 
@@ -41,7 +39,7 @@ function getAllRosters(room: Room): RoomRosters {
   return room.heap.rosters;
 }
 
-function getRoleRoster(room: Room, role: string) {
+function getRoleRoster(room: Room, role: Job) {
   var allRosters = getAllRosters(room);
   return getRosterFromMap(allRosters, role);
 }
@@ -50,11 +48,11 @@ export function getRoomRoster(room: Room): RoomRosters {
   return new Map(getAllRosters(room));
 }
 
-export function getRoomRosterForRole(room: Room, role: string): string[] {
+export function getRoomRosterForRole(room: Room, role: Job): string[] {
   return Array.from(getRoleRoster(room, role));
 }
 
-export function getRoleCount(room: Room, role: string): number {
+export function getRoleCount(room: Room, role: Job): number {
   return getRoleRoster(room, role).size;
 }
 

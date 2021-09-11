@@ -1,6 +1,6 @@
 import "./Creep_Extension";
 
-import Jobs from "../constants/Jobs";
+import { Job } from "../constants/Jobs";
 
 declare global {
   interface Memory {
@@ -78,7 +78,7 @@ Object.defineProperty(Source.prototype, "miner", {
     if (!this._miner) {
       if (!this.memory.minerId) {
         var miner = Object.values(Game.creeps).find((creep: Creep) => {
-          creep.memory.role === Jobs.MINE && creep.memory.sourceId === this.id;
+          creep.memory.role === Job.MINE && creep.memory.sourceId === this.id;
         });
         if (miner) {
           this.memory.minerId = miner.id;

@@ -1,3 +1,4 @@
+import { Job } from "../constants/Jobs";
 import { PIONEER_NAME, PIONEER_BODY } from "../constants/Constants";
 import mPioneer from "../roles/pioneer";
 
@@ -23,7 +24,7 @@ export function initSpawnedRecruits(room: Room) {
   }
 }
 
-function recruitRole(room: Room, role: string) {
+function recruitRole(room: Room, role: Job) {
   var newName = PIONEER_NAME + Game.time;
   var response = room.mainSpawn.spawnCreep(PIONEER_BODY, newName, {
     memory: { role: role, birthRoom: room.name },
@@ -32,7 +33,7 @@ function recruitRole(room: Room, role: string) {
   return response === OK ? newName : undefined;
 }
 
-export function recruit(room: Room, recruitOrder: string[]) {
+export function recruit(room: Room, recruitOrder: Job[]) {
   var recruitName;
 
   recruitOrder.findIndex((role) => {
