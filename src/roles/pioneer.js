@@ -1,6 +1,6 @@
 var Constants = require("../constants/Constants");
 var Jobs = require("../constants/Jobs");
-var JobsTable = require("../tables/JobsTable");
+var JobsTable = require("../tables/JobsTable").default;
 var Role = require("./role");
 var RoomRosters = require("../heap/RoomRosters");
 var Utils = require("../utils/Utils");
