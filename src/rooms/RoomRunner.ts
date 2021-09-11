@@ -1,4 +1,4 @@
-import Foreman from "./Foreman";
+import * as Foreman from "./Foreman";
 import mPioneer from "../roles/pioneer";
 import * as Recruiter from "./Recruiter";
 import Jobs from "../constants/Jobs";

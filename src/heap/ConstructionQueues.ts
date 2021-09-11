@@ -1,5 +1,6 @@
 class ConstructionQueue extends Array<Object> {
-  planned: Record<StructureConstant, RoomPosition[]> = Object.create(null);
+  planned: Record<BuildableStructureConstant, RoomPosition[]> =
+    Object.create(null);
 }
 
 declare global {
