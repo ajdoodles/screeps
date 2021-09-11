@@ -17,7 +17,7 @@ declare global {
   interface Source {
     memory: SourceMemory;
     pioneers: Creep[];
-    miner: Creep;
+    miner: Creep | null;
     bufferPos: RoomPosition;
     buffer: StructureContainer;
   }
