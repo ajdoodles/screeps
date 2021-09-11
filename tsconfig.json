@@ -23,6 +23,7 @@
 
     /* Interop Constraints */
     "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
 
     /* Type Checking */
     "strict": true /* Enable all strict type-checking options. */,
