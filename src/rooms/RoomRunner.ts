@@ -3,7 +3,7 @@ import mPioneer from "../roles/pioneer";
 import * as Recruiter from "./Recruiter";
 import Jobs from "../constants/Jobs";
 import * as RoomRosters from "../heap/RoomRosters";
-import Tasker from "./Tasker";
+import { retaskPioneers } from "./Tasker";
 
 function _matchDemand(
   room: Room,
@@ -53,7 +53,7 @@ function _meetHiringTargets(room: Room, hiringTargets: Map<string, number>) {
 
   var recruitRequest: string[] = [];
   hiringTargets.forEach((count: number, role: string) => {
-    let retasked = Tasker.retaskPioneers(room, role, count);
+    let retasked = retaskPioneers(room, role, count);
     let needsMore = count - retasked > 0;
     if (needsMore) {
       recruitRequest.push(role);
