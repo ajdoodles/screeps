@@ -1,7 +1,7 @@
 import BuildTypes from "../constants/BuildTypes";
 import * as ConstructionQueues from "../heap/ConstructionQueues";
-import MineSurveyor from "../surveyors/mines";
-import RoadSurveyor from "../surveyors/roads";
+import * as MineSurveyor from "../surveyors/mines";
+import * as RoadSurveyor from "../surveyors/roads";
 
 const mSurveyors = Object.freeze({
   [BuildTypes.MINES]: MineSurveyor,

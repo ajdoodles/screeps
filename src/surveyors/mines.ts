@@ -1,9 +1,7 @@
-var BuildTypes = require("../constants/BuildTypes");
-var ConstructionQueues = require("../heap/ConstructionQueues");
+import BuildTypes from "../constants/BuildTypes";
+import * as ConstructionQueues from "../heap/ConstructionQueues";
 
-function MineSurveyor() {}
-
-MineSurveyor.prototype.survey = function (room) {
+export function survey(room: Room) {
   if (!ConstructionQueues.isEmpty(room, BuildTypes.MINES)) {
     return;
   }
@@ -24,18 +22,17 @@ MineSurveyor.prototype.survey = function (room) {
     sourceDistances[source.id] = results.path.length;
   });
   sourcesWithoutBuffers
-    .sort((firstSource, secondSource) => {
-      sourceDistances[firstSource.id] - sourceDistances[secondSource.id];
-    })
+    .sort(
+      (firstSource, secondSource) =>
+        sourceDistances[firstSource.id] - sourceDistances[secondSource.id]
+    )
     .forEach((source) => {
       ConstructionQueues.enqueue(room, BuildTypes.MINES, source.id);
     });
-};
+}
 
-MineSurveyor.prototype.planConstruction = function (room, sourceId) {
+export function planConstruction(room: Room, sourceId: Id<Source>) {
   var site = Object.create(null);
-  site[STRUCTURE_CONTAINER] = [Game.getObjectById(sourceId).bufferPos];
+  site[STRUCTURE_CONTAINER] = [Game.getObjectById(sourceId)!.bufferPos];
   ConstructionQueues.setPlannedConstruction(room, BuildTypes.MINES, site);
-};
-
-module.exports = new MineSurveyor();
+}

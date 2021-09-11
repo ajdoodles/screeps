@@ -1,4 +1,4 @@
-class ConstructionQueue extends Array<Object> {
+class ConstructionQueue extends Array<any> {
   planned: Record<BuildableStructureConstant, RoomPosition[]> =
     Object.create(null);
 }
