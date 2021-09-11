@@ -1,11 +1,11 @@
-import BuildTypes from "../constants/BuildTypes";
+import { BuildType } from "../constants/BuildTypes";
 import * as ConstructionQueues from "../heap/ConstructionQueues";
 import * as MineSurveyor from "../surveyors/mines";
 import * as RoadSurveyor from "../surveyors/roads";
 
 const mSurveyors = Object.freeze({
-  [BuildTypes.MINES]: MineSurveyor,
-  [BuildTypes.ROADS]: RoadSurveyor,
+  [BuildType.MINES]: MineSurveyor,
+  [BuildType.ROADS]: RoadSurveyor,
 });
 
 export function survey(room: Room) {
@@ -14,7 +14,7 @@ export function survey(room: Room) {
   }
 }
 
-function removeCompletedPlans(room: Room, buildType: string) {
+function removeCompletedPlans(room: Room, buildType: BuildType) {
   if (!ConstructionQueues.hasPlannedConstruction(room, buildType)) {
     return;
   }
@@ -35,7 +35,7 @@ function removeCompletedPlans(room: Room, buildType: string) {
   }
 }
 
-function plan(room: Room, buildType: string) {
+function plan(room: Room, buildType: BuildType) {
   if (ConstructionQueues.isEmpty(room, buildType)) {
     return;
   }
@@ -44,7 +44,7 @@ function plan(room: Room, buildType: string) {
   mSurveyors[buildType].planConstruction(room, nextProject);
 }
 
-function build(room: Room, buildType: string) {
+function build(room: Room, buildType: BuildType) {
   if (!ConstructionQueues.hasPlannedConstruction(room, buildType)) {
     return;
   }
@@ -61,7 +61,7 @@ function build(room: Room, buildType: string) {
 }
 
 export function run(room: Room) {
-  let buildType = BuildTypes.ROADS;
+  let buildType = BuildType.ROADS;
 
   removeCompletedPlans(room, buildType);
   if (!ConstructionQueues.hasPlannedConstruction(room, buildType)) {

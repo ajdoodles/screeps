@@ -1,4 +1,4 @@
-import BuildTypes from "../constants/BuildTypes";
+import { BuildType } from "../constants/BuildTypes";
 import * as ConstructionQueues from "../heap/ConstructionQueues";
 
 function queueProjectIfPossible(
@@ -11,14 +11,14 @@ function queueProjectIfPossible(
   }
 
   if (to) {
-    ConstructionQueues.enqueue(room, BuildTypes.ROADS, [from.id, to.id]);
+    ConstructionQueues.enqueue(room, BuildType.ROADS, [from.id, to.id]);
   } else {
-    ConstructionQueues.enqueue(room, BuildTypes.ROADS, [from.id]);
+    ConstructionQueues.enqueue(room, BuildType.ROADS, [from.id]);
   }
 }
 
 export function survey(room: Room) {
-  if (!ConstructionQueues.isEmpty(room, BuildTypes.ROADS)) {
+  if (!ConstructionQueues.isEmpty(room, BuildType.ROADS)) {
     return;
   }
 
@@ -122,5 +122,5 @@ export function planConstruction(
 
   var roadPlans = Object.create(null);
   roadPlans[STRUCTURE_ROAD] = positions;
-  ConstructionQueues.setPlannedConstruction(room, BuildTypes.ROADS, roadPlans);
+  ConstructionQueues.setPlannedConstruction(room, BuildType.ROADS, roadPlans);
 }

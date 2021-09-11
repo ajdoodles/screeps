@@ -1,8 +1,8 @@
-import BuildTypes from "../constants/BuildTypes";
+import { BuildType } from "../constants/BuildTypes";
 import * as ConstructionQueues from "../heap/ConstructionQueues";
 
 export function survey(room: Room) {
-  if (!ConstructionQueues.isEmpty(room, BuildTypes.MINES)) {
+  if (!ConstructionQueues.isEmpty(room, BuildType.MINES)) {
     return;
   }
 
@@ -27,12 +27,12 @@ export function survey(room: Room) {
         sourceDistances[firstSource.id] - sourceDistances[secondSource.id]
     )
     .forEach((source) => {
-      ConstructionQueues.enqueue(room, BuildTypes.MINES, source.id);
+      ConstructionQueues.enqueue(room, BuildType.MINES, source.id);
     });
 }
 
 export function planConstruction(room: Room, sourceId: Id<Source>) {
   var site = Object.create(null);
   site[STRUCTURE_CONTAINER] = [Game.getObjectById(sourceId)!.bufferPos];
-  ConstructionQueues.setPlannedConstruction(room, BuildTypes.MINES, site);
+  ConstructionQueues.setPlannedConstruction(room, BuildType.MINES, site);
 }
