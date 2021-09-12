@@ -8,7 +8,7 @@ function getIdlers(room: Room) {
   );
 }
 
-export function retaskPioneers(room: Room, role: Job, count: number) {
+export function retaskPioneers(room: Room, role: Job, count: number): number {
   if (count === 0) {
     return 0;
   }

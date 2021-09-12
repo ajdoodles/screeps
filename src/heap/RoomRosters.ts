@@ -62,17 +62,17 @@ export function getCreepCount(room: Room): number {
   return totalCount;
 }
 
-export function addCreepNameToRoster(room: Room, creepName: string) {
+export function addCreepNameToRoster(room: Room, creepName: string): void {
   const allRosters = getAllRosters(room);
   addToRosterMap(allRosters, Memory.creeps[creepName].role, creepName);
 }
 
-export function removeCreepNameFromRoster(room: Room, creepName: string) {
+export function removeCreepNameFromRoster(room: Room, creepName: string): void {
   const allRosters = getAllRosters(room);
   removeFromRosterMap(allRosters, Memory.creeps[creepName].role, creepName);
 }
 
-export function logRoomRoster(room: Room) {
+export function logRoomRoster(room: Room): void {
   const roomRoster = getAllRosters(room);
   if (roomRoster.size > 0) {
     console.log("CURRENT ROOM ROSTER:");

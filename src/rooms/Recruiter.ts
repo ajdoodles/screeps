@@ -3,7 +3,7 @@ import { Loadout } from "../constants/loadouts";
 import LoadoutsTable from "../tables/LoadoutsTable";
 import { PIONEER_NAME, PIONEER_BODY } from "../constants/Constants";
 
-export function initSpawnedRecruits(room: Room) {
+export function initSpawnedRecruits(room: Room): void {
   while (room.recruits.length > 0 && !Game.creeps[room.recruits[0]].spawning) {
     const recruitName = room.dequeueRecruit() as string;
     const creep = Game.creeps[recruitName];
@@ -39,7 +39,7 @@ function recruitRole(room: Room, role: Job) {
   return response === OK ? newName : undefined;
 }
 
-export function recruit(room: Room, recruitOrder: Job[]) {
+export function recruit(room: Room, recruitOrder: Job[]): void {
   let recruitName;
 
   recruitOrder.findIndex((role) => {

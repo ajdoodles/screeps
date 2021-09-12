@@ -8,7 +8,7 @@ const mSurveyors = Object.freeze({
   [BuildType.ROADS]: RoadSurveyor,
 });
 
-export function survey(room: Room) {
+export function survey(room: Room): void {
   for (const surveyor of Object.values(mSurveyors)) {
     surveyor.survey(room);
   }
@@ -60,7 +60,7 @@ function build(room: Room, buildType: BuildType) {
   }
 }
 
-export function run(room: Room) {
+export function run(room: Room): void {
   const buildType = BuildType.ROADS;
 
   removeCompletedPlans(room, buildType);

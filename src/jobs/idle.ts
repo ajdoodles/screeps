@@ -1,9 +1,9 @@
-export function getNextTarget() {
+export function getNextTarget(): null {
   return null;
 }
 
-export function doWork() {}
+export function doWork(): void {}
 
-export function isWorkDone() {
+export function isWorkDone(): boolean {
   return true;
 }

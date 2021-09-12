@@ -6,7 +6,7 @@ export class Miner extends BaseLoadout {
     super("Miner", [MOVE, WORK, WORK, WORK, WORK, WORK]);
   }
 
-  init(creep: Creep) {
+  init(creep: Creep): void {
     super.init(creep);
     creep.memory.role = Job.MINE;
     const freeSource = creep.room.sources.find((source) => !source.miner);
@@ -21,7 +21,7 @@ export class Miner extends BaseLoadout {
     }
   }
 
-  run(creep: Creep) {
+  run(creep: Creep): void {
     if (!creep.memory.sourceId) {
       return;
     }
@@ -37,7 +37,7 @@ export class Miner extends BaseLoadout {
     }
   }
 
-  cleanUp(name: string, memory: CreepMemory) {
+  cleanUp(name: string, memory: CreepMemory): void {
     super.cleanUp(name, memory);
 
     if (!memory.sourceId) {

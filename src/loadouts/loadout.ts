@@ -1,5 +1,4 @@
 import * as RoomRosters from "../heap/RoomRosters";
-import { getBodyCost } from "../utils/Utils";
 
 interface Loadout {
   readonly name: string;
@@ -32,14 +31,14 @@ class ContainerSource implements EnergySource<StructureContainer> {
 export abstract class BaseLoadout implements Loadout {
   constructor(readonly name: string, readonly body: BodyPartConstant[]) {}
 
-  init(creep: Creep) {
+  init(creep: Creep): void {
     RoomRosters.addCreepNameToRoster(
       Game.rooms[creep.memory.birthRoom],
       creep.name
     );
   }
 
-  fetchEnergy(creep: Creep, target?: RoomObject | null) {
+  fetchEnergy(creep: Creep, target?: RoomObject | null): void {
     let receiver = target;
     if (!receiver) {
       receiver = creep;
@@ -64,7 +63,8 @@ export abstract class BaseLoadout implements Loadout {
         filter: (struct: AnyStructure) =>
           (struct.structureType === STRUCTURE_CONTAINER ||
             struct.structureType === STRUCTURE_STORAGE) &&
-          struct.store!.getUsedCapacity(RESOURCE_ENERGY) > 50,
+          struct.store &&
+          struct.store.getUsedCapacity(RESOURCE_ENERGY) > 50,
       }) as StructureContainer;
       if (buffer) {
         energySource = new ContainerSource(buffer);
@@ -89,7 +89,7 @@ export abstract class BaseLoadout implements Loadout {
 
   abstract run(creep: Creep): void;
 
-  cleanUp(name: string, memory: CreepMemory) {
+  cleanUp(name: string, memory: CreepMemory): void {
     RoomRosters.removeCreepNameFromRoster(Game.rooms[memory.birthRoom], name);
   }
 }

@@ -14,25 +14,25 @@ export class Pioneer extends BaseLoadout {
     super(BASE_NAME, BASE_BODY);
   }
 
-  init(creep: Creep) {
+  init(creep: Creep): void {
     super.init(creep);
     creep.memory.fetching = true;
   }
 
-  static clearTarget(creep: Creep) {
+  static clearTarget(creep: Creep): void {
     delete creep.memory.targetId;
     delete creep.memory.bufferId;
     delete creep.memory.sourceId;
   }
 
-  static setTarget(creep: Creep, target?: { id: Id<RoomObject> } | null) {
+  static setTarget(creep: Creep, target?: { id: Id<RoomObject> } | null): void {
     Pioneer.clearTarget(creep);
     if (target) {
       creep.memory.targetId = target.id;
     }
   }
 
-  static reassignRole(creep: Creep, newRole: Job) {
+  static reassignRole(creep: Creep, newRole: Job): void {
     if (creep.memory.role === newRole) {
       return;
     }
@@ -50,7 +50,7 @@ export class Pioneer extends BaseLoadout {
       : null;
   }
 
-  run(creep: Creep) {
+  run(creep: Creep): void {
     let target = Pioneer.getTarget(creep);
     const job = JobsTable[creep.memory.role];
 

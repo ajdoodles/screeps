@@ -64,13 +64,13 @@ function _meetHiringTargets(room: Room, hiringTargets: Map<Job, number>) {
   }
 }
 
-export function init(roomName: string) {
+export function init(roomName: string): void {
   const room = Game.rooms[roomName];
 
   Foreman.survey(room);
 }
 
-export function run(roomName: string) {
+export function run(roomName: string): void {
   const room = Game.rooms[roomName];
 
   Recruiter.initSpawnedRecruits(room);
