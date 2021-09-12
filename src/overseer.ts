@@ -23,9 +23,9 @@ export function runRooms() {
 
 export function runCreeps() {
   for (var creepName in Game.creeps) {
-    var screep = Game.creeps[creepName];
-    if (!screep.spawning) {
-      LoadoutsTable[screep.memory.loadout].run(screep);
+    var creep = Game.creeps[creepName];
+    if (!creep.spawning) {
+      LoadoutsTable[creep.memory.loadout].run(creep);
     }
   }
 }
