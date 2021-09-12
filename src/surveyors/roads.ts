@@ -17,7 +17,7 @@ function queueProjectIfPossible(
   }
 }
 
-export function survey(room: Room) {
+export function survey(room: Room): void {
   if (!ConstructionQueues.isEmpty(room, BuildType.ROADS)) {
     return;
   }
@@ -93,11 +93,7 @@ function generateWalkwayPlans(room: Room, id: Id<RoomObject>) {
   return positions;
 }
 
-function generateRoadPlans(
-  room: Room,
-  firstId: Id<RoomObject>,
-  secondId: Id<RoomObject>
-) {
+function generateRoadPlans(firstId: Id<RoomObject>, secondId: Id<RoomObject>) {
   const firstObj = Game.getObjectById(firstId) as RoomObject;
   const secondObj = Game.getObjectById(secondId) as RoomObject;
   const results = PathFinder.search(
@@ -111,13 +107,12 @@ function generateRoadPlans(
 export function planConstruction(
   room: Room,
   project: [Id<RoomObject>] | [Id<RoomObject>, Id<RoomObject>]
-) {
+): void {
   let positions;
   if (project.length === 1) {
     positions = generateWalkwayPlans(room, project[0]);
-  }
-  if (project.length === 2) {
-    positions = generateRoadPlans(room, project[0], project[1]);
+  } else if (project.length === 2) {
+    positions = generateRoadPlans(project[0], project[1]);
   }
 
   const roadPlans = Object.create(null);
