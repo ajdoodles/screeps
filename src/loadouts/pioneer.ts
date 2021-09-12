@@ -51,16 +51,16 @@ export class Pioneer extends BaseLoadout {
   }
 
   run(creep: Creep) {
-    var target = Pioneer.getTarget(creep);
-    var job = JobsTable[creep.memory.role];
+    let target = Pioneer.getTarget(creep);
+    const job = JobsTable[creep.memory.role];
 
     if (!target) {
       target = job.getNextTarget(creep);
       Pioneer.setTarget(creep, target);
     }
 
-    var canFetchMore = creep.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
-    var hasNoEnergy = creep.store.getUsedCapacity(RESOURCE_ENERGY) == 0;
+    const canFetchMore = creep.store.getFreeCapacity(RESOURCE_ENERGY) > 0;
+    const hasNoEnergy = creep.store.getUsedCapacity(RESOURCE_ENERGY) == 0;
     creep.memory.fetching =
       ((!target || creep.memory.fetching) && canFetchMore) || hasNoEnergy;
 
@@ -69,7 +69,7 @@ export class Pioneer extends BaseLoadout {
       this.fetchEnergy(creep, target);
     } else if (target) {
       // we have a target
-      let result = job.doWork(creep, target); // try to work on it
+      const result = job.doWork(creep, target); // try to work on it
       if (result == ERR_NOT_IN_RANGE) {
         creep.moveTo(target); // we couldn't work on it, walk towards it
       }

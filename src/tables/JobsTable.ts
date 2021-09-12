@@ -6,7 +6,7 @@ import * as harvest from "../jobs/harvest";
 import * as idle from "../jobs/idle";
 import * as upgrade from "../jobs/upgrade";
 
-var mTable = Object.create(null);
+const mTable = Object.create(null);
 
 mTable[Job.BUILD] = build;
 mTable[Job.FIX] = fix;

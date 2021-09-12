@@ -40,27 +40,27 @@ export abstract class BaseLoadout implements Loadout {
   }
 
   fetchEnergy(creep: Creep, target?: RoomObject | null) {
-    var receiver = target;
+    let receiver = target;
     if (!receiver) {
       receiver = creep;
     }
 
-    var energySource: EnergySource<StructureContainer | Source> | undefined;
+    let energySource: EnergySource<StructureContainer | Source> | undefined;
 
     if (creep.memory.bufferId) {
-      let buffer = Game.getObjectById(creep.memory.bufferId);
+      const buffer = Game.getObjectById(creep.memory.bufferId);
       if (buffer) {
         energySource = new ContainerSource(buffer);
       }
     } else if (creep.memory.sourceId) {
-      let source = Game.getObjectById(creep.memory.sourceId);
+      const source = Game.getObjectById(creep.memory.sourceId);
       if (source) {
         energySource = new NaturalSource(source);
       }
     }
 
     if (!energySource) {
-      let buffer = receiver.pos.findClosestByPath(FIND_STRUCTURES, {
+      const buffer = receiver.pos.findClosestByPath(FIND_STRUCTURES, {
         filter: (struct: AnyStructure) =>
           (struct.structureType === STRUCTURE_CONTAINER ||
             struct.structureType === STRUCTURE_STORAGE) &&
@@ -72,7 +72,7 @@ export abstract class BaseLoadout implements Loadout {
     }
 
     if (!energySource) {
-      let source = receiver.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
+      const source = receiver.pos.findClosestByPath(FIND_SOURCES_ACTIVE);
       if (source) {
         energySource = new NaturalSource(source);
       }

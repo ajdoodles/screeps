@@ -15,7 +15,7 @@ function _matchDemand(
     return;
   }
 
-  var curRoleCount = RoomRosters.getRoleCount(room, role);
+  const curRoleCount = RoomRosters.getRoleCount(room, role);
 
   if (count <= curRoleCount) {
     return; // We have enough of these, don't hire more
@@ -28,21 +28,21 @@ function _matchDemand(
 }
 
 function _requestHarvesters(room: Room, hiringTargets: Map<Job, number>) {
-  let energyGap = room.energyCapacityAvailable - room.energyAvailable;
-  let energyNeeds = Math.max(energyGap, PIONEER_COST);
+  const energyGap = room.energyCapacityAvailable - room.energyAvailable;
+  const energyNeeds = Math.max(energyGap, PIONEER_COST);
   // Each pioneer carries 50 energy
-  let numHarvesters = Math.ceil(energyNeeds / 50);
+  const numHarvesters = Math.ceil(energyNeeds / 50);
   _matchDemand(room, Job.HARVEST, numHarvesters, hiringTargets);
 }
 
 function _requestBuilders(room: Room, hiringTargets: Map<Job, number>) {
-  var sites = room.find(FIND_MY_CONSTRUCTION_SITES);
-  var numBuilders = sites.length === 0 ? 0 : 4;
+  const sites = room.find(FIND_MY_CONSTRUCTION_SITES);
+  const numBuilders = sites.length === 0 ? 0 : 4;
   _matchDemand(room, Job.BUILD, numBuilders, hiringTargets);
 }
 
 function _requestUpgraders(room: Room, hiringTargets: Map<Job, number>) {
-  var roomLevel = room.controller?.level ?? 0;
+  const roomLevel = room.controller?.level ?? 0;
   _matchDemand(room, Job.UPGRADE, roomLevel + 1, hiringTargets);
 }
 
@@ -51,10 +51,10 @@ function _meetHiringTargets(room: Room, hiringTargets: Map<Job, number>) {
     return;
   }
 
-  var recruitRequest: Job[] = [];
+  const recruitRequest: Job[] = [];
   hiringTargets.forEach((count: number, role: Job) => {
-    let retasked = retaskPioneers(room, role, count);
-    let needsMore = count - retasked > 0;
+    const retasked = retaskPioneers(room, role, count);
+    const needsMore = count - retasked > 0;
     if (needsMore) {
       recruitRequest.push(role);
     }
@@ -65,13 +65,13 @@ function _meetHiringTargets(room: Room, hiringTargets: Map<Job, number>) {
 }
 
 export function init(roomName: string) {
-  var room = Game.rooms[roomName];
+  const room = Game.rooms[roomName];
 
   Foreman.survey(room);
 }
 
 export function run(roomName: string) {
-  var room = Game.rooms[roomName];
+  const room = Game.rooms[roomName];
 
   Recruiter.initSpawnedRecruits(room);
 
@@ -79,7 +79,7 @@ export function run(roomName: string) {
     Foreman.run(room);
   }
 
-  var hiringTargets = new Map();
+  const hiringTargets = new Map();
   if (Game.time % 9 === 0) {
     _requestHarvesters(room, hiringTargets);
     _requestUpgraders(room, hiringTargets);

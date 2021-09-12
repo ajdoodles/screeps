@@ -47,8 +47,8 @@ Object.defineProperty(Source.prototype, "pioneers", {
 
     if (!this._pioneers) {
       if (!this.memory.pioneerIds) {
-        var pioneers = Object.values(Game.creeps).filter((creep: Creep) => {
-          var myPioneer = false;
+        const pioneers = Object.values(Game.creeps).filter((creep: Creep) => {
+          let myPioneer = false;
           creep.memory.sourceId === this.id;
           if (creep.memory.sourceId) {
             myPioneer = creep.memory.sourceId === this.id;
@@ -77,7 +77,7 @@ Object.defineProperty(Source.prototype, "miner", {
 
     if (!this._miner) {
       if (!this.memory.minerId) {
-        var miner = Object.values(Game.creeps).find((creep: Creep) => {
+        const miner = Object.values(Game.creeps).find((creep: Creep) => {
           creep.memory.role === Job.MINE && creep.memory.sourceId === this.id;
         });
         if (miner) {
@@ -106,18 +106,18 @@ Object.defineProperty(Source.prototype, "bufferPos", {
   get: function () {
     if (!this._bufferPos) {
       if (!this.memory.bufferPos) {
-        var { x: sourceX, y: sourceY } = this.pos;
-        var surroundings = this.room.getWalkableSurroundings(sourceX, sourceY);
+        const { x: sourceX, y: sourceY } = this.pos;
+        const surroundings = this.room.getWalkableSurroundings(sourceX, sourceY);
 
-        var highestFreeSpaceCount = 0;
-        var candidates: RoomPosition[] = [];
+        let highestFreeSpaceCount = 0;
+        let candidates: RoomPosition[] = [];
 
         surroundings.forEach((candidatePos: RoomPosition) => {
-          var nextSurroundings = this.room.getWalkableSurroundings(
+          const nextSurroundings = this.room.getWalkableSurroundings(
             candidatePos.x,
             candidatePos.y
           );
-          var nextFreeSpaceCount = nextSurroundings.length;
+          const nextFreeSpaceCount = nextSurroundings.length;
 
           if (nextFreeSpaceCount >= highestFreeSpaceCount) {
             if (nextFreeSpaceCount > highestFreeSpaceCount) {
@@ -128,11 +128,11 @@ Object.defineProperty(Source.prototype, "bufferPos", {
           }
         });
 
-        var spawnPos = this.room.mainSpawn.pos;
-        var results = PathFinder.search(spawnPos, candidates, {
+        const spawnPos = this.room.mainSpawn.pos;
+        const results = PathFinder.search(spawnPos, candidates, {
           swampCost: 1,
         });
-        var mostFreePos = results.path[results.path.length - 1];
+        const mostFreePos = results.path[results.path.length - 1];
 
         this.memory.bufferPos = mostFreePos;
       }
@@ -148,8 +148,8 @@ Object.defineProperty(Source.prototype, "buffer", {
   get: function () {
     if (!this._buffer) {
       if (!this.memory.bufferId) {
-        let { x: bufferX, y: bufferY } = this.bufferPos;
-        let buffers = this.room.lookForAt(LOOK_STRUCTURES, bufferX, bufferY);
+        const { x: bufferX, y: bufferY } = this.bufferPos;
+        const buffers = this.room.lookForAt(LOOK_STRUCTURES, bufferX, bufferY);
         let buffer = buffers.length > 0 ? buffers[0] : null;
 
         if (!buffer) {

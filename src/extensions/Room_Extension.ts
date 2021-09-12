@@ -88,9 +88,9 @@ Room.prototype.registerRecruit = function (creepName: string) {
 };
 
 Room.prototype.dequeueRecruit = function (): string | undefined {
-  var nameFromMemory = this.memory.recruits.shift();
+  const nameFromMemory = this.memory.recruits.shift();
   if (this._recruits) {
-    let nameFromCache = this._recruits.shift();
+    const nameFromCache = this._recruits.shift();
     if (nameFromCache !== nameFromMemory) {
       console.log(
         "WARNING: Cached recruit [" +
@@ -110,15 +110,15 @@ Room.prototype.dequeueRecruit = function (): string | undefined {
 Room.prototype.getWalkableSurroundings = function (
   x: number,
   y: number,
-  includeCenter: boolean = false
+  includeCenter = false
 ): RoomPosition[] {
-  var roomTerrain = this.getTerrain();
-  var positions: RoomPosition[] = [];
+  const roomTerrain = this.getTerrain();
+  const positions: RoomPosition[] = [];
   const blockedTerrainMask = TERRAIN_MASK_WALL | TERRAIN_MASK_LAVA;
   [x - 1, x, x + 1].forEach((i) => {
     [y - 1, y, y + 1].forEach((j) => {
       if (includeCenter || !(i == x && y == j)) {
-        let isBlocked = Boolean(roomTerrain.get(i, j) & blockedTerrainMask);
+        const isBlocked = Boolean(roomTerrain.get(i, j) & blockedTerrainMask);
         if (!isBlocked) {
           positions.push(new RoomPosition(i, j, this.name));
         }

@@ -9,7 +9,7 @@ declare global {
 }
 
 function getRosterFromMap(map: RoomRosters, role: Job): Set<string> {
-  var roleRoster = map.get(role);
+  let roleRoster = map.get(role);
   if (!roleRoster) {
     roleRoster = new Set();
     map.set(role, roleRoster);
@@ -18,7 +18,7 @@ function getRosterFromMap(map: RoomRosters, role: Job): Set<string> {
 }
 
 function addToRosterMap(map: RoomRosters, role: Job, creepName: string) {
-  var roleRoster = getRosterFromMap(map, role);
+  const roleRoster = getRosterFromMap(map, role);
   roleRoster.add(creepName);
 }
 
@@ -28,7 +28,7 @@ function removeFromRosterMap(map: RoomRosters, role: Job, creepName: string) {
 
 function getAllRosters(room: Room): RoomRosters {
   if (!room.heap.rosters) {
-    let allRosters = new Map();
+    const allRosters = new Map();
 
     room.find(FIND_MY_CREEPS).forEach((creep) => {
       addToRosterMap(allRosters, creep.memory.role, creep.name);
@@ -40,7 +40,7 @@ function getAllRosters(room: Room): RoomRosters {
 }
 
 function getRoleRoster(room: Room, role: Job) {
-  var allRosters = getAllRosters(room);
+  const allRosters = getAllRosters(room);
   return getRosterFromMap(allRosters, role);
 }
 
@@ -57,23 +57,23 @@ export function getRoleCount(room: Room, role: Job): number {
 }
 
 export function getCreepCount(room: Room): number {
-  var totalCount = 0;
+  let totalCount = 0;
   getAllRosters(room).forEach((roster) => (totalCount += roster.size));
   return totalCount;
 }
 
 export function addCreepNameToRoster(room: Room, creepName: string) {
-  var allRosters = getAllRosters(room);
+  const allRosters = getAllRosters(room);
   addToRosterMap(allRosters, Memory.creeps[creepName].role, creepName);
 }
 
 export function removeCreepNameFromRoster(room: Room, creepName: string) {
-  var allRosters = getAllRosters(room);
+  const allRosters = getAllRosters(room);
   removeFromRosterMap(allRosters, Memory.creeps[creepName].role, creepName);
 }
 
 export function logRoomRoster(room: Room) {
-  var roomRoster = getAllRosters(room);
+  const roomRoster = getAllRosters(room);
   if (roomRoster.size > 0) {
     console.log("CURRENT ROOM ROSTER:");
   } else {

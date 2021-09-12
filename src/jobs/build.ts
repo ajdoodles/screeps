@@ -1,10 +1,10 @@
 export function getNextTarget(creep: Creep): ConstructionSite | null {
-  var sites = creep.room.find(FIND_MY_CONSTRUCTION_SITES);
+  const sites = creep.room.find(FIND_MY_CONSTRUCTION_SITES);
   if (sites.length == 0) {
     return null;
   }
 
-  var targets = sites.filter(
+  let targets = sites.filter(
     (site) =>
       site.structureType === STRUCTURE_CONTAINER ||
       site.structureType === STRUCTURE_STORAGE

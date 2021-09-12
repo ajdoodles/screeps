@@ -5,8 +5,8 @@ import { PIONEER_NAME, PIONEER_BODY } from "../constants/Constants";
 
 export function initSpawnedRecruits(room: Room) {
   while (room.recruits.length > 0 && !Game.creeps[room.recruits[0]].spawning) {
-    let recruitName = room.dequeueRecruit() as string;
-    let creep = Game.creeps[recruitName];
+    const recruitName = room.dequeueRecruit() as string;
+    const creep = Game.creeps[recruitName];
     if (creep.ticksToLive && creep.ticksToLive < CREEP_LIFE_TIME - 1) {
       // Technically the game 'steals' the first tick for the movement out
       // of the spawn position.
@@ -26,8 +26,8 @@ export function initSpawnedRecruits(room: Room) {
 }
 
 function recruitRole(room: Room, role: Job) {
-  var newName = PIONEER_NAME + Game.time;
-  var response = room.mainSpawn.spawnCreep(PIONEER_BODY, newName, {
+  const newName = PIONEER_NAME + Game.time;
+  const response = room.mainSpawn.spawnCreep(PIONEER_BODY, newName, {
     memory: {
       loadout: Loadout.PIONEER,
       role: role,
@@ -40,7 +40,7 @@ function recruitRole(room: Room, role: Job) {
 }
 
 export function recruit(room: Room, recruitOrder: Job[]) {
-  var recruitName;
+  let recruitName;
 
   recruitOrder.findIndex((role) => {
     recruitName = recruitRole(room, role);

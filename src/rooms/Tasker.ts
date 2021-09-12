@@ -13,7 +13,7 @@ export function retaskPioneers(room: Room, role: Job, count: number) {
     return 0;
   }
 
-  var idlers = getIdlers(room).slice(0, count);
+  const idlers = getIdlers(room).slice(0, count);
   idlers.forEach((idler) => Pioneer.reassignRole(idler, role));
   return idlers.length;
 }

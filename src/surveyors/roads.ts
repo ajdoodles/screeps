@@ -22,10 +22,10 @@ export function survey(room: Room) {
     return;
   }
 
-  var sourceDistances = Object.create(null);
-  var sources = Array.from(room.sources);
+  const sourceDistances = Object.create(null);
+  const sources = Array.from(room.sources);
   sources.forEach((source) => {
-    var results = PathFinder.search(
+    const results = PathFinder.search(
       room.mainSpawn.pos,
       { pos: source.pos, range: 1 },
       { swampCost: 1 }
@@ -37,11 +37,11 @@ export function survey(room: Room) {
   });
 
   // First connect main spawn to its closest source
-  var mainSpawnSource = sources.shift();
+  const mainSpawnSource = sources.shift();
   queueProjectIfPossible(room, room.mainSpawn, mainSpawnSource);
 
   // Second, connect the controller to its closest source
-  let controllerSource =
+  const controllerSource =
     room.controller?.pos.findClosestByPath(FIND_SOURCES) ?? null;
   queueProjectIfPossible(room, room.controller, controllerSource);
 
@@ -49,7 +49,7 @@ export function survey(room: Room) {
   // controller's closest source to main spawn. Remove this source from future
   // consideration
   if (mainSpawnSource?.id !== controllerSource?.id) {
-    var controllerSourceIndex = sources.findIndex(
+    const controllerSourceIndex = sources.findIndex(
       (source) => controllerSource?.id === source.id
     );
     sources.splice(controllerSourceIndex, 1);
@@ -67,11 +67,11 @@ export function survey(room: Room) {
 }
 
 function shouldBuild(room: Room, x: number, y: number) {
-  var stopBuild = false;
+  let stopBuild = false;
 
   stopBuild ||= room.getTerrain().get(x, y) === TERRAIN_MASK_WALL;
 
-  var structures = room.lookForAt(LOOK_STRUCTURES, x, y);
+  const structures = room.lookForAt(LOOK_STRUCTURES, x, y);
   stopBuild ||= structures.some(
     (struct) => struct.structureType !== STRUCTURE_CONTAINER
   );
@@ -80,9 +80,9 @@ function shouldBuild(room: Room, x: number, y: number) {
 }
 
 function generateWalkwayPlans(room: Room, id: Id<RoomObject>) {
-  var object = Game.getObjectById(id) as RoomObject;
-  var { x, y } = object.pos;
-  var positions: RoomPosition[] = [];
+  const object = Game.getObjectById(id) as RoomObject;
+  const { x, y } = object.pos;
+  const positions: RoomPosition[] = [];
   [x - 1, x, x + 1].forEach((i) =>
     [y - 1, y, y + 1].forEach((j) => {
       if (!(i === x && j === y) && shouldBuild(room, i, j)) {
@@ -98,9 +98,9 @@ function generateRoadPlans(
   firstId: Id<RoomObject>,
   secondId: Id<RoomObject>
 ) {
-  var firstObj = Game.getObjectById(firstId) as RoomObject;
-  var secondObj = Game.getObjectById(secondId) as RoomObject;
-  var results = PathFinder.search(
+  const firstObj = Game.getObjectById(firstId) as RoomObject;
+  const secondObj = Game.getObjectById(secondId) as RoomObject;
+  const results = PathFinder.search(
     firstObj.pos,
     { pos: secondObj.pos, range: 1 },
     { swampCost: 1 }
@@ -112,7 +112,7 @@ export function planConstruction(
   room: Room,
   project: [Id<RoomObject>] | [Id<RoomObject>, Id<RoomObject>]
 ) {
-  var positions;
+  let positions;
   if (project.length === 1) {
     positions = generateWalkwayPlans(room, project[0]);
   }
@@ -120,7 +120,7 @@ export function planConstruction(
     positions = generateRoadPlans(room, project[0], project[1]);
   }
 
-  var roadPlans = Object.create(null);
+  const roadPlans = Object.create(null);
   roadPlans[STRUCTURE_ROAD] = positions;
   ConstructionQueues.setPlannedConstruction(room, BuildType.ROADS, roadPlans);
 }

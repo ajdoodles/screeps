@@ -9,7 +9,7 @@ export class Miner extends BaseLoadout {
   init(creep: Creep) {
     super.init(creep);
     creep.memory.role = Job.MINE;
-    var freeSource = creep.room.sources.find((source) => !source.miner);
+    const freeSource = creep.room.sources.find((source) => !source.miner);
     if (freeSource) {
       freeSource.miner = creep;
     } else {
@@ -26,7 +26,7 @@ export class Miner extends BaseLoadout {
       return;
     }
 
-    var source = Game.getObjectById(creep.memory.sourceId);
+    const source = Game.getObjectById(creep.memory.sourceId);
 
     if (source) {
       if (source.buffer && creep.pos.isEqualTo(source.buffer.pos)) {
@@ -44,7 +44,7 @@ export class Miner extends BaseLoadout {
       return;
     }
 
-    var source = Game.getObjectById(memory.sourceId);
+    const source = Game.getObjectById(memory.sourceId);
     if (source) {
       source.miner = null;
     } else {

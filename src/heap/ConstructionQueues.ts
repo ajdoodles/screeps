@@ -18,7 +18,7 @@ function getQueues(room: Room): Record<BuildType, ConstructionQueue> {
 }
 
 function getQueue(room: Room, buildType: BuildType): ConstructionQueue {
-  var queues = getQueues(room);
+  const queues = getQueues(room);
   queues[buildType] = queues[buildType] || new ConstructionQueue();
   return queues[buildType];
 }
@@ -40,7 +40,7 @@ export function dequeue(room: Room, buildType: BuildType) {
 }
 
 export function hasPlannedConstruction(room: Room, buildType: BuildType) {
-  var plannedWork = getQueue(room, buildType).planned;
+  const plannedWork = getQueue(room, buildType).planned;
   return Object.getOwnPropertyNames(plannedWork).length !== 0;
 }
 

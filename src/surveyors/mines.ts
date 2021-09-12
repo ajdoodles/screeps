@@ -6,15 +6,15 @@ export function survey(room: Room) {
     return;
   }
 
-  var sourcesWithoutBuffers = room.sources.filter((source) => !source.buffer);
+  const sourcesWithoutBuffers = room.sources.filter((source) => !source.buffer);
 
   if (sourcesWithoutBuffers.length === 0) {
     return;
   }
 
-  var sourceDistances = Object.create(null);
+  const sourceDistances = Object.create(null);
   sourcesWithoutBuffers.forEach((source) => {
-    var results = PathFinder.search(
+    const results = PathFinder.search(
       room.mainSpawn.pos,
       { pos: source.pos, range: 1 },
       { swampCost: 1 }
@@ -32,7 +32,7 @@ export function survey(room: Room) {
 }
 
 export function planConstruction(room: Room, sourceId: Id<Source>) {
-  var site = Object.create(null);
+  const site = Object.create(null);
   site[STRUCTURE_CONTAINER] = [Game.getObjectById(sourceId)!.bufferPos];
   ConstructionQueues.setPlannedConstruction(room, BuildType.MINES, site);
 }

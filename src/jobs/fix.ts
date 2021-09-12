@@ -1,8 +1,8 @@
 export function getNextTarget(creep: Creep): Structure | null {
-  var targets = creep.room.find(FIND_STRUCTURES, {
+  const targets = creep.room.find(FIND_STRUCTURES, {
     filter: (site) => site.hits < site.hitsMax,
   });
-  var target = null;
+  const target = null;
   if (targets.length > 0) {
     targets.reduce((mostDamaged, candidate) =>
       candidate.hits < mostDamaged.hits ? candidate : mostDamaged

@@ -1,5 +1,5 @@
 export function getNextTarget(creep: Creep) {
-  var target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+  const target = creep.pos.findClosestByPath(FIND_STRUCTURES, {
     filter: (structure) =>
       (structure.structureType == STRUCTURE_SPAWN ||
         structure.structureType == STRUCTURE_EXTENSION) &&

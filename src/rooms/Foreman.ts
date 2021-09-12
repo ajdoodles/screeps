@@ -9,7 +9,7 @@ const mSurveyors = Object.freeze({
 });
 
 export function survey(room: Room) {
-  for (var surveyor of Object.values(mSurveyors)) {
+  for (const surveyor of Object.values(mSurveyors)) {
     surveyor.survey(room);
   }
 }
@@ -19,12 +19,12 @@ function removeCompletedPlans(room: Room, buildType: BuildType) {
     return;
   }
 
-  var plans = ConstructionQueues.getPlannedConstruction(room, buildType);
-  var structTypes = Object.keys(plans) as BuildableStructureConstant[];
-  for (let structType of structTypes) {
-    let positions: RoomPosition[] = plans[structType];
+  const plans = ConstructionQueues.getPlannedConstruction(room, buildType);
+  const structTypes = Object.keys(plans) as BuildableStructureConstant[];
+  for (const structType of structTypes) {
+    const positions: RoomPosition[] = plans[structType];
     positions.filter((position: RoomPosition) => {
-      var sites = position.lookFor(LOOK_CONSTRUCTION_SITES);
+      const sites = position.lookFor(LOOK_CONSTRUCTION_SITES);
       return sites.some(
         (site: ConstructionSite) => site.my && site.structureType === structType
       );
@@ -40,7 +40,7 @@ function plan(room: Room, buildType: BuildType) {
     return;
   }
 
-  var nextProject = ConstructionQueues.dequeue(room, buildType);
+  const nextProject = ConstructionQueues.dequeue(room, buildType);
   mSurveyors[buildType].planConstruction(room, nextProject);
 }
 
@@ -49,10 +49,10 @@ function build(room: Room, buildType: BuildType) {
     return;
   }
 
-  var plans = ConstructionQueues.getPlannedConstruction(room, buildType);
-  var structTypes = Object.keys(plans) as BuildableStructureConstant[];
-  for (let structType of structTypes) {
-    let positions: RoomPosition[] = plans[structType];
+  const plans = ConstructionQueues.getPlannedConstruction(room, buildType);
+  const structTypes = Object.keys(plans) as BuildableStructureConstant[];
+  for (const structType of structTypes) {
+    const positions: RoomPosition[] = plans[structType];
     positions.forEach((position) => {
       Object.setPrototypeOf(position, Object.create(RoomPosition.prototype));
       position.createConstructionSite(structType);
@@ -61,7 +61,7 @@ function build(room: Room, buildType: BuildType) {
 }
 
 export function run(room: Room) {
-  let buildType = BuildType.ROADS;
+  const buildType = BuildType.ROADS;
 
   removeCompletedPlans(room, buildType);
   if (!ConstructionQueues.hasPlannedConstruction(room, buildType)) {
