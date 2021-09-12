@@ -1,4 +1,5 @@
-import mPioneer from "./roles/pioneer";
+import { Loadout } from "./constants/loadouts";
+import LoadoutsTable from "./tables/LoadoutsTable";
 import * as RoomRunner from "./rooms/RoomRunner";
 
 export function init() {
@@ -9,7 +10,7 @@ export function init() {
 export function garbageCollect() {
   for (const [name, memory] of Object.entries(Memory.creeps)) {
     if (!Game.creeps[name]) {
-      mPioneer.cleanUp(name, memory);
+      LoadoutsTable[memory.loadout].cleanUp(name, memory);
       delete Memory.creeps[name];
     }
   }
@@ -24,7 +25,7 @@ export function runCreeps() {
   for (var creepName in Game.creeps) {
     var screep = Game.creeps[creepName];
     if (!screep.spawning) {
-      mPioneer.run(screep);
+      LoadoutsTable[screep.memory.loadout].run(screep);
     }
   }
 }

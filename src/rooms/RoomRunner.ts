@@ -1,5 +1,5 @@
+import { PIONEER_COST } from "../constants/Constants";
 import * as Foreman from "./Foreman";
-import mPioneer from "../roles/pioneer";
 import * as Recruiter from "./Recruiter";
 import { Job } from "../constants/Jobs";
 import * as RoomRosters from "../heap/RoomRosters";
@@ -29,7 +29,7 @@ function _matchDemand(
 
 function _requestHarvesters(room: Room, hiringTargets: Map<Job, number>) {
   let energyGap = room.energyCapacityAvailable - room.energyAvailable;
-  let energyNeeds = Math.max(energyGap, mPioneer.getBodyCost());
+  let energyNeeds = Math.max(energyGap, PIONEER_COST);
   // Each pioneer carries 50 energy
   let numHarvesters = Math.ceil(energyNeeds / 50);
   _matchDemand(room, Job.HARVEST, numHarvesters, hiringTargets);

@@ -1,6 +1,6 @@
 import { Job } from "../constants/Jobs";
 import * as RoomRosters from "../heap/RoomRosters";
-import Pioneer from "../roles/pioneer";
+import { Pioneer } from "../loadouts/pioneer";
 
 function getIdlers(room: Room) {
   return RoomRosters.getRoomRosterForRole(room, Job.IDLE).map(

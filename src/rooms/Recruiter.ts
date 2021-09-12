@@ -1,6 +1,7 @@
 import { Job } from "../constants/Jobs";
+import { Loadout } from "../constants/loadouts";
+import LoadoutsTable from "../tables/LoadoutsTable";
 import { PIONEER_NAME, PIONEER_BODY } from "../constants/Constants";
-import mPioneer from "../roles/pioneer";
 
 export function initSpawnedRecruits(room: Room) {
   while (room.recruits.length > 0 && !Game.creeps[room.recruits[0]].spawning) {
@@ -20,14 +21,19 @@ export function initSpawnedRecruits(room: Room) {
           "]"
       );
     }
-    mPioneer.init(creep);
+    LoadoutsTable[creep.memory.loadout].init(creep);
   }
 }
 
 function recruitRole(room: Room, role: Job) {
   var newName = PIONEER_NAME + Game.time;
   var response = room.mainSpawn.spawnCreep(PIONEER_BODY, newName, {
-    memory: { role: role, birthRoom: room.name },
+    memory: {
+      loadout: Loadout.PIONEER,
+      role: role,
+      birthRoom: room.name,
+      fetching: false,
+    },
   });
 
   return response === OK ? newName : undefined;
