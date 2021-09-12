@@ -5,11 +5,16 @@ module.exports = {
     node: true,
     "screeps/screeps": true,
   },
-  extends: ["eslint:recommended", "prettier"],
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "prettier",
+  ],
+  parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: 12,
     sourceType: "module",
   },
   rules: {},
-  plugins: ["screeps"],
+  plugins: ["@typescript-eslint", "screeps"],
 };
