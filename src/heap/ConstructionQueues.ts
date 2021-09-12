@@ -1,6 +1,6 @@
 import { BuildType } from "../constants/BuildTypes";
 
-type Project = any;
+type Project = unknown;
 
 class ConstructionQueue extends Array<Project> {
   planned: Record<BuildableStructureConstant, RoomPosition[]> =
@@ -29,14 +29,14 @@ export function isEmpty(room: Room, buildType: BuildType): boolean {
   return getQueue(room, buildType).length === 0;
 }
 
-export function peek(room: Room, buildType: BuildType): ConstructionQueue {
+export function peek(room: Room, buildType: BuildType): Project {
   return isEmpty(room, buildType) ? undefined : getQueue(room, buildType)[0];
 }
 
 export function enqueue(
   room: Room,
   buildType: BuildType,
-  project: Object
+  project: Project
 ): void {
   getQueue(room, buildType).push(project);
 }
