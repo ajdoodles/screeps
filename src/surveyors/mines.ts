@@ -1,7 +1,7 @@
 import { BuildType } from "../constants/BuildTypes";
 import * as ConstructionQueues from "../heap/ConstructionQueues";
 
-export function survey(room: Room) {
+export function survey(room: Room): void {
   if (!ConstructionQueues.isEmpty(room, BuildType.MINES)) {
     return;
   }
@@ -31,8 +31,13 @@ export function survey(room: Room) {
     });
 }
 
-export function planConstruction(room: Room, sourceId: Id<Source>) {
-  const site = Object.create(null);
-  site[STRUCTURE_CONTAINER] = [Game.getObjectById(sourceId)!.bufferPos];
-  ConstructionQueues.setPlannedConstruction(room, BuildType.MINES, site);
+export function planConstruction(room: Room, sourceId: Id<Source>): void {
+  const source = Game.getObjectById(sourceId);
+  if (source) {
+    const site = Object.create(null);
+    site[STRUCTURE_CONTAINER] = [source.bufferPos];
+    ConstructionQueues.setPlannedConstruction(room, BuildType.MINES, site);
+  } else {
+    throw `Mine surveyor was given an invalid source id: ${sourceId}`;
+  }
 }
