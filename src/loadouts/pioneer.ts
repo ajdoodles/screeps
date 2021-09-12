@@ -67,7 +67,13 @@ export class Pioneer extends BaseLoadout {
     if (creep.memory.fetching) {
       // first fill up on energy
       this.fetchEnergy(creep, target);
-    } else if (target) {
+    }
+
+    if (creep.memory.role === Job.IDLE) {
+      return;
+    }
+
+    if (target) {
       // we have a target
       const result = job.doWork(creep, target); // try to work on it
       if (result == ERR_NOT_IN_RANGE) {
