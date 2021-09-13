@@ -1,12 +1,13 @@
 import { BuildType } from "../constants/BuildTypes";
 import * as ConstructionQueues from "../heap/ConstructionQueues";
-import * as MineSurveyor from "../surveyors/mines";
-import * as RoadSurveyor from "../surveyors/roads";
+import { Surveyor } from "../surveyors/surveyor";
+import { MineSurveyor } from "../surveyors/mines";
+import { RoadSurveyor } from "../surveyors/roads";
 
-const mSurveyors = Object.freeze({
-  [BuildType.MINES]: MineSurveyor,
-  [BuildType.ROADS]: RoadSurveyor,
-});
+const mSurveyors = {
+  [BuildType.MINES]: new MineSurveyor(),
+  [BuildType.ROADS]: new RoadSurveyor(),
+} as const;
 
 export function survey(room: Room): void {
   for (const surveyor of Object.values(mSurveyors)) {
@@ -41,7 +42,10 @@ function plan(room: Room, buildType: BuildType) {
   }
 
   const nextProject = ConstructionQueues.dequeue(room, buildType);
-  mSurveyors[buildType].planConstruction(room, nextProject);
+  if (nextProject) {
+    const surveyor = mSurveyors[buildType] as Surveyor<typeof buildType>;
+    surveyor.planConstruction(room, nextProject);
+  }
 }
 
 function build(room: Room, buildType: BuildType) {
