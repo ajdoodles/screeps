@@ -24,7 +24,7 @@ export default {
     clear({ targets: ["dist"] }),
     resolve({ rootDir: "src" }),
     commonjs(),
-    typescript({ include: ["./src/**/*.js", "./src/**/*.ts"] }),
+    typescript(),
     screeps({ config: cfg, dryRun: cfg == null }),
   ],
 };
