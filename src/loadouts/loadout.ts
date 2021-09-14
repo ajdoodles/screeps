@@ -11,11 +11,15 @@ interface Loadout {
 
 interface EnergySource<T> {
   source: T;
+  saveSource(creep: Creep): void;
   harvest(creep: Creep): ScreepsReturnCode;
 }
 
 class NaturalSource implements EnergySource<Source> {
   constructor(public source: Source) {}
+  saveSource(creep: Creep) {
+    creep.memory.sourceId = this.source.id;
+  }
   harvest(creep: Creep) {
     return creep.harvest(this.source);
   }
@@ -23,6 +27,9 @@ class NaturalSource implements EnergySource<Source> {
 
 class ContainerSource implements EnergySource<StructureContainer> {
   constructor(public source: StructureContainer) {}
+  saveSource(creep: Creep) {
+    creep.memory.bufferId = this.source.id;
+  }
   harvest(creep: Creep) {
     return creep.withdraw(this.source, RESOURCE_ENERGY);
   }
@@ -79,6 +86,7 @@ export abstract class BaseLoadout implements Loadout {
     }
 
     if (energySource) {
+      energySource.saveSource(creep);
       if (energySource.harvest(creep) == ERR_NOT_IN_RANGE) {
         creep.moveTo(energySource.source, {
           visualizePathStyle: { stroke: "#ffaa00" },
