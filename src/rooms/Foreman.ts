@@ -23,14 +23,12 @@ function removeCompletedPlans(room: Room, buildType: BuildType) {
   const plans = ConstructionQueues.getPlannedConstruction(room, buildType);
   const structTypes = Object.keys(plans) as BuildableStructureConstant[];
   for (const structType of structTypes) {
-    const positions: RoomPosition[] = plans[structType];
-    positions.filter((position: RoomPosition) => {
-      const sites = position.lookFor(LOOK_CONSTRUCTION_SITES);
-      return sites.some(
-        (site: ConstructionSite) => site.my && site.structureType === structType
-      );
-    });
-    if (positions.length === 0) {
+    plans[structType].filter((position: RoomPosition) =>
+      position
+        .lookFor(LOOK_STRUCTURES)
+        .some((struct: Structure) => struct.structureType === structType)
+    );
+    if (plans[structType].length === 0) {
       delete plans[structType];
     }
   }
