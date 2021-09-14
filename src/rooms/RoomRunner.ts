@@ -28,9 +28,10 @@ function _matchDemand(
 }
 
 function _requestHarvesters(room: Room, hiringTargets: Map<Job, number>) {
-  const energyGap = room.energyCapacityAvailable - room.energyAvailable;
-  const energyNeeds = Math.max(energyGap, PIONEER_COST);
-  // Each pioneer carries 50 energy
+  let energyNeeds = room.energyCapacityAvailable - room.energyAvailable;
+  if (RoomRosters.getCreepCount(room) === 0) {
+    energyNeeds = Math.max(energyNeeds, PIONEER_COST);
+  }
   const numHarvesters = Math.ceil(energyNeeds / 50);
   _matchDemand(room, Job.HARVEST, numHarvesters, hiringTargets);
 }
